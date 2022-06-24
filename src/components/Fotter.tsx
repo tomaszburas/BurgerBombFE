@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const Footer = () => {
     return (
         <Container>
-            <p>© 2021 Burger Bomb | Created by Tomaszenko</p>
+            <p>© 2022 Burger Bomb | Created by Tomaszenko</p>
         </Container>
     );
 };
