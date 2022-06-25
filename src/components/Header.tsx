@@ -2,6 +2,7 @@ import { NavHashLink } from 'react-router-hash-link';
 import styled from 'styled-components';
 import logo from '../assets/images/logo.png';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
     const [navbar, setNavbar] = useState(false);
@@ -57,11 +58,14 @@ export const Header = () => {
                         Contact
                     </NavHashLink>
                 </ul>
-                <i className="bx bxs-basket">
-                    <div className="pulse-badge-wrapper">
-                        <div className="pulse-badge" />
-                    </div>
-                </i>
+
+                <Link to="/basket">
+                    <i className="bx bxs-basket">
+                        <div className="pulse-badge-wrapper">
+                            <div className="pulse-badge" />
+                        </div>
+                    </i>
+                </Link>
             </div>
         </Container>
     );
