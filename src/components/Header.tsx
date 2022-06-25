@@ -74,7 +74,7 @@ export const Header = () => {
 const Container = styled.section<{ active: boolean }>`
     position: fixed;
     z-index: 10;
-    padding: 1rem;
+    padding: 1rem 0;
     width: 100%;
     background-color: ${(props) =>
         props.active ? props.theme.colors.cream : ''};

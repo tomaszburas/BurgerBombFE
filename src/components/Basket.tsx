@@ -65,7 +65,7 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 1rem 0;
+        margin: 1rem;
 
         .header {
             width: 100%;
