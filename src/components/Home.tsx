@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import burgerImg from '../assets/images/burger-home.png';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
     return (
@@ -28,8 +29,12 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className="info-sm">
-                    <i className="bx bxl-facebook-square" />
-                    <i className="bx bxl-instagram-alt" />
+                    <Link to="/" className="top" title="Facebook">
+                        <i className="bx bxl-facebook-square" />
+                    </Link>
+                    <Link to="/" className="top" title="Instagram">
+                        <i className="bx bxl-instagram-alt" />
+                    </Link>
                 </div>
             </div>
         </Wrapper>
@@ -137,13 +142,11 @@ const Wrapper = styled.section`
             justify-content: flex-end;
             align-items: center;
             font-size: ${(props) => props.theme.fontSize.lg};
+            z-index: 1;
 
-            .bxl-facebook-square {
+            .top {
                 z-index: 1;
-            }
-
-            .bxl-instagram-alt {
-                z-index: 1;
+                cursor: pointer;
             }
         }
     }
