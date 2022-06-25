@@ -142,6 +142,7 @@ a {
 
 ::-webkit-scrollbar {
     width: 12px;
+    background-color: #F8B400;
 }
 
 ::-webkit-scrollbar-thumb {
