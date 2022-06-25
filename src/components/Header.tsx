@@ -1,3 +1,4 @@
+import { NavHashLink } from 'react-router-hash-link';
 import styled from 'styled-components';
 import logo from '../assets/images/logo.png';
 import { useState } from 'react';
@@ -18,11 +19,43 @@ export const Header = () => {
     return (
         <Container active={navbar}>
             <div className="wrapper">
-                <img className="logo" src={logo} alt="logo" />
+                <NavHashLink smooth to="/#">
+                    <img className="logo" src={logo} alt="logo" />
+                </NavHashLink>
                 <ul>
-                    <li className="li-active">Home</li>
-                    <li>Menu</li>
-                    <li>Contact</li>
+                    <NavHashLink
+                        smooth
+                        to="/#"
+                        className={() =>
+                            window.location.pathname + window.location.hash ===
+                            '/'
+                                ? 'li li-active'
+                                : 'li'
+                        }>
+                        Home
+                    </NavHashLink>
+                    <NavHashLink
+                        smooth
+                        to="#menu"
+                        className={() =>
+                            window.location.pathname + window.location.hash ===
+                            '/#menu'
+                                ? 'li li-active'
+                                : 'li'
+                        }>
+                        Menu
+                    </NavHashLink>
+                    <NavHashLink
+                        smooth
+                        to="#contact"
+                        className={() =>
+                            window.location.pathname + window.location.hash ===
+                            '/#contact'
+                                ? 'li li-active'
+                                : 'li'
+                        }>
+                        Contact
+                    </NavHashLink>
                 </ul>
                 <i className="bx bxs-basket">
                     <div className="pulse-badge-wrapper">
@@ -63,13 +96,13 @@ const Container = styled.section<{ active: boolean }>`
             display: flex;
             z-index: 1;
 
-            li {
+            .li {
                 cursor: pointer;
                 font-weight: 500;
                 position: relative;
             }
 
-            li:not(:last-child) {
+            .li:not(:last-child) {
                 margin-right: 1rem;
             }
 

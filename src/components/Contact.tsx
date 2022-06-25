@@ -3,7 +3,7 @@ import { ContactItem } from './ContactItem/ContactItem';
 
 export const Contact = () => {
     return (
-        <Container>
+        <Container id="contact">
             <div className="wrapper">
                 <ContactItem icon="bx bxs-map" name="VISIT US" />
                 <ContactItem icon="bx bxs-phone" name="CONTACT US" />

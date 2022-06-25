@@ -12,7 +12,9 @@ export const BurgerOfTheDay = () => {
                     </div>
                     <div className="center">
                         <p className="burger-name">KOZI BURGER</p>
-                        <p className="burger-price">7.99$</p>
+                        <p className="burger-price" id="menu">
+                            7.99$
+                        </p>
                     </div>
                     <div className="right">
                         Black Angus beef, bacon, Chorizo, Cheddar cheese,
