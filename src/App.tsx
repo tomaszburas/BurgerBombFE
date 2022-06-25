@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 import { Theme } from './components/Theme';
 import { Main } from './views/Main';
+import { Login } from './components/Login';
+import { Basket } from './components/Basket';
 
 export const App = () => {
     return (
@@ -10,6 +12,8 @@ export const App = () => {
             <Container>
                 <Routes>
                     <Route path="/" element={<Main />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/basket" element={<Basket />} />
                 </Routes>
             </Container>
         </Theme>
