@@ -15,7 +15,7 @@ export const Login = () => {
                         <input type="password" id="password" />
                         <label htmlFor="password">Password</label>
                     </div>
-                    <button>Sign In</button>
+                    <button title="Sign In">Sign In</button>
                 </form>
             </div>
             <NavLink to="/">
@@ -62,7 +62,7 @@ const Container = styled.div`
         button {
             background-color: ${(props) => props.theme.colors.yellow};
             border: none;
-            border-radius: 3rem;
+            border-radius: 0.5rem;
             font-size: ${(props) => props.theme.fontSize.base};
             color: ${(props) => props.theme.colors.cream};
             padding: 0.5rem 1rem;
@@ -116,16 +116,6 @@ const Container = styled.div`
                     color: ${(props) => props.theme.colors.eden};
                     font-weight: bolder;
                 }
-            }
-        }
-
-        @keyframes diffuse {
-            0%,
-            100% {
-                filter: drop-shadow(0 0 10px rgba(210, 240, 255, 0.2));
-            }
-            50% {
-                filter: none;
             }
         }
     }
