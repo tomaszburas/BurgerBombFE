@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import { Home } from '../components/Home';
-import { BurgerOfTheDay } from '../components/BurgerOfTheDay';
-import { Header } from '../components/Header';
-import { Menu } from '../components/Menu';
-import { Contact } from '../components/Contact';
-import { Footer } from '../components/Fotter';
+import { Home } from '../components/Home/Home';
+import { BurgerOfTheDay } from '../components/Home/BurgerOfTheDay';
+import { Header } from '../components/Headers/Header';
+import { Menu } from '../components/Home/Menu';
+import { Contact } from '../components/Home/Contact';
+import { Footer } from '../components/Home/Fotter';
 
 export const Main = () => {
     return (

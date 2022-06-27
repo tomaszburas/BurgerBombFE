@@ -1,6 +1,6 @@
 import { NavHashLink } from 'react-router-hash-link';
 import styled from 'styled-components';
-import logo from '../assets/images/logo.png';
+import logo from '../../assets/images/logo.png';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 

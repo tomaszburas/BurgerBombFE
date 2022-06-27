@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import AVOBEKO from '../assets/images/burgers/avobeko.png';
-import CRISBY from '../assets/images/burgers/crisby.png';
-import NEWYORK from '../assets/images/burgers/newyork.png';
+import AVOBEKO from '../../assets/images/burgers/avobeko.png';
+import CRISBY from '../../assets/images/burgers/crisby.png';
+import NEWYORK from '../../assets/images/burgers/newyork.png';
 import { Burger } from './Burger';
 
 export const Menu = () => {

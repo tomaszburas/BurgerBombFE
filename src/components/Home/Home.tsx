@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import burgerImg from '../assets/images/burger-home.png';
+import burgerImg from '../../assets/images/burger-home.png';
 import { Link } from 'react-router-dom';
 
 export const Home = () => {

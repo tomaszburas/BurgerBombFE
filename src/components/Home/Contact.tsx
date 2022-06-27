@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ContactItem } from './ContactItem/ContactItem';
+import { ContactItem } from '../ContactItem/ContactItem';
 
 export const Contact = () => {
     return (
