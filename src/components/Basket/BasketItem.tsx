@@ -17,28 +17,29 @@ export const BasketItem = () => {
                 </button>
             </div>
             <div className="right">
-                <p className="price">9$</p>
-                <p className="price">2$</p>
-                <p className="price">2$</p>
+                <p className="price">$ 9</p>
+                <p className="price">$ 2</p>
+                <p className="price">$ 2</p>
             </div>
         </Container>
     );
 };
 
 const Container = styled.div`
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: 0 1rem 1rem 1rem;
+    margin-bottom: 1rem;
 
     .left {
-        width: 40%;
+        width: 60%;
 
         .ingredient {
             margin-left: 1.5rem;
         }
     }
     .center {
-        width: 30%;
+        width: 25%;
         text-align: center;
 
         .plus {
@@ -62,7 +63,7 @@ const Container = styled.div`
         }
     }
     .right {
-        width: 30%;
+        width: 15%;
         text-align: right;
     }
 `;

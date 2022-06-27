@@ -1,22 +1,18 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import logo from '../assets/images/logo.png';
-import { BasketItem } from './BasketItem';
+import { OrderHeader } from '../components/Headers/OrderHeader';
+import { BasketItems } from '../components/Basket/BasketItems';
+import { OrderSummary } from '../components/Order/OrderSummary';
 
 export const Basket = () => {
     return (
         <Container>
             <div className="wrapper">
-                <section className="header">
-                    <Link to="/">
-                        <img className="logo" src={logo} alt="logo" />
-                    </Link>
-                    <p className="title">BASKET</p>
-                </section>
+                <OrderHeader title="basket" />
                 <section className="basket">
                     <div className="basket-wrapper">
                         <div className="basket-title">
-                            <p>Your Order</p>
+                            <p>Your Basket</p>
                             <Link to="/order">
                                 <button title="Order" className="button">
                                     Order
@@ -24,13 +20,9 @@ export const Basket = () => {
                             </Link>
                         </div>
                         <div className="basket-order">
-                            <BasketItem />
-                            <BasketItem />
-                            <BasketItem />
-                            <BasketItem />
-                            <BasketItem />
-                            <BasketItem />
-                            <BasketItem />
+                            <div className="basket-items-wrapper">
+                                <BasketItems />
+                            </div>
                         </div>
                         <div className="basket-footer">
                             <form>
@@ -44,7 +36,9 @@ export const Basket = () => {
                                     Save
                                 </button>
                             </form>
-                            <p className="value">Value: 35$</p>
+                            <div className="order-summary">
+                                <OrderSummary />
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -67,25 +61,6 @@ const Container = styled.div`
         align-items: center;
         margin: 1rem;
 
-        .header {
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-
-            .logo {
-                height: 4rem;
-                cursor: pointer;
-            }
-
-            .title {
-                color: ${(props) => props.theme.colors.eden};
-                padding: 0.5rem 1rem;
-                border: 1px solid ${(props) => props.theme.colors.eden};
-            }
-        }
-
         .basket {
             width: 100%;
             height: calc(100% - 6rem);
@@ -99,7 +74,7 @@ const Container = styled.div`
                 justify-content: space-between;
 
                 .button {
-                    height: 50px;
+                    height: 2.5rem;
                     background-color: ${(props) => props.theme.colors.eden};
                     border: none;
                     border-radius: 0.5rem;
@@ -121,6 +96,10 @@ const Container = styled.div`
                     margin: 1rem 0;
                     height: calc(100% - 5rem);
                     overflow: auto;
+
+                    .basket-items-wrapper {
+                        margin: 0 1rem;
+                    }
                 }
 
                 .basket-footer {
@@ -162,7 +141,7 @@ const Container = styled.div`
                                 top: 0;
                                 left: 0;
                                 width: 300px;
-                                height: 50px;
+                                height: 2.5rem;
                                 border-radius: 6px;
                                 background: ${(props) =>
                                     props.theme.colors.yellow};
@@ -173,9 +152,9 @@ const Container = styled.div`
 
                                 &:focus {
                                     border: 1px solid
-                                        ${(props) => props.theme.colors.eden};
+                                        ${(props) => props.theme.colors.brown};
                                     outline: 1px solid
-                                        ${(props) => props.theme.colors.eden};
+                                        ${(props) => props.theme.colors.brown};
                                     -webkit-transition: border 0.2s ease-in-out;
                                     transition: border 0.2s ease-in-out;
                                 }
@@ -187,8 +166,6 @@ const Container = styled.div`
                                 }
 
                                 &:focus ~ label {
-                                    color: ${(props) =>
-                                        props.theme.colors.eden};
                                     font-weight: bolder;
                                 }
                             }
