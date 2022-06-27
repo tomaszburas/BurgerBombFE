@@ -50,6 +50,7 @@ const Container = styled.div`
             font-weight: bold;
             border: none;
             cursor: pointer;
+            border-radius: 0;
         }
 
         .minus {
@@ -60,6 +61,7 @@ const Container = styled.div`
             font-weight: bold;
             border: none;
             cursor: pointer;
+            border-radius: 0;
         }
     }
     .right {
