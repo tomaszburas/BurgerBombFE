@@ -4,7 +4,9 @@ import { Route, Routes } from 'react-router-dom';
 import { Theme } from './components/Theme';
 import { Main } from './views/Main';
 import { Login } from './components/Login';
-import { Basket } from './components/Basket';
+import { Basket } from './views/Basket';
+import { Order } from './views/Order';
+import { Summary } from './views/Summary';
 
 export const App = () => {
     return (
@@ -14,6 +16,8 @@ export const App = () => {
                     <Route path="/" element={<Main />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/basket" element={<Basket />} />
+                    <Route path="/order" element={<Order />} />
+                    <Route path="/summary" element={<Summary />} />
                 </Routes>
             </Container>
         </Theme>
