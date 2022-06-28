@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import { Route, Routes } from 'react-router-dom';
 import { Theme } from './components/Theme';
 import { Main } from './views/Main';
-import { Login } from './components/Login';
+import { Login } from './views/Login';
 import { Basket } from './views/Basket';
 import { Order } from './views/Order';
 import { Summary } from './views/Summary';
+import { AdminPanel } from './views/AdminPanel';
 
 export const App = () => {
     return (
@@ -18,6 +19,7 @@ export const App = () => {
                     <Route path="/basket" element={<Basket />} />
                     <Route path="/order" element={<Order />} />
                     <Route path="/summary" element={<Summary />} />
+                    <Route path="/admin" element={<AdminPanel />} />
                 </Routes>
             </Container>
         </Theme>
