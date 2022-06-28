@@ -8,8 +8,8 @@ export const Login = () => {
                 <h1>Sign In</h1>
                 <form>
                     <div className="google-input">
-                        <input type="mail" id="mail" />
-                        <label htmlFor="mail">Email</label>
+                        <input type="email" id="email" />
+                        <label htmlFor="email">Email</label>
                     </div>
                     <div className="google-input">
                         <input type="password" id="password" />
