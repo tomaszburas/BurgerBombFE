@@ -15,22 +15,48 @@ export const AdminPanel = () => {
                     <div className="admin-panel-wrapper">
                         <div className="menu-container">
                             <ul>
-                                <li onClick={() => setMenuItem('admins')}>
+                                <li
+                                    onClick={() => setMenuItem('admins')}
+                                    className={
+                                        menuItem === 'admins' ? 'active' : ''
+                                    }>
                                     Admins
                                 </li>
-                                <li onClick={() => setMenuItem('botd')}>
+                                <li
+                                    onClick={() => setMenuItem('botd')}
+                                    className={
+                                        menuItem === 'botd' ? 'active' : ''
+                                    }>
                                     BOTD
                                 </li>
-                                <li onClick={() => setMenuItem('burgers')}>
+                                <li
+                                    onClick={() => setMenuItem('burgers')}
+                                    className={
+                                        menuItem === 'burgers' ? 'active' : ''
+                                    }>
                                     Burgers
                                 </li>
-                                <li onClick={() => setMenuItem('info')}>
+                                <li
+                                    onClick={() => setMenuItem('info')}
+                                    className={
+                                        menuItem === 'info' ? 'active' : ''
+                                    }>
                                     Info
                                 </li>
-                                <li onClick={() => setMenuItem('ingredients')}>
+                                <li
+                                    onClick={() => setMenuItem('ingredients')}
+                                    className={
+                                        menuItem === 'ingredients'
+                                            ? 'active'
+                                            : ''
+                                    }>
                                     Ingredients
                                 </li>
-                                <li onClick={() => setMenuItem('orders')}>
+                                <li
+                                    onClick={() => setMenuItem('orders')}
+                                    className={
+                                        menuItem === 'orders' ? 'active' : ''
+                                    }>
                                     Orders
                                 </li>
                             </ul>
@@ -74,6 +100,10 @@ const Container = styled.div`
                     margin-right: 1rem;
                     border: 1px solid;
                     padding: 1rem;
+
+                    .active {
+                        font-weight: 600;
+                    }
 
                     li {
                         cursor: pointer;
