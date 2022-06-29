@@ -6,9 +6,10 @@ import { AdminsContainer } from '../components/AdminPanel/Admins/AdminsContainer
 import { BurgersContainer } from '../components/AdminPanel/Burgers/BurgersContainer';
 import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
 import { IngredientsContainer } from '../components/AdminPanel/Ingredients/IngredientsContainer';
+import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer';
 
 export const AdminPanel = () => {
-    const [menuItem, setMenuItem] = useState('admins');
+    const [menuItem, setMenuItem] = useState('orders');
 
     return (
         <Container>
@@ -74,6 +75,7 @@ export const AdminPanel = () => {
                             {menuItem === 'ingredients' ? (
                                 <IngredientsContainer />
                             ) : null}
+                            {menuItem === 'orders' ? <OrdersContainer /> : null}
                         </div>
                     </div>
                 </section>
