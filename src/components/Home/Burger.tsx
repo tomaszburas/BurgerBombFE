@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useState } from 'react';
+import { AddBurgerToBasket } from './AddBurgerToBasket';
 
 interface Props {
     name: string;
@@ -8,16 +10,30 @@ interface Props {
 }
 
 export const Burger = ({ name, price, image, ingredients }: Props) => {
+    const [addBtn, setAddBtn] = useState(false);
+
     return (
         <Container>
             <div className="top">
                 <img src={image} alt="burger" />
             </div>
-            <div className="center">
+            <div
+                className="center"
+                title="Add to basket"
+                onClick={() => setAddBtn(true)}>
                 <p className="burger-name">{name} BURGER</p>
-                <p className="burger-price">{price}$</p>
+                <p className="burger-price">$ {price}</p>
             </div>
             <div className="bottom">{ingredients}</div>
+            {addBtn ? (
+                <AddBurgerToBasket
+                    setAddBtn={setAddBtn}
+                    name={name}
+                    price={price}
+                    image={image}
+                    ingredients={ingredients}
+                />
+            ) : null}
         </Container>
     );
 };
