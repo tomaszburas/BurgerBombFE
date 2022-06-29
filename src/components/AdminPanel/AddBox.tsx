@@ -11,33 +11,50 @@ interface Props {
 
 export const AddBox = ({ setAddBtn, title }: Props) => {
     return (
-        <Container>
-            <i
-                className="bx bx-x"
-                title="Close"
-                onClick={() => setAddBtn(false)}
-            />
-            {title === 'admins' ? (
-                <AdminsAddForm setAddBtn={setAddBtn} />
-            ) : null}
-            {title === 'burgers' ? (
-                <BurgersAddForm setAddBtn={setAddBtn} />
-            ) : null}
-            {title === 'info' ? <InfoAddForm setAddBtn={setAddBtn} /> : null}
-            {title === 'ingredients' ? (
-                <IngredientsAddForm setAddBtn={setAddBtn} />
-            ) : null}
+        <Container onClick={() => setAddBtn(false)}>
+            <div className="wrapper">
+                <i
+                    className="bx bx-x"
+                    title="Close"
+                    onClick={() => setAddBtn(false)}
+                />
+                {title === 'admins' ? (
+                    <AdminsAddForm setAddBtn={setAddBtn} />
+                ) : null}
+                {title === 'burgers' ? (
+                    <BurgersAddForm setAddBtn={setAddBtn} />
+                ) : null}
+                {title === 'info' ? (
+                    <InfoAddForm setAddBtn={setAddBtn} />
+                ) : null}
+                {title === 'ingredients' ? (
+                    <IngredientsAddForm setAddBtn={setAddBtn} />
+                ) : null}
+            </div>
         </Container>
     );
 };
 
 const Container = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: ${(props) => props.theme.colors.cream};
-    padding: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(18, 91, 80, 0.8);
+    backdrop-filter: blur(4px);
+
+    .wrapper {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: ${(props) => props.theme.colors.cream};
+        padding: 1rem;
+        width: fit-content;
+        height: fit-content;
+    }
 
     .bx-x {
         position: absolute;
