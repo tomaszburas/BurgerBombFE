@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { BotdContainer } from '../components/AdminPanel/Botd/BotdContainer';
 import { AdminsContainer } from '../components/AdminPanel/Admins/AdminsContainer';
 import { BurgersContainer } from '../components/AdminPanel/Burgers/BurgersContainer';
+import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState('admins');
@@ -68,6 +69,7 @@ export const AdminPanel = () => {
                             {menuItem === 'burgers' ? (
                                 <BurgersContainer />
                             ) : null}
+                            {menuItem === 'info' ? <InfoContainer /> : null}
                         </div>
                     </div>
                 </section>

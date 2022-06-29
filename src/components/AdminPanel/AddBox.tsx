@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { AdminsAddForm } from './Admins/AdminsAddForm';
 import { BurgersAddForm } from './Burgers/BurgersAddForm';
+import { InfoAddForm } from './Info/InfoAddForm';
 
 interface Props {
     setAddBtn: (param: boolean) => void;
@@ -21,6 +22,7 @@ export const AddBox = ({ setAddBtn, title }: Props) => {
             {title === 'burgers' ? (
                 <BurgersAddForm setAddBtn={setAddBtn} />
             ) : null}
+            {title === 'info' ? <InfoAddForm setAddBtn={setAddBtn} /> : null}
         </Container>
     );
 };
