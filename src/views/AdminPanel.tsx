@@ -5,6 +5,7 @@ import { BotdContainer } from '../components/AdminPanel/Botd/BotdContainer';
 import { AdminsContainer } from '../components/AdminPanel/Admins/AdminsContainer';
 import { BurgersContainer } from '../components/AdminPanel/Burgers/BurgersContainer';
 import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
+import { IngredientsContainer } from '../components/AdminPanel/Ingredients/IngredientsContainer';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState('admins');
@@ -70,6 +71,9 @@ export const AdminPanel = () => {
                                 <BurgersContainer />
                             ) : null}
                             {menuItem === 'info' ? <InfoContainer /> : null}
+                            {menuItem === 'ingredients' ? (
+                                <IngredientsContainer />
+                            ) : null}
                         </div>
                     </div>
                 </section>
