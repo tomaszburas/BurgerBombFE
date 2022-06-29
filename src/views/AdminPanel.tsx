@@ -3,6 +3,7 @@ import { AdminHeader } from '../components/Headers/AdminHeader';
 import { useState } from 'react';
 import { BotdContainer } from '../components/AdminPanel/Botd/BotdContainer';
 import { AdminsContainer } from '../components/AdminPanel/Admins/AdminsContainer';
+import { BurgersContainer } from '../components/AdminPanel/Burgers/BurgersContainer';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState('admins');
@@ -64,6 +65,9 @@ export const AdminPanel = () => {
                         <div className="actions-container">
                             {menuItem === 'admins' ? <AdminsContainer /> : null}
                             {menuItem === 'botd' ? <BotdContainer /> : null}
+                            {menuItem === 'burgers' ? (
+                                <BurgersContainer />
+                            ) : null}
                         </div>
                     </div>
                 </section>

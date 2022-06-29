@@ -1,33 +1,30 @@
-import styled from 'styled-components';
-import { AdminsItem } from './AdminsItem';
 import { useState } from 'react';
 import { AddBox } from '../AddBox';
+import styled from 'styled-components';
+import { BurgersItem } from './BurgersItem';
 
-export const AdminsContainer = () => {
+export const BurgersContainer = () => {
     const [addBtn, setAddBtn] = useState(false);
 
     return (
         <Container>
             <button title="Add Admin" onClick={() => setAddBtn(true)}>
-                Add Admin
+                Add Burger
             </button>
             <div className="header">
-                <p className="email">Email</p>
-                <p className="role">Role</p>
+                <p className="img">Image</p>
+                <p className="name">Name</p>
+                <p className="ingredients">Ingredients</p>
+                <p className="price">Price</p>
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
+                <BurgersItem />
+                <BurgersItem />
+                <BurgersItem />
+                <BurgersItem />
             </div>
-            {addBtn ? <AddBox setAddBtn={setAddBtn} title="admins" /> : null}
+            {addBtn ? <AddBox setAddBtn={setAddBtn} title="burgers" /> : null}
         </Container>
     );
 };
@@ -43,18 +40,29 @@ const Container = styled.div`
         font-weight: 500;
     }
 
-    .email {
-        width: 60%;
+    .img {
+        width: 10%;
         margin-right: 1rem;
     }
 
-    .role {
+    .name {
         width: 30%;
+        margin-right: 1rem;
+    }
+
+    .ingredients {
+        width: 35%;
+        margin-right: 1rem;
+    }
+
+    .price {
+        width: 15%;
         margin-right: 1rem;
     }
 
     .nav {
         width: 10%;
+        margin-right: 1rem;
     }
 
     .data-wrapper {
