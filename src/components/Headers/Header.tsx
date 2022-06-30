@@ -24,37 +24,13 @@ export const Header = () => {
                     <img className="logo" src={logo} alt="logo" />
                 </NavHashLink>
                 <ul>
-                    <NavHashLink
-                        smooth
-                        to="/#"
-                        className={() =>
-                            window.location.pathname + window.location.hash ===
-                            '/'
-                                ? 'li li-active'
-                                : 'li'
-                        }>
+                    <NavHashLink smooth to="/#" className="li">
                         Home
                     </NavHashLink>
-                    <NavHashLink
-                        smooth
-                        to="#menu"
-                        className={() =>
-                            window.location.pathname + window.location.hash ===
-                            '/#menu'
-                                ? 'li li-active'
-                                : 'li'
-                        }>
+                    <NavHashLink smooth to="#menu" className="li">
                         Menu
                     </NavHashLink>
-                    <NavHashLink
-                        smooth
-                        to="#contact"
-                        className={() =>
-                            window.location.pathname + window.location.hash ===
-                            '/#contact'
-                                ? 'li li-active'
-                                : 'li'
-                        }>
+                    <NavHashLink smooth to="#contact" className="li">
                         Contact
                     </NavHashLink>
                 </ul>
@@ -108,21 +84,6 @@ const Container = styled.section<{ active: boolean }>`
 
             .li:not(:last-child) {
                 margin-right: 1rem;
-            }
-
-            .li-active {
-                color: ${(props) => props.theme.colors.eden};
-            }
-
-            .li-active::after {
-                content: '';
-                position: absolute;
-                bottom: -80%;
-                left: 44%;
-                height: 0.8rem;
-                width: 0.8rem;
-                border-radius: 100%;
-                background-color: ${(props) => props.theme.colors.eden};
             }
         }
 
