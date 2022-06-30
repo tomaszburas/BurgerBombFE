@@ -11,7 +11,8 @@ interface Props {
 
 export const AddBox = ({ setAddBtn, title }: Props) => {
     return (
-        <Container onClick={() => setAddBtn(false)}>
+        <Container>
+            <div className="bg" onClick={() => setAddBtn(false)} />
             <div className="wrapper">
                 <i
                     className="bx bx-x"
@@ -36,14 +37,16 @@ export const AddBox = ({ setAddBtn, title }: Props) => {
 };
 
 const Container = styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(18, 91, 80, 0.8);
-    backdrop-filter: blur(4px);
+    .bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(18, 91, 80, 0.8);
+        backdrop-filter: blur(4px);
+    }
 
     .wrapper {
         position: absolute;
@@ -52,8 +55,9 @@ const Container = styled.div`
         transform: translate(-50%, -50%);
         background-color: ${(props) => props.theme.colors.cream};
         padding: 1rem;
-        width: fit-content;
-        height: fit-content;
+        width: auto;
+        height: auto;
+        z-index: 10;
     }
 
     .bx-x {

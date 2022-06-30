@@ -46,12 +46,12 @@ const Container = styled.div`
     }
 
     .name {
-        width: 30%;
+        width: 25%;
         margin-right: 1rem;
     }
 
     .ingredients {
-        width: 35%;
+        width: 40%;
         margin-right: 1rem;
     }
 

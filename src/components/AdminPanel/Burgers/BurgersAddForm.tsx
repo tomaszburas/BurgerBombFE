@@ -111,11 +111,16 @@ const Container = styled.div`
             .cb-wrapper {
                 height: 10rem;
                 overflow: auto;
+                margin-top: 0.5rem;
 
                 .cb-container {
                     font-size: ${(props) => props.theme.fontSize.sm};
+                    display: flex;
+                    align-items: center;
+                }
+
+                .cb-container:not(:first-child) {
                     margin-top: 0.5rem;
-                    width: 30%;
                 }
             }
         }

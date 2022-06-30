@@ -26,6 +26,7 @@ const Container = styled.div`
     align-items: center;
     padding: 0 1rem;
     margin-bottom: 0.5rem;
+    font-size: ${(props) => props.theme.fontSize.sm};
 
     .bxs-edit {
         color: ${(props) => props.theme.colors.eden};
@@ -42,13 +43,9 @@ const Container = styled.div`
             width: 40%;
         }
     }
-
-    .ingredients {
-        font-size: ${(props) => props.theme.fontSize.sm};
-    }
-
     .nav {
         display: flex;
         justify-content: center;
+        font-size: ${(props) => props.theme.fontSize.base};
     }
 `;

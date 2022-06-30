@@ -12,8 +12,9 @@ export const BurgerOfTheDay = () => {
                     </div>
                     <div className="center">
                         <p className="burger-name">KOZI BURGER</p>
-                        <p className="burger-price" id="menu">
-                            7.99$
+                        <p className="burger-price" title="Add to basket">
+                            $7.99
+                            <i className="bx bx-plus" id="menu" />
                         </p>
                     </div>
                     <div className="right">
@@ -81,6 +82,17 @@ const Container = styled.div`
                     padding: 1rem;
                     background-color: ${(props) => props.theme.colors.red};
                     cursor: pointer;
+                    display: flex;
+                    align-items: center;
+
+                    .bx-plus {
+                        margin-left: 1rem;
+                        padding: 0.2rem;
+                        background-color: ${(props) =>
+                            props.theme.colors.cream};
+                        color: ${(props) => props.theme.colors.red};
+                        border-radius: 0.5rem;
+                    }
                 }
             }
 

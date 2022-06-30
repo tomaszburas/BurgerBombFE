@@ -22,7 +22,10 @@ export const Burger = ({ name, price, image, ingredients }: Props) => {
                 title="Add to basket"
                 onClick={() => setAddBtn(true)}>
                 <p className="burger-name">{name} BURGER</p>
-                <p className="burger-price">$ {price}</p>
+                <p className="burger-price">
+                    ${price}
+                    <i className="bx bx-plus" />
+                </p>
             </div>
             <div className="bottom">{ingredients}</div>
             {addBtn ? (
@@ -58,8 +61,22 @@ const Container = styled.div`
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin-bottom: 1rem;
         cursor: pointer;
+
+        .burger-price {
+            display: flex;
+            align-items: center;
+
+            .bx-plus {
+                margin-left: 1rem;
+                padding: 0.2rem;
+                background-color: ${(props) => props.theme.colors.yellow};
+                color: ${(props) => props.theme.colors.eden};
+                border-radius: 0.5rem;
+            }
+        }
     }
 
     .bottom {
