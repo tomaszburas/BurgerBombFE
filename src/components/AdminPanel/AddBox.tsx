@@ -13,7 +13,7 @@ export const AddBox = ({ setAddBtn, title }: Props) => {
     return (
         <Container>
             <div className="bg" onClick={() => setAddBtn(false)} />
-            <div className="wrapper">
+            <div className="wrapper-add-box">
                 <i
                     className="bx bx-x"
                     title="Close"
@@ -48,15 +48,15 @@ const Container = styled.div`
         backdrop-filter: blur(4px);
     }
 
-    .wrapper {
+    .wrapper-add-box {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: ${(props) => props.theme.colors.cream};
         padding: 1rem;
-        width: auto;
-        height: auto;
+        width: fit-content;
+        height: fit-content;
         z-index: 10;
     }
 

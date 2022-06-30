@@ -18,7 +18,7 @@ export const AddBurgerToBasket = ({
     return (
         <Container>
             <div className="bg" onClick={() => setAddBtn(false)} />
-            <div className="wrapper">
+            <div className="wrapper-add-burger">
                 <i
                     className="bx bx-x"
                     title="Close"
@@ -131,7 +131,7 @@ const Container = styled.div`
         backdrop-filter: blur(4px);
     }
 
-    .wrapper {
+    .wrapper-add-burger {
         position: fixed;
         top: 50%;
         left: 50%;
