@@ -34,23 +34,43 @@ export const InfoAddForm = ({ setAddBtn }: Props) => {
                             <input type="phone" id="phone" name="phone" />
                             <label htmlFor="phone">Phone</label>
                         </div>
-                    </div>
-                    <div className="info-right">
                         <div className="google-input">
                             <input type="email" id="email" name="email" />
                             <label htmlFor="email">Email</label>
                         </div>
+                    </div>
+                    <div className="info-right">
                         <div className="google-input">
-                            <input type="time" id="monThu" name="monThu" />
-                            <label htmlFor="monThur">Mon-Thu</label>
+                            <input
+                                type="time"
+                                id="monThuFrom"
+                                name="monThuFrom"
+                            />
+                            <label htmlFor="monThuFrom">[From] Mon-Thu</label>
                         </div>
                         <div className="google-input">
-                            <input type="time" id="friSat" name="friSat" />
-                            <label htmlFor="friSat">Fri-Sat</label>
+                            <input type="time" id="monThuTo" name="monThuTo" />
+                            <label htmlFor="monThuTo">[To] Mon-Thu</label>
                         </div>
                         <div className="google-input">
-                            <input type="time" id="sun" name="sun" />
-                            <label htmlFor="sun">Sun</label>
+                            <input
+                                type="time"
+                                id="friSatFrom"
+                                name="friSatFrom"
+                            />
+                            <label htmlFor="friSatFrom">[From] Fri-Sat</label>
+                        </div>
+                        <div className="google-input">
+                            <input type="time" id="friSatTo" name="friSatTo" />
+                            <label htmlFor="friSatTo">[To] Fri-Sat</label>
+                        </div>
+                        <div className="google-input">
+                            <input type="time" id="sunFrom" name="sunFrom" />
+                            <label htmlFor="sunFrom">[From] Sun</label>
+                        </div>
+                        <div className="google-input">
+                            <input type="time" id="sunTo" name="sunTo" />
+                            <label htmlFor="sunTo">[To] Sun</label>
                         </div>
                     </div>
                 </div>
@@ -93,7 +113,7 @@ const Container = styled.div`
             position: relative;
             height: fit-content;
             width: fit-content;
-            margin: 0.5rem 0;
+            margin: 1rem 0;
 
             label {
                 position: absolute;
