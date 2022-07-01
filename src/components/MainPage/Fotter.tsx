@@ -8,7 +8,8 @@ export const Footer = () => {
                 <a
                     href="https://github.com/tomaszburas"
                     title="GitHub"
-                    target="_blank">
+                    target="_blank"
+                    rel="noreferrer">
                     Tomaszenko
                 </a>
             </p>
