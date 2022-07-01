@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AddBox } from '../AddBox';
 import styled from 'styled-components';
+import { AdminPanelItems } from '../../../types/admin-panel-items';
 
 export const InfoContainer = () => {
     const [addBtn, setAddBtn] = useState(false);
@@ -40,7 +41,9 @@ export const InfoContainer = () => {
                     <p className="value">Sun</p>
                 </div>
             </div>
-            {addBtn ? <AddBox setAddBtn={setAddBtn} title="info" /> : null}
+            {addBtn && (
+                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.INFO} />
+            )}
         </Container>
     );
 };

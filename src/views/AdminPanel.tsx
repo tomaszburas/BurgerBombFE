@@ -8,9 +8,10 @@ import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
 import { IngredientsContainer } from '../components/AdminPanel/Ingredients/IngredientsContainer';
 import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer';
 import { CouponsContainer } from '../components/AdminPanel/Coupons/CouponsContainer';
+import { AdminPanelItems } from '../types/admin-panel-items';
 
 export const AdminPanel = () => {
-    const [menuItem, setMenuItem] = useState('orders');
+    const [menuItem, setMenuItem] = useState(AdminPanelItems.ORDERS);
 
     return (
         <Container>
@@ -21,72 +22,106 @@ export const AdminPanel = () => {
                         <div className="menu-container">
                             <ul>
                                 <li
-                                    onClick={() => setMenuItem('admins')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.ADMINS)
+                                    }
                                     className={
-                                        menuItem === 'admins' ? 'active' : ''
+                                        menuItem === AdminPanelItems.ADMINS
+                                            ? 'active'
+                                            : ''
                                     }>
                                     Admins
                                 </li>
                                 <li
-                                    onClick={() => setMenuItem('botd')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.BOTD)
+                                    }
                                     className={
-                                        menuItem === 'botd' ? 'active' : ''
+                                        menuItem === AdminPanelItems.BOTD
+                                            ? 'active'
+                                            : ''
                                     }>
                                     BOTD
                                 </li>
                                 <li
-                                    onClick={() => setMenuItem('burgers')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.BURGERS)
+                                    }
                                     className={
-                                        menuItem === 'burgers' ? 'active' : ''
+                                        menuItem === AdminPanelItems.BURGERS
+                                            ? 'active'
+                                            : ''
                                     }>
                                     Burgers
                                 </li>
                                 <li
-                                    onClick={() => setMenuItem('coupons')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.COUPONS)
+                                    }
                                     className={
-                                        menuItem === 'coupons' ? 'active' : ''
+                                        menuItem === AdminPanelItems.COUPONS
+                                            ? 'active'
+                                            : ''
                                     }>
                                     Coupons
                                 </li>
                                 <li
-                                    onClick={() => setMenuItem('info')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.INFO)
+                                    }
                                     className={
-                                        menuItem === 'info' ? 'active' : ''
+                                        menuItem === AdminPanelItems.INFO
+                                            ? 'active'
+                                            : ''
                                     }>
                                     Info
                                 </li>
                                 <li
-                                    onClick={() => setMenuItem('ingredients')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.INGREDIENTS)
+                                    }
                                     className={
-                                        menuItem === 'ingredients'
+                                        menuItem === AdminPanelItems.INGREDIENTS
                                             ? 'active'
                                             : ''
                                     }>
                                     Ingredients
                                 </li>
                                 <li
-                                    onClick={() => setMenuItem('orders')}
+                                    onClick={() =>
+                                        setMenuItem(AdminPanelItems.ORDERS)
+                                    }
                                     className={
-                                        menuItem === 'orders' ? 'active' : ''
+                                        menuItem === AdminPanelItems.ORDERS
+                                            ? 'active'
+                                            : ''
                                     }>
                                     Orders
                                 </li>
                             </ul>
                         </div>
                         <div className="actions-container">
-                            {menuItem === 'admins' ? <AdminsContainer /> : null}
-                            {menuItem === 'botd' ? <BotdContainer /> : null}
-                            {menuItem === 'burgers' ? (
+                            {menuItem === AdminPanelItems.ADMINS && (
+                                <AdminsContainer />
+                            )}
+                            {menuItem === AdminPanelItems.BOTD && (
+                                <BotdContainer />
+                            )}
+                            {menuItem === AdminPanelItems.BURGERS && (
                                 <BurgersContainer />
-                            ) : null}
-                            {menuItem === 'info' ? <InfoContainer /> : null}
-                            {menuItem === 'ingredients' ? (
+                            )}
+                            {menuItem === AdminPanelItems.INFO && (
+                                <InfoContainer />
+                            )}
+                            {menuItem === AdminPanelItems.INGREDIENTS && (
                                 <IngredientsContainer />
-                            ) : null}
-                            {menuItem === 'orders' ? <OrdersContainer /> : null}
-                            {menuItem === 'coupons' ? (
+                            )}
+                            {menuItem === AdminPanelItems.ORDERS && (
+                                <OrdersContainer />
+                            )}
+                            {menuItem === AdminPanelItems.COUPONS && (
                                 <CouponsContainer />
-                            ) : null}
+                            )}
                         </div>
                     </div>
                 </section>

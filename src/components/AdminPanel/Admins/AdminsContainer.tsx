@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { AdminsItem } from './AdminsItem';
 import { useState } from 'react';
 import { AddBox } from '../AddBox';
+import { AdminPanelItems } from '../../../types/admin-panel-items';
 
 export const AdminsContainer = () => {
     const [addBtn, setAddBtn] = useState(false);
@@ -27,7 +28,9 @@ export const AdminsContainer = () => {
                 <AdminsItem />
                 <AdminsItem />
             </div>
-            {addBtn ? <AddBox setAddBtn={setAddBtn} title="admins" /> : null}
+            {addBtn && (
+                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.ADMINS} />
+            )}
         </Container>
     );
 };

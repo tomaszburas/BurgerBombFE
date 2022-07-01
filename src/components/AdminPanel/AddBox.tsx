@@ -4,6 +4,7 @@ import { BurgersAddForm } from './Burgers/BurgersAddForm';
 import { CouponsAddForm } from './Coupons/CouponsAddForm';
 import { InfoAddForm } from './Info/InfoAddForm';
 import { IngredientsAddForm } from './Ingredients/IngredientsAddForm';
+import { AdminPanelItems } from '../../types/admin-panel-items';
 
 interface Props {
     setAddBtn: (param: boolean) => void;
@@ -20,21 +21,21 @@ export const AddBox = ({ setAddBtn, title }: Props) => {
                     title="Close"
                     onClick={() => setAddBtn(false)}
                 />
-                {title === 'admins' ? (
+                {title === AdminPanelItems.ADMINS && (
                     <AdminsAddForm setAddBtn={setAddBtn} />
-                ) : null}
-                {title === 'burgers' ? (
+                )}
+                {title === AdminPanelItems.BURGERS && (
                     <BurgersAddForm setAddBtn={setAddBtn} />
-                ) : null}
-                {title === 'info' ? (
+                )}
+                {title === AdminPanelItems.INFO && (
                     <InfoAddForm setAddBtn={setAddBtn} />
-                ) : null}
-                {title === 'ingredients' ? (
+                )}
+                {title === AdminPanelItems.INGREDIENTS && (
                     <IngredientsAddForm setAddBtn={setAddBtn} />
-                ) : null}
-                {title === 'coupons' ? (
+                )}
+                {title === AdminPanelItems.COUPONS && (
                     <CouponsAddForm setAddBtn={setAddBtn} />
-                ) : null}
+                )}
             </div>
         </Container>
     );

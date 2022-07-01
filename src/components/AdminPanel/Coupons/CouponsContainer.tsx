@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { AddBox } from '../AddBox';
 import { CouponsItem } from './CouponsItem';
+import { AdminPanelItems } from '../../../types/admin-panel-items';
 
 export const CouponsContainer = () => {
     const [addBtn, setAddBtn] = useState(false);
@@ -19,7 +20,9 @@ export const CouponsContainer = () => {
             <div className="data-wrapper">
                 <CouponsItem />
             </div>
-            {addBtn ? <AddBox setAddBtn={setAddBtn} title="coupons" /> : null}
+            {addBtn && (
+                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.COUPONS} />
+            )}
         </Container>
     );
 };
