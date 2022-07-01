@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Theme } from './components/Theme';
 import { Main } from './views/Main';
 import { Login } from './views/Login';
@@ -8,6 +8,7 @@ import { Basket } from './views/Basket';
 import { Order } from './views/Order';
 import { Summary } from './views/Summary';
 import { AdminPanel } from './views/AdminPanel';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 export const App = () => {
     return (
@@ -15,11 +16,26 @@ export const App = () => {
             <Container>
                 <Routes>
                     <Route path="/" element={<Main />} />
-                    <Route path="/login" element={<Login />} />
                     <Route path="/basket" element={<Basket />} />
                     <Route path="/order" element={<Order />} />
                     <Route path="/summary" element={<Summary />} />
-                    <Route path="/admin" element={<AdminPanel />} />
+                    <Route
+                        path="/admin"
+                        element={
+                            <ProtectedRoute auth={true}>
+                                <AdminPanel />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <ProtectedRoute auth={false}>
+                                <Login />
+                            </ProtectedRoute>
+                        }
+                    />
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
             </Container>
         </Theme>

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { NavItems } from '../NavItems';
 
 export const OrdersItem = () => {
     return (
@@ -16,17 +17,16 @@ export const OrdersItem = () => {
                 <p className="phone">tel: 665884885</p>
                 <p className="mail">tera@gg.pl</p>
             </div>
-            <p className="price">
+            <div className="price">
                 <p className="price-burger">burger: $ 9</p>
                 <p className="price-ingredients">ing.: $ 3</p>
                 <p className="price-coupon">coupon: -10%</p>
                 <p className="price-sum">sum: 11.8$</p>
-            </p>
+            </div>
             <p className="pm">Card</p>
             <p className="status">new order</p>
             <div className="nav">
-                <i className="bx bxs-edit" title="Edit" />
-                <i className="bx bx-trash" title="Remove" />
+                <NavItems />
             </div>
         </Container>
     );
@@ -38,16 +38,6 @@ const Container = styled.div`
     margin-bottom: 0.5rem;
     font-size: ${(props) => props.theme.fontSize.sm};
     align-items: center;
-
-    .bxs-edit {
-        color: ${(props) => props.theme.colors.eden};
-        cursor: pointer;
-    }
-
-    .bx-trash {
-        color: ${(props) => props.theme.colors.red};
-        cursor: pointer;
-    }
 
     .nav {
         display: flex;

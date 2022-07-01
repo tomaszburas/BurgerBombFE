@@ -19,26 +19,26 @@ export const InfoContainer = () => {
                     <p className="title">City:</p>
                     <p className="title">Phone:</p>
                     <p className="title">Email:</p>
-                    <p className="title">
+                    <div className="title">
                         <i className="bx bxs-time" /> Mon-Thu:
-                    </p>
-                    <p className="title">
+                    </div>
+                    <div className="title">
                         <i className="bx bxs-time" /> Fri-Sat:
-                    </p>
-                    <p className="title">
+                    </div>
+                    <div className="title">
                         <i className="bx bxs-time" /> Sun:
-                    </p>
+                    </div>
                 </div>
                 <div className="data-wrapper">
-                    <p className="value">Street</p>
-                    <p className="value">Number</p>
-                    <p className="value">Zip Code</p>
-                    <p className="value">City</p>
-                    <p className="value">Phone</p>
-                    <p className="value">Email</p>
-                    <p className="value">Mon-Thu</p>
-                    <p className="value">Fri-Sat</p>
-                    <p className="value">Sun</p>
+                    <p className="title">Street</p>
+                    <p className="title">Number</p>
+                    <p className="title">Zip Code</p>
+                    <p className="title">City</p>
+                    <p className="title">Phone</p>
+                    <p className="title">Email</p>
+                    <p className="title">Mon-Thu</p>
+                    <p className="title">Fri-Sat</p>
+                    <p className="title">Sun</p>
                 </div>
             </div>
             {addBtn && (
@@ -54,7 +54,7 @@ const Container = styled.div`
     .info-container {
         display: flex;
 
-        p:not(:last-child) {
+        .title:not(:last-child) {
             margin-bottom: 0.5rem;
         }
 

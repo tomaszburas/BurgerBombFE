@@ -1,17 +1,35 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
+import { HOSTPORT } from '../../config';
+import { useEmit } from 'eventrix';
 
 export const AdminHeader = () => {
+    const navigate = useNavigate();
+    const emit = useEmit();
+
+    const logout = async () => {
+        const res = await fetch(`${HOSTPORT}/admin/logout`, {
+            credentials: 'include',
+            mode: 'cors',
+        });
+        const data = await res.json();
+
+        if (data.success) {
+            emit('isAuth', false);
+            navigate('/login');
+        }
+    };
+
     return (
         <Container>
             <Link to="/">
                 <img className="logo" src={logo} alt="logo" />
             </Link>
             <ul>
-                <Link to="/login">
-                    <li title="Logout">Logout</li>
-                </Link>
+                <li title="Logout" onClick={logout}>
+                    Logout
+                </li>
             </ul>
             <div className="path">
                 <p className="title">ADMIN PANEL</p>
@@ -29,6 +47,10 @@ const Container = styled.section`
 
     .logo {
         height: 4rem;
+        cursor: pointer;
+    }
+
+    li {
         cursor: pointer;
     }
 

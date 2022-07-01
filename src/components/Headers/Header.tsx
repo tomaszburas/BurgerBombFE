@@ -18,7 +18,7 @@ export const Header = () => {
     window.addEventListener('scroll', changeBackground);
 
     return (
-        <Container active={navbar}>
+        <Container isActive={navbar}>
             <div className="wrapper">
                 <NavHashLink smooth to="/#">
                     <img className="logo" src={logo} alt="logo" />
@@ -47,13 +47,13 @@ export const Header = () => {
     );
 };
 
-const Container = styled.section<{ active: boolean }>`
+const Container = styled.section<{ isActive: boolean }>`
     position: fixed;
     z-index: 10;
     padding: 1rem 0;
     width: 100%;
     background-color: ${(props) =>
-        props.active ? props.theme.colors.cream : ''};
+        props.isActive ? props.theme.colors.cream : ''};
     display: flex;
     justify-content: center;
     -webkit-transition: background-color 0.5s ease-out;
