@@ -15,7 +15,7 @@ export const Order = () => {
                                     <p>Your Data</p>
                                 </div>
                                 <div className="row">
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="text"
                                             id="firstName"
@@ -25,7 +25,7 @@ export const Order = () => {
                                             First Name
                                         </label>
                                     </div>
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="text"
                                             id="lastName"
@@ -37,7 +37,7 @@ export const Order = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="text"
                                             id="street"
@@ -45,7 +45,7 @@ export const Order = () => {
                                         />
                                         <label htmlFor="street">Street</label>
                                     </div>
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="text"
                                             id="number"
@@ -55,7 +55,7 @@ export const Order = () => {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="text"
                                             id="zipCode"
@@ -65,13 +65,13 @@ export const Order = () => {
                                             Zip Code
                                         </label>
                                     </div>
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input type="text" id="city" required />
                                         <label htmlFor="city">City</label>
                                     </div>
                                 </div>
                                 <div className="row">
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="phone"
                                             id="phone"
@@ -79,7 +79,7 @@ export const Order = () => {
                                         />
                                         <label htmlFor="phone">Phone</label>
                                     </div>
-                                    <div className="google-input">
+                                    <div className="input-order">
                                         <input
                                             type="email"
                                             id="email"
@@ -211,7 +211,7 @@ const Container = styled.div`
                             justify-content: space-between;
                             width: 100%;
 
-                            .google-input {
+                            .input-order {
                                 position: relative;
                                 height: fit-content;
                                 width: 48%;

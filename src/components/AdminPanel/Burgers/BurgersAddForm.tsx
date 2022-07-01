@@ -12,15 +12,15 @@ export const BurgersAddForm = ({ setAddBtn }: Props) => {
     return (
         <Container>
             <form>
-                <div className="google-input">
+                <div className="input-box">
                     <input type="text" id="name" />
                     <label htmlFor="name">Name</label>
                 </div>
-                <div className="google-input">
+                <div className="input-box">
                     <input type="number" id="price" />
                     <label htmlFor="price">Price</label>
                 </div>
-                <div className="google-input">
+                <div className="input-box">
                     <span className="title">Image</span>
                     <input type="file" id="img" />
                 </div>
@@ -125,7 +125,7 @@ const Container = styled.div`
             }
         }
 
-        .google-input {
+        .input-box {
             position: relative;
             height: fit-content;
             width: fit-content;

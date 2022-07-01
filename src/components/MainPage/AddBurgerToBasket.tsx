@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { AddAndRemoveBtns } from '../AddAndRemoveBtns';
 
 interface Props {
     setAddBtn: (param: boolean) => void;
@@ -100,12 +101,7 @@ export const AddBurgerToBasket = ({
                 </div>
                 <div className="summary-container">
                     <div className="quantity">
-                        <button className="plus" title="Add">
-                            +
-                        </button>
-                        <button className="minus" title="Remove">
-                            -
-                        </button>
+                        <AddAndRemoveBtns />
                     </div>
                     <p className="total-value">$35</p>
                     <button
@@ -137,6 +133,7 @@ const Container = styled.div`
         left: 50%;
         transform: translate(-50%, -50%);
         background-color: ${(props) => props.theme.colors.cream};
+        color: ${(props) => props.theme.colors.brown};
         padding: 1rem;
         z-index: 10;
         width: 35%;
@@ -297,43 +294,10 @@ const Container = styled.div`
 
             .quantity {
                 text-align: center;
-
-                .plus {
-                    padding: 0.3rem 0.6rem;
-                    background-color: ${(props) => props.theme.colors.eden};
-                    color: ${(props) => props.theme.colors.cream};
-                    font-size: ${(props) => props.theme.fontSize.base};
-                    font-weight: bold;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 0;
-                }
-
-                .minus {
-                    padding: 0.3rem 0.8rem;
-                    background-color: ${(props) => props.theme.colors.red};
-                    color: ${(props) => props.theme.colors.cream};
-                    font-size: ${(props) => props.theme.fontSize.base};
-                    font-weight: bold;
-                    border: none;
-                    cursor: pointer;
-                    border-radius: 0;
-                }
             }
 
             .total-value {
                 font-weight: 500;
-            }
-
-            button {
-                height: 2.5rem;
-                background-color: ${(props) => props.theme.colors.eden};
-                border: none;
-                border-radius: 0.5rem;
-                font-size: ${(props) => props.theme.fontSize.base};
-                color: ${(props) => props.theme.colors.cream};
-                padding: 0 1rem;
-                cursor: pointer;
             }
         }
     }

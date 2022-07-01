@@ -6,7 +6,7 @@ export const OrdersItem = () => {
             <p className="lp">#1</p>
             <div className="burger">
                 <p className="burger-name">Kozi Burger</p>
-                <p className="burger-sauce">sauce: tomato</p>
+                <p className="burger-frying">frying: medium</p>
                 <p className="burger-ingredients">ing.: cucumber , jalapeno</p>
             </div>
             <div className="address">

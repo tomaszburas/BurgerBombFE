@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import burgerImg from '../../assets/images/burger-home.png';
+import { useState } from 'react';
+import { AddBurgerToBasket } from './AddBurgerToBasket';
 
 export const BurgerOfTheDay = () => {
+    const [addBtn, setAddBtn] = useState(false);
+
     return (
         <Container>
             <div className="container">
@@ -12,7 +16,10 @@ export const BurgerOfTheDay = () => {
                     </div>
                     <div className="center">
                         <p className="burger-name">KOZI BURGER</p>
-                        <p className="burger-price" title="Add to basket">
+                        <p
+                            className="burger-price"
+                            title="Add to basket"
+                            onClick={() => setAddBtn(true)}>
                             $7.99
                             <i className="bx bx-plus" id="menu" />
                         </p>
@@ -24,6 +31,17 @@ export const BurgerOfTheDay = () => {
                     </div>
                 </div>
             </div>
+            {addBtn ? (
+                <AddBurgerToBasket
+                    setAddBtn={setAddBtn}
+                    name={'Kozi Burger'}
+                    price={7.99}
+                    image={burgerImg}
+                    ingredients={
+                        'Chorizo, Cheddar cheese,tomato, pickled cucumber'
+                    }
+                />
+            ) : null}
         </Container>
     );
 };

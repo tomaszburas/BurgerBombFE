@@ -3,7 +3,15 @@ import styled from 'styled-components';
 export const Footer = () => {
     return (
         <Container>
-            <p>© 2022 Burger Bomb | Created by Tomaszenko</p>
+            <p>
+                © 2022 Burger Bomb | Created by{' '}
+                <a
+                    href="https://github.com/tomaszburas"
+                    title="GitHub"
+                    target="_blank">
+                    Tomaszenko
+                </a>
+            </p>
         </Container>
     );
 };

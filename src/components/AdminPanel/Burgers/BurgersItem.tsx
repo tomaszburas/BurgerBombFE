@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import burgerImg from '../../../assets/images/burgers/avobeko.png';
+import { NavItems } from '../NavItems';
 
 export const BurgersItem = () => {
     return (
@@ -14,8 +15,7 @@ export const BurgersItem = () => {
             </p>
             <p className="price">$ 9</p>
             <div className="nav">
-                <i className="bx bxs-edit" title="Edit" />
-                <i className="bx bx-trash" title="Remove" />
+                <NavItems />
             </div>
         </Container>
     );
@@ -27,16 +27,6 @@ const Container = styled.div`
     padding: 0 1rem;
     margin-bottom: 0.5rem;
     font-size: ${(props) => props.theme.fontSize.sm};
-
-    .bxs-edit {
-        color: ${(props) => props.theme.colors.eden};
-        cursor: pointer;
-    }
-
-    .bx-trash {
-        color: ${(props) => props.theme.colors.red};
-        cursor: pointer;
-    }
 
     .img {
         img {

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const OrderSummary = () => {
     return (
         <Container>
-            <div className="summary-row color-red">
+            <div className="summary-row color-eden">
                 <p className="title">Discount:</p>
                 <p className="value">10%</p>
             </div>
@@ -17,6 +17,7 @@ export const OrderSummary = () => {
 
 const Container = styled.div`
     width: 100%;
+
     .summary-row {
         display: flex;
         justify-content: space-between;
@@ -26,7 +27,7 @@ const Container = styled.div`
         }
     }
 
-    .color-red {
+    .color-eden {
         color: ${(props) => props.theme.colors.eden};
     }
 `;

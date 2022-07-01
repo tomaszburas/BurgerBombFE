@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { OrderHeader } from '../components/Headers/OrderHeader';
 import { Link } from 'react-router-dom';
-import { SummaryItems } from '../components/Summary/SummaryItems';
 import { OrderSummary } from '../components/Order/OrderSummary';
+import { BasketItems } from '../components/Basket/BasketItems';
 
 export const Summary = () => {
     return (
@@ -16,7 +16,7 @@ export const Summary = () => {
                         </div>
                         <div className="summary-center">
                             <div className="summary-items-wrapper">
-                                <SummaryItems />
+                                <BasketItems title="summary" />
                                 <div className="total-value-wrapper">
                                     <OrderSummary />
                                 </div>

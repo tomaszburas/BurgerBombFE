@@ -39,14 +39,6 @@ const Container = styled.div`
     }
 
     button {
-        height: 2.5rem;
-        background-color: ${(props) => props.theme.colors.eden};
-        border: none;
-        border-radius: 0.5rem;
-        font-size: ${(props) => props.theme.fontSize.base};
-        color: ${(props) => props.theme.colors.cream};
-        padding: 0 1rem;
-        cursor: pointer;
         margin-top: 1rem;
     }
 `;

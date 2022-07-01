@@ -14,9 +14,7 @@ export const Basket = () => {
                         <div className="basket-title">
                             <p>Your Basket</p>
                             <Link to="/order">
-                                <button title="Order" className="button">
-                                    Order
-                                </button>
+                                <button title="Order">Order</button>
                             </Link>
                         </div>
                         <div className="basket-order">
@@ -26,13 +24,13 @@ export const Basket = () => {
                         </div>
                         <div className="basket-footer">
                             <form>
-                                <div className="google-input">
+                                <div className="input-box input-coupon">
                                     <input type="text" id="coupon" />
                                     <label htmlFor="coupon">Coupon Code</label>
                                 </div>
                                 <button
                                     title="Add coupon"
-                                    className="button color-brown">
+                                    className="color-brown">
                                     Save
                                 </button>
                             </form>
@@ -73,17 +71,6 @@ const Container = styled.div`
                 flex-direction: column;
                 justify-content: space-between;
 
-                .button {
-                    height: 2.5rem;
-                    background-color: ${(props) => props.theme.colors.eden};
-                    border: none;
-                    border-radius: 0.5rem;
-                    font-size: ${(props) => props.theme.fontSize.base};
-                    color: ${(props) => props.theme.colors.cream};
-                    padding: 0 1rem;
-                    cursor: pointer;
-                }
-
                 .basket-title {
                     padding: 1rem 1rem;
                     border: 1px solid;
@@ -117,57 +104,17 @@ const Container = styled.div`
                             background: ${(props) => props.theme.colors.brown};
                         }
 
-                        .google-input {
-                            position: relative;
-                            height: fit-content;
-                            width: fit-content;
+                        .input-coupon {
                             margin: 0.5rem 1rem 0 0;
 
                             label {
-                                position: absolute;
-                                left: 10px;
-                                top: 12px;
-                                width: max-content;
-                                transition: all 0.2s ease-in-out;
                                 background: ${(props) =>
                                     props.theme.colors.yellow};
-                                padding: 5px 7px;
-                                border-radius: 10px;
-                                pointer-events: none;
                             }
 
                             input {
-                                position: relative;
-                                top: 0;
-                                left: 0;
-                                width: 300px;
-                                height: 2.5rem;
-                                border-radius: 6px;
                                 background: ${(props) =>
                                     props.theme.colors.yellow};
-                                border: 1px solid
-                                    ${(props) => props.theme.colors.brown};
-                                font-size: 16px;
-                                padding: 0 10px;
-
-                                &:focus {
-                                    border: 1px solid
-                                        ${(props) => props.theme.colors.brown};
-                                    outline: 1px solid
-                                        ${(props) => props.theme.colors.brown};
-                                    -webkit-transition: border 0.2s ease-in-out;
-                                    transition: border 0.2s ease-in-out;
-                                }
-
-                                &:focus ~ label,
-                                &:not(:placeholder-shown) ~ label {
-                                    top: -14px;
-                                    font-size: 13px;
-                                }
-
-                                &:focus ~ label {
-                                    font-weight: bolder;
-                                }
                             }
                         }
                     }

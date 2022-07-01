@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import { AddAndRemoveBtns } from '../AddAndRemoveBtns';
 
-export const BasketItem = () => {
+interface Props {
+    title?: string;
+}
+
+export const BasketItem = ({ title }: Props) => {
     return (
         <Container>
             <div className="left">
@@ -8,14 +13,11 @@ export const BasketItem = () => {
                 <p className="ingredient">+ tomato</p>
                 <p className="ingredient">+ cucumber</p>
             </div>
-            <div className="center">
-                <button className="plus" title="Add">
-                    +
-                </button>
-                <button className="minus" title="Remove">
-                    -
-                </button>
-            </div>
+            {title !== 'summary' ? (
+                <div className="center">
+                    <AddAndRemoveBtns />
+                </div>
+            ) : null}
             <div className="right">
                 <p className="price">$ 9</p>
                 <p className="price">$ 2</p>
@@ -41,29 +43,8 @@ const Container = styled.div`
     .center {
         width: 25%;
         text-align: center;
-
-        .plus {
-            padding: 0.3rem 0.5rem;
-            background-color: ${(props) => props.theme.colors.eden};
-            color: ${(props) => props.theme.colors.cream};
-            font-size: ${(props) => props.theme.fontSize.base};
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            border-radius: 0;
-        }
-
-        .minus {
-            padding: 0.3rem 0.7rem;
-            background-color: ${(props) => props.theme.colors.red};
-            color: ${(props) => props.theme.colors.cream};
-            font-size: ${(props) => props.theme.fontSize.base};
-            font-weight: bold;
-            border: none;
-            cursor: pointer;
-            border-radius: 0;
-        }
     }
+
     .right {
         width: 15%;
         text-align: right;

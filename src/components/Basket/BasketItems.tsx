@@ -1,16 +1,20 @@
 import styled from 'styled-components';
 import { BasketItem } from './BasketItem';
 
-export const BasketItems = () => {
+interface Props {
+    title?: string;
+}
+
+export const BasketItems = ({ title }: Props) => {
     return (
         <Container>
-            <BasketItem />
-            <BasketItem />
-            <BasketItem />
-            <BasketItem />
-            <BasketItem />
-            <BasketItem />
-            <BasketItem />
+            <BasketItem title={title} />
+            <BasketItem title={title} />
+            <BasketItem title={title} />
+            <BasketItem title={title} />
+            <BasketItem title={title} />
+            <BasketItem title={title} />
+            <BasketItem title={title} />
         </Container>
     );
 };

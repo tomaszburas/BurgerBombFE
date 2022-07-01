@@ -14,33 +14,33 @@ export const InfoAddForm = ({ setAddBtn }: Props) => {
             <form>
                 <div className="info-wrapper">
                     <div className="info-left">
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="text" id="street" name="street" />
                             <label htmlFor="street">Street</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="number" id="number" name="number" />
                             <label htmlFor="number">Number</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="text" id="zipCode" name="zipCode" />
                             <label htmlFor="zipCode">Zip Code</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="text" id="city" name="city" />
                             <label htmlFor="city">City</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="phone" id="phone" name="phone" />
                             <label htmlFor="phone">Phone</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="email" id="email" name="email" />
                             <label htmlFor="email">Email</label>
                         </div>
                     </div>
                     <div className="info-right">
-                        <div className="google-input">
+                        <div className="input-box">
                             <input
                                 type="time"
                                 id="monThuFrom"
@@ -48,11 +48,11 @@ export const InfoAddForm = ({ setAddBtn }: Props) => {
                             />
                             <label htmlFor="monThuFrom">[From] Mon-Thu</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="time" id="monThuTo" name="monThuTo" />
                             <label htmlFor="monThuTo">[To] Mon-Thu</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input
                                 type="time"
                                 id="friSatFrom"
@@ -60,15 +60,15 @@ export const InfoAddForm = ({ setAddBtn }: Props) => {
                             />
                             <label htmlFor="friSatFrom">[From] Fri-Sat</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="time" id="friSatTo" name="friSatTo" />
                             <label htmlFor="friSatTo">[To] Fri-Sat</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="time" id="sunFrom" name="sunFrom" />
                             <label htmlFor="sunFrom">[From] Sun</label>
                         </div>
-                        <div className="google-input">
+                        <div className="input-box">
                             <input type="time" id="sunTo" name="sunTo" />
                             <label htmlFor="sunTo">[To] Sun</label>
                         </div>
@@ -100,7 +100,6 @@ const Container = styled.div`
         }
 
         .button-wrapper {
-            margin-top: 0.5rem;
             display: flex;
             justify-content: center;
 
@@ -109,52 +108,9 @@ const Container = styled.div`
             }
         }
 
-        .google-input {
-            position: relative;
-            height: fit-content;
-            width: fit-content;
-            margin: 1rem 0;
-
-            label {
-                position: absolute;
-                left: 10px;
-                top: 12px;
-                width: max-content;
-                transition: all 0.2s ease-in-out;
-                background: ${(props) => props.theme.colors.cream};
-                padding: 5px 7px;
-                border-radius: 10px;
-                pointer-events: none;
-            }
-
+        .input-box {
             input {
-                position: relative;
-                top: 0;
-                left: 0;
-                width: 300px;
                 height: 2.5rem;
-                border-radius: 6px;
-                background: ${(props) => props.theme.colors.cream};
-                border: 1px solid ${(props) => props.theme.colors.brown};
-                font-size: 16px;
-                padding: 0 10px;
-
-                &:focus {
-                    border: 1px solid ${(props) => props.theme.colors.brown};
-                    outline: 1px solid ${(props) => props.theme.colors.brown};
-                    -webkit-transition: border 0.2s ease-in-out;
-                    transition: border 0.2s ease-in-out;
-                }
-
-                &:focus ~ label,
-                &:not(:placeholder-shown) ~ label {
-                    top: -14px;
-                    font-size: 13px;
-                }
-
-                &:focus ~ label {
-                    font-weight: bolder;
-                }
             }
         }
     }
