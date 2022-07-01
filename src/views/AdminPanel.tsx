@@ -7,6 +7,7 @@ import { BurgersContainer } from '../components/AdminPanel/Burgers/BurgersContai
 import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
 import { IngredientsContainer } from '../components/AdminPanel/Ingredients/IngredientsContainer';
 import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer';
+import { CouponsContainer } from '../components/AdminPanel/Coupons/CouponsContainer';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState('orders');
@@ -39,6 +40,13 @@ export const AdminPanel = () => {
                                         menuItem === 'burgers' ? 'active' : ''
                                     }>
                                     Burgers
+                                </li>
+                                <li
+                                    onClick={() => setMenuItem('coupons')}
+                                    className={
+                                        menuItem === 'coupons' ? 'active' : ''
+                                    }>
+                                    Coupons
                                 </li>
                                 <li
                                     onClick={() => setMenuItem('info')}
@@ -76,6 +84,9 @@ export const AdminPanel = () => {
                                 <IngredientsContainer />
                             ) : null}
                             {menuItem === 'orders' ? <OrdersContainer /> : null}
+                            {menuItem === 'coupons' ? (
+                                <CouponsContainer />
+                            ) : null}
                         </div>
                     </div>
                 </section>

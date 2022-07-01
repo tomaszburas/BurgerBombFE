@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { AdminsAddForm } from './Admins/AdminsAddForm';
 import { BurgersAddForm } from './Burgers/BurgersAddForm';
+import { CouponsAddForm } from './Coupons/CouponsAddForm';
 import { InfoAddForm } from './Info/InfoAddForm';
 import { IngredientsAddForm } from './Ingredients/IngredientsAddForm';
 
@@ -30,6 +31,9 @@ export const AddBox = ({ setAddBtn, title }: Props) => {
                 ) : null}
                 {title === 'ingredients' ? (
                     <IngredientsAddForm setAddBtn={setAddBtn} />
+                ) : null}
+                {title === 'coupons' ? (
+                    <CouponsAddForm setAddBtn={setAddBtn} />
                 ) : null}
             </div>
         </Container>

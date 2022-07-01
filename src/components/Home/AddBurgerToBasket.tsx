@@ -139,7 +139,7 @@ const Container = styled.div`
         background-color: ${(props) => props.theme.colors.cream};
         padding: 1rem;
         z-index: 10;
-        width: 40%;
+        width: 35%;
         height: 80vh;
         overflow: auto;
 
