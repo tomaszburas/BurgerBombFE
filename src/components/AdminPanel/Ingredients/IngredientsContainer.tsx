@@ -1,15 +1,18 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { AddBox } from '../AddBox';
-import { IngredientsItem } from './IngredientsItem';
-import { AdminPanelItems } from '../../../types/admin-panel-items';
+import { useEmit, useEventrixState } from 'eventrix';
+import { IngredientsAddForm } from './IngredientsAddForm';
+import { IngredientsItems } from './IngredientsItems';
 
 export const IngredientsContainer = () => {
-    const [addBtn, setAddBtn] = useState(false);
+    const emit = useEmit();
+    const [addForm] = useEventrixState<boolean>('addForm');
 
     return (
         <Container>
-            <button title="Add Ingredient" onClick={() => setAddBtn(true)}>
+            <button
+                title="Add Ingredient"
+                onClick={() => emit('addForm', true)}>
                 Add Ingredient
             </button>
             <div className="header">
@@ -19,15 +22,12 @@ export const IngredientsContainer = () => {
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
-                <IngredientsItem />
-                <IngredientsItem />
-                <IngredientsItem />
+                <IngredientsItems />
             </div>
-            {addBtn && (
-                <AddBox
-                    setAddBtn={setAddBtn}
-                    title={AdminPanelItems.INGREDIENTS}
-                />
+            {addForm && (
+                <AddBox>
+                    <IngredientsAddForm />
+                </AddBox>
             )}
         </Container>
     );

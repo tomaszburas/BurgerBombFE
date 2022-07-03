@@ -1,15 +1,17 @@
 import styled from 'styled-components';
-import { useState } from 'react';
 import { AddBox } from '../AddBox';
 import { CouponsItem } from './CouponsItem';
-import { AdminPanelItems } from '../../../types/admin-panel-items';
+import { useEmit, useEventrixState } from 'eventrix';
+import { CouponsAddForm } from './CouponsAddForm';
+import { Form } from '../../../types/formEnum';
 
 export const CouponsContainer = () => {
-    const [addBtn, setAddBtn] = useState(false);
+    const emit = useEmit();
+    const [addForm] = useEventrixState<boolean>('addForm');
 
     return (
         <Container>
-            <button title="Add Coupon" onClick={() => setAddBtn(true)}>
+            <button title="Add Coupon" onClick={() => emit('addForm', true)}>
                 Add Coupon
             </button>
             <div className="header">
@@ -20,8 +22,10 @@ export const CouponsContainer = () => {
             <div className="data-wrapper">
                 <CouponsItem />
             </div>
-            {addBtn && (
-                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.COUPONS} />
+            {addForm && (
+                <AddBox>
+                    <CouponsAddForm />
+                </AddBox>
             )}
         </Container>
     );

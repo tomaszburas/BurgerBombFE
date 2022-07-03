@@ -1,14 +1,16 @@
-import { useState } from 'react';
 import { AddBox } from '../AddBox';
 import styled from 'styled-components';
-import { AdminPanelItems } from '../../../types/admin-panel-items';
+import { useEmit, useEventrixState } from 'eventrix';
+import { InfoAddForm } from './InfoAddForm';
+import { Form } from '../../../types/formEnum';
 
 export const InfoContainer = () => {
-    const [addBtn, setAddBtn] = useState(false);
+    const emit = useEmit();
+    const [addForm] = useEventrixState<boolean>('addForm');
 
     return (
         <Container>
-            <button title="Edit Info" onClick={() => setAddBtn(true)}>
+            <button title="Edit Info" onClick={() => emit('addForm', true)}>
                 Edit Info
             </button>
             <div className="info-container">
@@ -41,8 +43,10 @@ export const InfoContainer = () => {
                     <p className="title">Sun</p>
                 </div>
             </div>
-            {addBtn && (
-                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.INFO} />
+            {addForm && (
+                <AddBox>
+                    <InfoAddForm />
+                </AddBox>
             )}
         </Container>
     );

@@ -7,10 +7,10 @@ import { Loader } from './Loader';
 
 interface Props {
     children: ReactElement;
-    auth: boolean;
+    checkAuth: boolean;
 }
 
-export const ProtectedRoute = ({ auth, children }: Props): any => {
+export const ProtectedRoute = ({ checkAuth, children }: Props): any => {
     const [isAuth] = useEventrixState('isAuth');
     const emit = useEmit();
 
@@ -32,11 +32,11 @@ export const ProtectedRoute = ({ auth, children }: Props): any => {
 
     if (isAuth === null) return <Loader />;
 
-    if (!auth) {
+    if (!checkAuth) {
         return !isAuth ? children : <Navigate to="/admin" />;
     }
 
-    if (auth) {
+    if (checkAuth) {
         return isAuth ? children : <Navigate to="/login" />;
     }
 };

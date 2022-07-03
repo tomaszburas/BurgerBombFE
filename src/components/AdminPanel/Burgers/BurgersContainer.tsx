@@ -1,15 +1,17 @@
-import { useState } from 'react';
 import { AddBox } from '../AddBox';
 import styled from 'styled-components';
 import { BurgersItem } from './BurgersItem';
-import { AdminPanelItems } from '../../../types/admin-panel-items';
+import { useEventrixState, useEmit } from 'eventrix';
+import { BurgersAddForm } from './BurgersAddForm';
+import { Form } from '../../../types/formEnum';
 
 export const BurgersContainer = () => {
-    const [addBtn, setAddBtn] = useState(false);
+    const emit = useEmit();
+    const [addForm] = useEventrixState<boolean>('addForm');
 
     return (
         <Container>
-            <button title="Add Admin" onClick={() => setAddBtn(true)}>
+            <button title="Add Admin" onClick={() => emit(Form.ADD, true)}>
                 Add Burger
             </button>
             <div className="header">
@@ -25,8 +27,10 @@ export const BurgersContainer = () => {
                 <BurgersItem />
                 <BurgersItem />
             </div>
-            {addBtn && (
-                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.BURGERS} />
+            {addForm && (
+                <AddBox>
+                    <BurgersAddForm />
+                </AddBox>
             )}
         </Container>
     );

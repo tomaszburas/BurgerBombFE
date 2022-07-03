@@ -7,7 +7,8 @@ export const CouponsItem = () => {
             <p className="name">Wer86767fdsg</p>
             <p className="value">10%</p>
             <div className="nav">
-                <NavItems />
+                <i className="bx bxs-edit" title="Edit" />
+                <i className="bx bx-trash" title="Remove" />
             </div>
         </Container>
     );

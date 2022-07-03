@@ -1,12 +1,10 @@
 import styled from 'styled-components';
+import { useEmit } from 'eventrix';
 
-interface Props {
-    setAddBtn: (param: boolean) => void;
-}
-
-export const InfoAddForm = ({ setAddBtn }: Props) => {
+export const InfoAddForm = () => {
+    const emit = useEmit();
     const handlerSaveBtn = () => {
-        setAddBtn(false);
+        emit('popUpBackground', false);
     };
 
     return (

@@ -1,41 +1,25 @@
 import styled from 'styled-components';
-import { AdminsAddForm } from './Admins/AdminsAddForm';
-import { BurgersAddForm } from './Burgers/BurgersAddForm';
-import { CouponsAddForm } from './Coupons/CouponsAddForm';
-import { InfoAddForm } from './Info/InfoAddForm';
-import { IngredientsAddForm } from './Ingredients/IngredientsAddForm';
-import { AdminPanelItems } from '../../types/admin-panel-items';
+import { useEmit } from 'eventrix';
+import { ReactNode } from 'react';
+import { Form } from '../../types/formEnum';
 
 interface Props {
-    setAddBtn: (param: boolean) => void;
-    title: string;
+    children: ReactNode;
 }
 
-export const AddBox = ({ setAddBtn, title }: Props) => {
+export const AddBox = ({ children }: Props) => {
+    const emit = useEmit();
+
     return (
         <Container>
-            <div className="bg" onClick={() => setAddBtn(false)} />
+            <div className="bg" onClick={() => emit(Form.ADD, false)} />
             <div className="wrapper-add-box">
                 <i
                     className="bx bx-x"
                     title="Close"
-                    onClick={() => setAddBtn(false)}
+                    onClick={() => emit(Form.ADD, false)}
                 />
-                {title === AdminPanelItems.ADMINS && (
-                    <AdminsAddForm setAddBtn={setAddBtn} />
-                )}
-                {title === AdminPanelItems.BURGERS && (
-                    <BurgersAddForm setAddBtn={setAddBtn} />
-                )}
-                {title === AdminPanelItems.INFO && (
-                    <InfoAddForm setAddBtn={setAddBtn} />
-                )}
-                {title === AdminPanelItems.INGREDIENTS && (
-                    <IngredientsAddForm setAddBtn={setAddBtn} />
-                )}
-                {title === AdminPanelItems.COUPONS && (
-                    <CouponsAddForm setAddBtn={setAddBtn} />
-                )}
+                {children}
             </div>
         </Container>
     );

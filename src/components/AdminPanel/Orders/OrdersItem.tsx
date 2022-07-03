@@ -26,7 +26,8 @@ export const OrdersItem = () => {
             <p className="pm">Card</p>
             <p className="status">new order</p>
             <div className="nav">
-                <NavItems />
+                <i className="bx bxs-edit" title="Edit" />
+                <i className="bx bx-trash" title="Remove" />
             </div>
         </Container>
     );

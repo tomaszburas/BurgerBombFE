@@ -15,7 +15,8 @@ export const BurgersItem = () => {
             </p>
             <p className="price">$ 9</p>
             <div className="nav">
-                <NavItems />
+                <i className="bx bxs-edit" title="Edit" />
+                <i className="bx bx-trash" title="Remove" />
             </div>
         </Container>
     );

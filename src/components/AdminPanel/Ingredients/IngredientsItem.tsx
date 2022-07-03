@@ -1,14 +1,21 @@
 import styled from 'styled-components';
-import { NavItems } from '../NavItems';
 
-export const IngredientsItem = () => {
+interface Props {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+}
+
+export const IngredientsItem = ({ id, name, price, quantity }: Props) => {
     return (
         <Container>
-            <p className="name">Cucumber</p>
-            <p className="price">$ 2</p>
-            <p className="quantity">20</p>
+            <p className="name">{name}</p>
+            <p className="price">$ {price}</p>
+            <p className="quantity">{quantity}</p>
             <div className="nav">
-                <NavItems />
+                <i className="bx bxs-edit" title="Edit" />
+                <i className="bx bx-trash" title="Remove" />
             </div>
         </Container>
     );

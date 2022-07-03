@@ -22,7 +22,7 @@ export const App = () => {
                     <Route
                         path="/admin"
                         element={
-                            <ProtectedRoute auth={true}>
+                            <ProtectedRoute checkAuth={true}>
                                 <AdminPanel />
                             </ProtectedRoute>
                         }
@@ -30,7 +30,7 @@ export const App = () => {
                     <Route
                         path="/login"
                         element={
-                            <ProtectedRoute auth={false}>
+                            <ProtectedRoute checkAuth={false}>
                                 <Login />
                             </ProtectedRoute>
                         }
