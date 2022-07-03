@@ -3,10 +3,7 @@ import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { useState } from 'react';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
-import { AddBox } from '../AddBox';
 import { AdminsEditForm } from './AdminsEditForm';
-import { useEmit, useEventrixState } from 'eventrix';
-import { Form } from '../../../types/formEnum';
 import { EditBox } from '../EditBox';
 
 interface Props {
