@@ -1,22 +1,43 @@
 import styled from 'styled-components';
-import { useEmit } from 'eventrix';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
 
-export const IngredientsAddForm = () => {
-    const emit = useEmit();
+interface Props {
+    id: string;
+    name: string;
+    price: number;
+    quantity: number;
+    setPopUp: (param: boolean) => void;
+}
+
+export const IngredientsEditForm = ({
+    id,
+    name,
+    price,
+    quantity,
+    setPopUp,
+}: Props) => {
     const [form, setForm] = useState({
-        name: '',
-        price: '',
-        quantity: '',
+        name: name,
+        price: price,
+        quantity: quantity,
     });
 
-    const handlerAddForm = async (e: FormEvent) => {
+    const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/ingredient`, {
-            method: 'POST',
+        if (
+            name === form.name &&
+            price === form.price &&
+            quantity === form.quantity
+        ) {
+            toast.warning('Please update data');
+            return;
+        }
+
+        const res = await fetch(`${HOSTPORT}/ingredient/${id}`, {
+            method: 'PUT',
             credentials: 'include',
             mode: 'cors',
             headers: {
@@ -36,13 +57,13 @@ export const IngredientsAddForm = () => {
             return;
         }
 
+        setPopUp(false);
         toast.success(data.message);
-        emit('addForm', false);
     };
 
     return (
         <Container>
-            <form onSubmit={handlerAddForm}>
+            <form onSubmit={handlerEditForm}>
                 <div className="input-box">
                     <input
                         type="text"
@@ -63,7 +84,7 @@ export const IngredientsAddForm = () => {
                         name="price"
                         value={form.price}
                         onChange={(e) =>
-                            setForm({ ...form, price: e.target.value })
+                            setForm({ ...form, price: Number(e.target.value) })
                         }
                         required
                     />
@@ -76,7 +97,10 @@ export const IngredientsAddForm = () => {
                         name="quantity"
                         value={form.quantity}
                         onChange={(e) =>
-                            setForm({ ...form, quantity: e.target.value })
+                            setForm({
+                                ...form,
+                                quantity: Number(e.target.value),
+                            })
                         }
                         required
                     />
