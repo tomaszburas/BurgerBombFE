@@ -3,21 +3,35 @@ import { FormEvent, useState } from 'react';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 import { Role } from 'types';
-import { useEmit } from 'eventrix';
 
-export const AdminsAddForm = () => {
-    const emit = useEmit();
+interface Props {
+    id: string;
+    email: string;
+    role: string;
+    setPopUp: (param: boolean) => void;
+}
+
+export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
     const [form, setForm] = useState({
-        email: '',
+        email: email,
         password: '',
-        role: Role.ADMIN.toString(),
+        role: role,
     });
 
-    const handlerAddForm = async (e: FormEvent) => {
+    const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/admin`, {
-            method: 'POST',
+        if (
+            email === form.email &&
+            form.password === '' &&
+            role === form.role
+        ) {
+            toast.warning('Please update data');
+            return;
+        }
+
+        const res = await fetch(`${HOSTPORT}/admin/${id}`, {
+            method: 'PUT',
             credentials: 'include',
             mode: 'cors',
             headers: {
@@ -37,13 +51,13 @@ export const AdminsAddForm = () => {
             return;
         }
 
+        setPopUp(false);
         toast.success(data.message);
-        emit('addForm', false);
     };
 
     return (
         <Container>
-            <form onSubmit={handlerAddForm}>
+            <form onSubmit={handlerEditForm}>
                 <div className="input-box">
                     <input
                         type="email"
@@ -52,7 +66,6 @@ export const AdminsAddForm = () => {
                         onChange={(e) =>
                             setForm({ ...form, email: e.target.value })
                         }
-                        required
                     />
                     <label htmlFor="email">Email</label>
                 </div>
@@ -64,7 +77,6 @@ export const AdminsAddForm = () => {
                         onChange={(e) =>
                             setForm({ ...form, password: e.target.value })
                         }
-                        required
                     />
                     <label htmlFor="password">Password</label>
                 </div>
@@ -76,8 +88,7 @@ export const AdminsAddForm = () => {
                         value={form.role}
                         onChange={(e) =>
                             setForm({ ...form, role: e.target.value })
-                        }
-                        required>
+                        }>
                         <option value={Role.ADMIN}>{Role.ADMIN}</option>
                         <option value={Role.SUPER_ADMIN}>
                             {Role.SUPER_ADMIN}

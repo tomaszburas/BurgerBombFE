@@ -8,7 +8,7 @@ import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
 import { IngredientsContainer } from '../components/AdminPanel/Ingredients/IngredientsContainer';
 import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer';
 import { CouponsContainer } from '../components/AdminPanel/Coupons/CouponsContainer';
-import { AdminPanelItems } from '../types/admin-panel-items';
+import { AdminPanelItems } from '../types/adminPanelItems';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState(AdminPanelItems.ORDERS);
@@ -176,6 +176,16 @@ const Container = styled.div`
                     width: 100%;
                 }
             }
+        }
+
+        .bxs-edit {
+            color: ${(props) => props.theme.colors.eden};
+            cursor: pointer;
+        }
+
+        .bx-trash {
+            color: ${(props) => props.theme.colors.red};
+            cursor: pointer;
         }
     }
 `;

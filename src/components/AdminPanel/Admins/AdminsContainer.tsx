@@ -1,15 +1,21 @@
 import styled from 'styled-components';
-import { AdminsItem } from './AdminsItem';
-import { useState } from 'react';
+import { AdminsItems } from './AdminsItems';
 import { AddBox } from '../AddBox';
-import { AdminPanelItems } from '../../../types/admin-panel-items';
+import { useEventrixState, useEmit } from 'eventrix';
+import { AdminsAddForm } from './AdminsAddForm';
+import { Form } from '../../../types/formEnum';
 
 export const AdminsContainer = () => {
-    const [addBtn, setAddBtn] = useState(false);
+    const [addForm] = useEventrixState<boolean>('addForm');
+    const emit = useEmit();
+
+    const handlerBtn = () => {
+        emit(Form.ADD, true);
+    };
 
     return (
         <Container>
-            <button title="Add Admin" onClick={() => setAddBtn(true)}>
+            <button title="Add Admin" onClick={handlerBtn}>
                 Add Admin
             </button>
             <div className="header">
@@ -18,18 +24,12 @@ export const AdminsContainer = () => {
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
-                <AdminsItem />
+                <AdminsItems />
             </div>
-            {addBtn && (
-                <AddBox setAddBtn={setAddBtn} title={AdminPanelItems.ADMINS} />
+            {addForm && (
+                <AddBox>
+                    <AdminsAddForm />
+                </AddBox>
             )}
         </Container>
     );
