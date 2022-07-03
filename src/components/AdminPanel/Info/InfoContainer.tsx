@@ -1,8 +1,8 @@
 import { AddBox } from '../AddBox';
 import styled from 'styled-components';
 import { useEmit, useEventrixState } from 'eventrix';
-import { InfoAddForm } from './InfoAddForm';
-import { Form } from '../../../types/formEnum';
+import { InfoEditForm } from './InfoEditForm';
+import { InfoItems } from './InfoItems';
 
 export const InfoContainer = () => {
     const emit = useEmit();
@@ -32,20 +32,12 @@ export const InfoContainer = () => {
                     </div>
                 </div>
                 <div className="data-wrapper">
-                    <p className="title">Street</p>
-                    <p className="title">Number</p>
-                    <p className="title">Zip Code</p>
-                    <p className="title">City</p>
-                    <p className="title">Phone</p>
-                    <p className="title">Email</p>
-                    <p className="title">Mon-Thu</p>
-                    <p className="title">Fri-Sat</p>
-                    <p className="title">Sun</p>
+                    <InfoItems />
                 </div>
             </div>
             {addForm && (
                 <AddBox>
-                    <InfoAddForm />
+                    <InfoEditForm />
                 </AddBox>
             )}
         </Container>
