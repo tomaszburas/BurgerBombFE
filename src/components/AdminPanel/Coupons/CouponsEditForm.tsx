@@ -4,18 +4,29 @@ import { FormEvent, useState } from 'react';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 
-export const CouponsAddForm = () => {
-    const emit = useEmit();
+interface Props {
+    id: string;
+    name: string;
+    value: number;
+    setPopUp: (param: boolean) => void;
+}
+
+export const CouponsEditForm = ({ id, name, value, setPopUp }: Props) => {
     const [form, setForm] = useState({
-        name: '',
-        value: '',
+        name,
+        value,
     });
 
-    const handlerAddForm = async (e: FormEvent) => {
+    const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/coupon`, {
-            method: 'POST',
+        if (name === form.name && value === form.value) {
+            toast.warning('Please update data');
+            return;
+        }
+
+        const res = await fetch(`${HOSTPORT}/coupon/${id}`, {
+            method: 'PUT',
             credentials: 'include',
             mode: 'cors',
             headers: {
@@ -34,13 +45,13 @@ export const CouponsAddForm = () => {
             return;
         }
 
+        setPopUp(false);
         toast.success(data.message);
-        emit('addForm', false);
     };
 
     return (
         <Container>
-            <form onSubmit={handlerAddForm}>
+            <form onSubmit={handlerEditForm}>
                 <div className="input-box">
                     <input
                         type="text"
@@ -61,7 +72,7 @@ export const CouponsAddForm = () => {
                         max="100"
                         value={form.value}
                         onChange={(e) =>
-                            setForm({ ...form, value: e.target.value })
+                            setForm({ ...form, value: Number(e.target.value) })
                         }
                         required
                     />

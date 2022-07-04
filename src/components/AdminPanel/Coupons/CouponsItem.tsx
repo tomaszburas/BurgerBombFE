@@ -1,15 +1,70 @@
 import styled from 'styled-components';
-import { NavItems } from '../NavItems';
+import { useState } from 'react';
+import { HOSTPORT } from '../../../config';
+import { toast } from 'react-toastify';
+import { ConfirmationPopUp } from '../ConfirmationPopUp';
+import { EditBox } from '../EditBox';
+import { CouponsEditForm } from './CouponsEditForm';
 
-export const CouponsItem = () => {
+interface Props {
+    id: string;
+    value: number;
+    name: string;
+}
+
+export const CouponsItem = ({ id, value, name }: Props) => {
+    const [removePopUp, setRemovePopUp] = useState(false);
+    const [editBg, setEditBg] = useState(false);
+
+    const handlerRemoveBtn = async () => {
+        const res = await fetch(`${HOSTPORT}/coupon/${id}`, {
+            method: 'DELETE',
+            credentials: 'include',
+            mode: 'cors',
+        });
+        const data = await res.json();
+
+        setRemovePopUp(false);
+        if (data.success) {
+            toast.success(data.message);
+        } else {
+            toast.error(data.message);
+        }
+    };
+
     return (
         <Container>
-            <p className="name">Wer86767fdsg</p>
-            <p className="value">10%</p>
+            <p className="name">{name}</p>
+            <p className="value">{value}%</p>
             <div className="nav">
-                <i className="bx bxs-edit" title="Edit" />
-                <i className="bx bx-trash" title="Remove" />
+                <i
+                    className="bx bxs-edit"
+                    title="Edit"
+                    onClick={() => setEditBg(true)}
+                />
+                <i
+                    className="bx bx-trash"
+                    title="Remove"
+                    onClick={() => setRemovePopUp(true)}
+                />
             </div>
+            {removePopUp && (
+                <ConfirmationPopUp
+                    title={`Are you sure you want to coupon ${name}?`}
+                    setPopUp={setRemovePopUp}
+                    handlerRemoveBtn={handlerRemoveBtn}
+                />
+            )}
+            {editBg && (
+                <EditBox setPopUp={setEditBg}>
+                    <CouponsEditForm
+                        id={id}
+                        name={name}
+                        value={value}
+                        setPopUp={setEditBg}
+                    />
+                </EditBox>
+            )}
         </Container>
     );
 };

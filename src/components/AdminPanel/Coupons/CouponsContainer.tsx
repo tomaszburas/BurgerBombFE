@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import { AddBox } from '../AddBox';
-import { CouponsItem } from './CouponsItem';
 import { useEmit, useEventrixState } from 'eventrix';
 import { CouponsAddForm } from './CouponsAddForm';
-import { Form } from '../../../types/formEnum';
+import { CouponsItems } from './CouponsItems';
 
 export const CouponsContainer = () => {
     const emit = useEmit();
@@ -20,7 +19,7 @@ export const CouponsContainer = () => {
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
-                <CouponsItem />
+                <CouponsItems />
             </div>
             {addForm && (
                 <AddBox>
