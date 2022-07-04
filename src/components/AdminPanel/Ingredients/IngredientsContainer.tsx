@@ -18,7 +18,6 @@ export const IngredientsContainer = () => {
             <div className="header">
                 <p className="name">Name</p>
                 <p className="price">Price</p>
-                <p className="quantity">Quantity</p>
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
@@ -45,16 +44,11 @@ const Container = styled.div`
     }
 
     .name {
-        width: 50%;
+        width: 70%;
         margin-right: 1rem;
     }
 
     .price {
-        width: 20%;
-        margin-right: 1rem;
-    }
-
-    .quantity {
         width: 20%;
         margin-right: 1rem;
     }

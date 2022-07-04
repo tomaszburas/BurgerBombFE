@@ -7,31 +7,19 @@ interface Props {
     id: string;
     name: string;
     price: number;
-    quantity: number;
     setPopUp: (param: boolean) => void;
 }
 
-export const IngredientsEditForm = ({
-    id,
-    name,
-    price,
-    quantity,
-    setPopUp,
-}: Props) => {
+export const IngredientsEditForm = ({ id, name, price, setPopUp }: Props) => {
     const [form, setForm] = useState({
         name: name,
         price: price,
-        quantity: quantity,
     });
 
     const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        if (
-            name === form.name &&
-            price === form.price &&
-            quantity === form.quantity
-        ) {
+        if (name === form.name && price === form.price) {
             toast.warning('Please update data');
             return;
         }
@@ -46,7 +34,6 @@ export const IngredientsEditForm = ({
             body: JSON.stringify({
                 name: form.name.trim(),
                 price: Number(form.price),
-                quantity: Number(form.quantity),
             }),
         });
 
@@ -89,22 +76,6 @@ export const IngredientsEditForm = ({
                         required
                     />
                     <label htmlFor="price">Price</label>
-                </div>
-                <div className="input-box">
-                    <input
-                        type="number"
-                        id="quantity"
-                        name="quantity"
-                        value={form.quantity}
-                        onChange={(e) =>
-                            setForm({
-                                ...form,
-                                quantity: Number(e.target.value),
-                            })
-                        }
-                        required
-                    />
-                    <label htmlFor="quantity">Quantity</label>
                 </div>
                 <div className="button-wrapper">
                     <button title="Save">Save</button>

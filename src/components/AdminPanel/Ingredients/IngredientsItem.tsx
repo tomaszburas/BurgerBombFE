@@ -4,17 +4,15 @@ import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { EditBox } from '../EditBox';
-import { AdminsEditForm } from '../Admins/AdminsEditForm';
 import { IngredientsEditForm } from './IngredientsEditForm';
 
 interface Props {
     id: string;
     name: string;
     price: number;
-    quantity: number;
 }
 
-export const IngredientsItem = ({ id, name, price, quantity }: Props) => {
+export const IngredientsItem = ({ id, name, price }: Props) => {
     const [removePopUp, setRemovePopUp] = useState(false);
     const [editBg, setEditBg] = useState(false);
 
@@ -38,7 +36,6 @@ export const IngredientsItem = ({ id, name, price, quantity }: Props) => {
         <Container>
             <p className="name">{name}</p>
             <p className="price">$ {price}</p>
-            <p className="quantity">{quantity}</p>
             <div className="nav">
                 <i
                     className="bx bxs-edit"
@@ -64,7 +61,6 @@ export const IngredientsItem = ({ id, name, price, quantity }: Props) => {
                         id={id}
                         name={name}
                         price={price}
-                        quantity={quantity}
                         setPopUp={setEditBg}
                     />
                 </EditBox>

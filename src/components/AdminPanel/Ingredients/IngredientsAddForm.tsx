@@ -9,7 +9,6 @@ export const IngredientsAddForm = () => {
     const [form, setForm] = useState({
         name: '',
         price: '',
-        quantity: '',
     });
 
     const handlerAddForm = async (e: FormEvent) => {
@@ -25,7 +24,6 @@ export const IngredientsAddForm = () => {
             body: JSON.stringify({
                 name: form.name.trim(),
                 price: Number(form.price),
-                quantity: Number(form.quantity),
             }),
         });
 
@@ -68,19 +66,6 @@ export const IngredientsAddForm = () => {
                         required
                     />
                     <label htmlFor="price">Price</label>
-                </div>
-                <div className="input-box">
-                    <input
-                        type="number"
-                        id="quantity"
-                        name="quantity"
-                        value={form.quantity}
-                        onChange={(e) =>
-                            setForm({ ...form, quantity: e.target.value })
-                        }
-                        required
-                    />
-                    <label htmlFor="quantity">Quantity</label>
                 </div>
                 <div className="button-wrapper">
                     <button title="Save">Save</button>

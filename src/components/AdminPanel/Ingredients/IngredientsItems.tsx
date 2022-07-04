@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { HOSTPORT } from '../../../config';
 import { LoaderData } from '../LoaderData';
 import { NoData } from '../NoData';
-import styled from 'styled-components';
 import { IngredientsItem } from './IngredientsItem';
 
 export const IngredientsItems = () => {
@@ -26,14 +25,14 @@ export const IngredientsItems = () => {
 
     if (ingredients === null) {
         return (
-            <Container>
+            <>
                 <LoaderData />
-            </Container>
+            </>
         );
     }
 
     return (
-        <Container>
+        <>
             {ingredients.length === 0 ? (
                 <NoData />
             ) : (
@@ -43,12 +42,9 @@ export const IngredientsItems = () => {
                         id={ingredient.id}
                         name={ingredient.name}
                         price={ingredient.price}
-                        quantity={ingredient.quantity}
                     />
                 ))
             )}
-        </Container>
+        </>
     );
 };
-
-const Container = styled.div``;
