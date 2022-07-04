@@ -36,6 +36,7 @@ export const Login = () => {
 
         await emit('isAuth', true);
         navigate('/admin');
+        toast.success(data.message);
     };
 
     return (

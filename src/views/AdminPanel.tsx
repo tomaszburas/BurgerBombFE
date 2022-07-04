@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AdminHeader } from '../components/Headers/AdminHeader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BotdContainer } from '../components/AdminPanel/Botd/BotdContainer';
 import { AdminsContainer } from '../components/AdminPanel/Admins/AdminsContainer';
 import { BurgersContainer } from '../components/AdminPanel/Burgers/BurgersContainer';
@@ -9,9 +9,31 @@ import { IngredientsContainer } from '../components/AdminPanel/Ingredients/Ingre
 import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer';
 import { CouponsContainer } from '../components/AdminPanel/Coupons/CouponsContainer';
 import { AdminPanelItems } from '../types/adminPanelItems';
+import { useEmit } from 'eventrix';
+import { HOSTPORT } from '../config';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState(AdminPanelItems.ORDERS);
+    const emit = useEmit();
+
+    useEffect(() => {
+        (async () => {
+            const resBurgers = fetch(`${HOSTPORT}/burger`, {
+                credentials: 'include',
+                mode: 'cors',
+            });
+            const resIngredients = fetch(`${HOSTPORT}/ingredient`, {
+                credentials: 'include',
+                mode: 'cors',
+            });
+
+            const res = await Promise.all([resBurgers, resIngredients]);
+            const data = await Promise.all(res.map((el) => el.json()));
+
+            emit('burgers:set', data[0].burgers);
+            emit('ingredients:set', data[1].ingredients);
+        })();
+    }, [emit]);
 
     return (
         <Container>

@@ -17,9 +17,9 @@ export const InfoItems = () => {
             });
             const data = await res.json();
 
-            emit('info', data.info);
+            emit('info:set', data.info);
         })();
-    }, [info]);
+    }, [emit]);
 
     if (info === null) {
         return (

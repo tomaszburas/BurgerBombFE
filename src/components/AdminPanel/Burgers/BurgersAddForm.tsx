@@ -1,15 +1,28 @@
 import styled from 'styled-components';
-import { useEmit } from 'eventrix';
+import { useEmit, useEventrixState } from 'eventrix';
+import { FormEvent, useState } from 'react';
+import { IngredientEntityResponse } from 'types';
+import { LoaderData } from '../LoaderData';
+import { NoData } from '../NoData';
 
 export const BurgersAddForm = () => {
     const emit = useEmit();
-    const handlerSaveBtn = () => {
-        emit('popUpBackground', false);
+    const [ingredients] =
+        useEventrixState<IngredientEntityResponse[]>('ingredients');
+    const [form, setForm] = useState({
+        name: '',
+        price: '',
+        img: '',
+        ingredients: [],
+    });
+
+    const handlerAddForm = async (e: FormEvent) => {
+        e.preventDefault();
     };
 
     return (
         <Container>
-            <form>
+            <form onSubmit={handlerAddForm}>
                 <div className="input-box">
                     <input type="text" id="name" />
                     <label htmlFor="name">Name</label>
@@ -25,40 +38,30 @@ export const BurgersAddForm = () => {
                 <div className="cb-input">
                     <span className="title">Ingredients</span>
                     <div className="cb-wrapper">
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
-                        <div className="cb-container">
-                            <input type="checkbox" id="tomato" name="tomato" />
-                            <label htmlFor="tomato">tomato</label>
-                        </div>
+                        {ingredients === null ? (
+                            <LoaderData />
+                        ) : ingredients.length > 0 ? (
+                            ingredients.map((ingredient) => (
+                                <div
+                                    className="cb-container"
+                                    key={ingredient.id}>
+                                    <input
+                                        type="checkbox"
+                                        id={ingredient.id}
+                                        name={ingredient.id}
+                                    />
+                                    <label htmlFor={ingredient.id}>
+                                        {ingredient.name}
+                                    </label>
+                                </div>
+                            ))
+                        ) : (
+                            <NoData />
+                        )}
                     </div>
                 </div>
                 <div className="button-wrapper">
-                    <button title="Save" onClick={handlerSaveBtn}>
-                        Save
-                    </button>
+                    <button title="Save">Save</button>
                 </div>
             </form>
         </Container>
@@ -107,9 +110,9 @@ const Container = styled.div`
             }
 
             .cb-wrapper {
-                height: 10rem;
+                max-height: 10rem;
                 overflow: auto;
-                margin-top: 0.5rem;
+                margin-top: 0.7rem;
 
                 .cb-container {
                     font-size: ${(props) => props.theme.fontSize.sm};

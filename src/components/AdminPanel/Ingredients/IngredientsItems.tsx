@@ -19,9 +19,9 @@ export const IngredientsItems = () => {
             });
             const data = await res.json();
 
-            emit('ingredients', data.ingredients);
+            emit('ingredients:set', data.ingredients);
         })();
-    }, [ingredients]);
+    }, [emit]);
 
     if (ingredients === null) {
         return (

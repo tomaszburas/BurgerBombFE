@@ -16,6 +16,7 @@ export const CouponsEditForm = ({ id, name, value, setPopUp }: Props) => {
         name,
         value,
     });
+    const emit = useEmit();
 
     const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
@@ -45,6 +46,7 @@ export const CouponsEditForm = ({ id, name, value, setPopUp }: Props) => {
             return;
         }
 
+        emit('coupons:update', data.coupon);
         setPopUp(false);
         toast.success(data.message);
     };

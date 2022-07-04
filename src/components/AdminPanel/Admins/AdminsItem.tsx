@@ -5,6 +5,7 @@ import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 import { AdminsEditForm } from './AdminsEditForm';
 import { EditBox } from '../EditBox';
+import { useEmit } from 'eventrix';
 
 interface Props {
     id: string;
@@ -15,6 +16,7 @@ interface Props {
 export const AdminsItem = ({ id, email, role }: Props) => {
     const [removePopUp, setRemovePopUp] = useState(false);
     const [editBg, setEditBg] = useState(false);
+    const emit = useEmit();
 
     const handlerRemoveBtn = async () => {
         const res = await fetch(`${HOSTPORT}/admin/${id}`, {
@@ -26,6 +28,7 @@ export const AdminsItem = ({ id, email, role }: Props) => {
 
         setRemovePopUp(false);
         if (data.success) {
+            emit('users:remove', data.id);
             toast.success(data.message);
         } else {
             toast.error(data.message);

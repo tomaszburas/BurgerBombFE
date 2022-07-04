@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { EditBox } from '../EditBox';
 import { CouponsEditForm } from './CouponsEditForm';
+import { useEmit } from 'eventrix';
 
 interface Props {
     id: string;
@@ -15,6 +16,7 @@ interface Props {
 export const CouponsItem = ({ id, value, name }: Props) => {
     const [removePopUp, setRemovePopUp] = useState(false);
     const [editBg, setEditBg] = useState(false);
+    const emit = useEmit();
 
     const handlerRemoveBtn = async () => {
         const res = await fetch(`${HOSTPORT}/coupon/${id}`, {
@@ -26,6 +28,7 @@ export const CouponsItem = ({ id, value, name }: Props) => {
 
         setRemovePopUp(false);
         if (data.success) {
+            emit('coupons:remove', data.id);
             toast.success(data.message);
         } else {
             toast.error(data.message);

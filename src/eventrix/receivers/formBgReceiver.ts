@@ -1,11 +1,10 @@
 import { EventsReceiver } from 'eventrix';
-import { Form } from '../../types/formEnum';
 
 const addFormReceiver = new EventsReceiver(
-    Form.ADD,
+    'addForm',
     (eventName, value, stateManager) => {
-        stateManager.setState(Form.ADD, value);
+        stateManager.setState('addForm', value);
     }
 );
 
-export default [addFormReceiver];
+export default addFormReceiver;

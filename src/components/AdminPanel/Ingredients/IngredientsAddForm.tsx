@@ -35,6 +35,7 @@ export const IngredientsAddForm = () => {
         }
 
         toast.success(data.message);
+        emit('ingredients:add', data.ingredient);
         emit('addForm', false);
     };
 

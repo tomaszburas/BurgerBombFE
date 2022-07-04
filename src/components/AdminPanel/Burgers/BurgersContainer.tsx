@@ -1,9 +1,8 @@
 import { AddBox } from '../AddBox';
 import styled from 'styled-components';
-import { BurgersItem } from './BurgersItem';
 import { useEventrixState, useEmit } from 'eventrix';
 import { BurgersAddForm } from './BurgersAddForm';
-import { Form } from '../../../types/formEnum';
+import { BurgersItems } from './BurgersItems';
 
 export const BurgersContainer = () => {
     const emit = useEmit();
@@ -11,7 +10,7 @@ export const BurgersContainer = () => {
 
     return (
         <Container>
-            <button title="Add Admin" onClick={() => emit(Form.ADD, true)}>
+            <button title="Add Burger" onClick={() => emit('addForm', true)}>
                 Add Burger
             </button>
             <div className="header">
@@ -22,10 +21,7 @@ export const BurgersContainer = () => {
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
-                <BurgersItem />
-                <BurgersItem />
-                <BurgersItem />
-                <BurgersItem />
+                <BurgersItems />
             </div>
             {addForm && (
                 <AddBox>

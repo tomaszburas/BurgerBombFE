@@ -39,6 +39,7 @@ export const AdminsAddForm = () => {
 
         toast.success(data.message);
         emit('addForm', false);
+        emit('users:add', data.user);
     };
 
     return (

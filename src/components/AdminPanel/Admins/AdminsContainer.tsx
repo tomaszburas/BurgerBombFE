@@ -3,14 +3,13 @@ import { AdminsItems } from './AdminsItems';
 import { AddBox } from '../AddBox';
 import { useEventrixState, useEmit } from 'eventrix';
 import { AdminsAddForm } from './AdminsAddForm';
-import { Form } from '../../../types/formEnum';
 
 export const AdminsContainer = () => {
     const [addForm] = useEventrixState<boolean>('addForm');
     const emit = useEmit();
 
     const handlerBtn = () => {
-        emit(Form.ADD, true);
+        emit('addForm', true);
     };
 
     return (

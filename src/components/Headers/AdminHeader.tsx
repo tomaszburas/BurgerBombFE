@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
 import { HOSTPORT } from '../../config';
 import { useEmit } from 'eventrix';
+import { toast } from 'react-toastify';
 
 export const AdminHeader = () => {
     const navigate = useNavigate();
@@ -18,6 +19,7 @@ export const AdminHeader = () => {
         if (data.success) {
             emit('isAuth', false);
             navigate('/login');
+            toast.success(data.message);
         }
     };
 

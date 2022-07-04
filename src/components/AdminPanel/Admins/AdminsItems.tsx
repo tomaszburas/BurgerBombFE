@@ -18,10 +18,9 @@ export const AdminsItems = () => {
                 mode: 'cors',
             });
             const data = await res.json();
-
-            emit('users', data.users);
+            emit('users:set', data.users);
         })();
-    }, [users]);
+    }, [emit]);
 
     if (users === null) {
         return (
@@ -36,7 +35,7 @@ export const AdminsItems = () => {
             {users.length === 0 ? (
                 <NoData />
             ) : (
-                users.map((user) => (
+                users.map((user: AdminEntityResponse) => (
                     <AdminsItem
                         key={user.id}
                         id={user.id}

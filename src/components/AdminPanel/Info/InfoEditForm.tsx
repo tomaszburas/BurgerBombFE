@@ -77,6 +77,7 @@ export const InfoEditForm = () => {
             return;
         }
 
+        emit('info:update', data.info);
         emit('addForm', false);
         toast.success(data.message);
     };

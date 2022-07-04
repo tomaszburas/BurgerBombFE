@@ -35,6 +35,7 @@ export const CouponsAddForm = () => {
         }
 
         toast.success(data.message);
+        emit('coupons:add', data.coupon);
         emit('addForm', false);
     };
 

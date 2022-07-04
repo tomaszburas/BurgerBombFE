@@ -1,9 +1,16 @@
 import { EventsReceiver } from 'eventrix';
 
 const infoReceiver = new EventsReceiver(
-    'info',
+    ['info:set', 'info:update'],
     (eventName, value, stateManager) => {
-        stateManager.setState('info', value);
+        const info = stateManager.getState('info');
+
+        if (eventName === 'info:set') {
+            stateManager.setState('info', value);
+        }
+        if (eventName === 'info:update') {
+            stateManager.setState('info', value);
+        }
     }
 );
 

@@ -1,8 +1,9 @@
 import { Eventrix } from 'eventrix';
 import isAuthReceiver from './receivers/isAuthReceiver';
-import usersReceiver from './receivers/usersReceiver';
+import { usersReceiver } from './receivers/usersReceiver';
 import {
     AdminEntityResponse,
+    BurgerEntityResponse,
     CouponEntityResponse,
     InfoEntityResponse,
     IngredientEntityResponse,
@@ -11,12 +12,14 @@ import formBgReceiver from './receivers/formBgReceiver';
 import ingredientsReceiver from './receivers/ingredientsReceiver';
 import infoReceiver from './receivers/infoReceiver';
 import couponsReceiver from './receivers/couponReceiver';
+import burgersReceiver from './receivers/burgersReceiver';
 
 interface State {
     isAuth: null | boolean;
     users: null | AdminEntityResponse[];
     ingredients: null | IngredientEntityResponse[];
     coupons: null | CouponEntityResponse[];
+    burgers: null | BurgerEntityResponse[];
     info: null | InfoEntityResponse;
     addForm: boolean;
 }
@@ -26,6 +29,7 @@ const initialState: State = {
     users: null,
     ingredients: null,
     coupons: null,
+    burgers: null,
     info: null,
     addForm: false,
 };
@@ -36,7 +40,8 @@ const eventsReceiver = [
     ingredientsReceiver,
     couponsReceiver,
     infoReceiver,
-    ...formBgReceiver,
+    burgersReceiver,
+    formBgReceiver,
 ];
 
 const eventrixStore = new Eventrix(initialState, eventsReceiver);

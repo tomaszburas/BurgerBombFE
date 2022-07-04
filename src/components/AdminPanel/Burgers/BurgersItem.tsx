@@ -1,19 +1,23 @@
 import styled from 'styled-components';
 import burgerImg from '../../../assets/images/burgers/avobeko.png';
-import { NavItems } from '../NavItems';
 
-export const BurgersItem = () => {
+interface Props {
+    id: string;
+    name: string;
+    price: number;
+    ingredients: string[];
+    img: string;
+}
+
+export const BurgersItem = ({ id, name, price, ingredients, img }: Props) => {
     return (
         <Container>
             <div className="img">
                 <img src={burgerImg} alt="Avobeko Burger" />
             </div>
-            <p className="name">AVOBEKO BURGER</p>
-            <p className="ingredients">
-                Black Angus beef, avocado, bacon, Cheddar cheese, tomato, red
-                onion, pickled cucumber, fresh arugula, and sauce.
-            </p>
-            <p className="price">$ 9</p>
+            <p className="name">{name} burger</p>
+            <p className="ingredients">{ingredients}</p>
+            <p className="price">$ {price}</p>
             <div className="nav">
                 <i className="bx bxs-edit" title="Edit" />
                 <i className="bx bx-trash" title="Remove" />

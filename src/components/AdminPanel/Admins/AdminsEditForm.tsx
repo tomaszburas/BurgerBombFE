@@ -3,6 +3,7 @@ import { FormEvent, useState } from 'react';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 import { Role } from 'types';
+import { useEmit } from 'eventrix';
 
 interface Props {
     id: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
+    const emit = useEmit();
     const [form, setForm] = useState({
         email: email,
         password: '',
@@ -51,6 +53,7 @@ export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
             return;
         }
 
+        emit('users:update', data.user);
         setPopUp(false);
         toast.success(data.message);
     };

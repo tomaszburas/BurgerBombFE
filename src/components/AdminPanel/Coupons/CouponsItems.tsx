@@ -18,9 +18,9 @@ export const CouponsItems = () => {
             });
             const data = await res.json();
 
-            emit('coupons', data.coupons);
+            emit('coupons:set', data.coupons);
         })();
-    }, [coupons]);
+    }, [emit]);
 
     if (coupons === null) {
         return (

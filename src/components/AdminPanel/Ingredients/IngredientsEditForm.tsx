@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
+import { useEmit } from 'eventrix';
 
 interface Props {
     id: string;
@@ -15,6 +16,7 @@ export const IngredientsEditForm = ({ id, name, price, setPopUp }: Props) => {
         name,
         price,
     });
+    const emit = useEmit();
 
     const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
@@ -44,6 +46,7 @@ export const IngredientsEditForm = ({ id, name, price, setPopUp }: Props) => {
             return;
         }
 
+        emit('ingredients:update', data.ingredient);
         setPopUp(false);
         toast.success(data.message);
     };
