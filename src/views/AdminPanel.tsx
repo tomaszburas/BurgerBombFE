@@ -158,6 +158,7 @@ const Container = styled.div`
                     margin-right: 1rem;
                     border: 1px solid;
                     padding: 1rem;
+                    width: 15%;
 
                     .active {
                         font-weight: 600;
