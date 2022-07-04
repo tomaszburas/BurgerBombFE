@@ -12,8 +12,8 @@ interface Props {
 
 export const IngredientsEditForm = ({ id, name, price, setPopUp }: Props) => {
     const [form, setForm] = useState({
-        name: name,
-        price: price,
+        name,
+        price,
     });
 
     const handlerEditForm = async (e: FormEvent) => {

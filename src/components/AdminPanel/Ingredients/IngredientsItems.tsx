@@ -37,12 +37,7 @@ export const IngredientsItems = () => {
                 <NoData />
             ) : (
                 ingredients.map((ingredient) => (
-                    <IngredientsItem
-                        key={ingredient.id}
-                        id={ingredient.id}
-                        name={ingredient.name}
-                        price={ingredient.price}
-                    />
+                    <IngredientsItem key={ingredient.id} {...ingredient} />
                 ))
             )}
         </>
