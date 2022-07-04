@@ -1,5 +1,5 @@
 import { EventsReceiver } from 'eventrix';
-import { Form } from '../types/formEnum';
+import { Form } from '../../types/formEnum';
 
 const addFormReceiver = new EventsReceiver(
     Form.ADD,
