@@ -1,47 +1,18 @@
 import styled from 'styled-components';
-import { useEmit } from 'eventrix';
-import { HOSTPORT } from '../../../config';
-import { toast } from 'react-toastify';
-import { FormEvent, useState } from 'react';
+import { FormEvent } from 'react';
+import { NewIngredientEntity, Form } from 'types';
 
-export const IngredientsAddForm = () => {
-    const emit = useEmit();
-    const [form, setForm] = useState({
-        name: '',
-        price: '',
-    });
+interface Props {
+    handler: (e: FormEvent) => void;
+    form: NewIngredientEntity;
+    setForm: (elements: NewIngredientEntity) => void;
+    name: Form;
+}
 
-    const handlerAddForm = async (e: FormEvent) => {
-        e.preventDefault();
-
-        const res = await fetch(`${HOSTPORT}/ingredient`, {
-            method: 'POST',
-            credentials: 'include',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: form.name.trim(),
-                price: Number(form.price),
-            }),
-        });
-
-        const data = await res.json();
-
-        if (!data.success) {
-            toast.error(data.message);
-            return;
-        }
-
-        toast.success(data.message);
-        emit('ingredients:add', data.ingredient);
-        emit('addForm', false);
-    };
-
+export const IngredientsForm = ({ handler, form, setForm, name }: Props) => {
     return (
         <Container>
-            <form onSubmit={handlerAddForm}>
+            <form onSubmit={handler}>
                 <div className="input-box">
                     <input
                         type="text"
@@ -51,7 +22,7 @@ export const IngredientsAddForm = () => {
                         onChange={(e) =>
                             setForm({ ...form, name: e.target.value })
                         }
-                        required
+                        required={name === Form.ADD}
                     />
                     <label htmlFor="name">Name</label>
                 </div>
@@ -62,9 +33,9 @@ export const IngredientsAddForm = () => {
                         name="price"
                         value={form.price}
                         onChange={(e) =>
-                            setForm({ ...form, price: e.target.value })
+                            setForm({ ...form, price: Number(e.target.value) })
                         }
-                        required
+                        required={name === Form.ADD}
                     />
                     <label htmlFor="price">Price</label>
                 </div>

@@ -1,20 +1,22 @@
-import { AddBox } from '../AddBox';
 import styled from 'styled-components';
-import { useEventrixState, useEmit } from 'eventrix';
-import { BurgersAddForm } from './BurgersAddForm';
+import { useEmit, useEventrixState } from 'eventrix';
+import { BurgersAddForm } from './Form/BurgersAddForm';
 import { BurgersItems } from './BurgersItems';
+import { Form } from 'types';
+import { FormBox } from '../FormBox';
 
 export const BurgersContainer = () => {
     const emit = useEmit();
-    const [addForm] = useEventrixState<boolean>('addForm');
+    const [addForm] = useEventrixState<boolean>(Form.ADD);
 
     return (
         <Container>
-            <button title="Add Burger" onClick={() => emit('addForm', true)}>
+            <button title="Add Burger" onClick={() => emit(Form.ADD, true)}>
                 Add Burger
             </button>
             <div className="header">
-                <p className="img">Image</p>
+                <p className="menu">Menu</p>
+                <p className="img">Img</p>
                 <p className="name">Name</p>
                 <p className="ingredients">Ingredients</p>
                 <p className="price">Price</p>
@@ -24,9 +26,9 @@ export const BurgersContainer = () => {
                 <BurgersItems />
             </div>
             {addForm && (
-                <AddBox>
+                <FormBox name={Form.ADD}>
                     <BurgersAddForm />
-                </AddBox>
+                </FormBox>
             )}
         </Container>
     );
@@ -43,6 +45,11 @@ const Container = styled.div`
         font-weight: 500;
     }
 
+    .menu {
+        width: 10%;
+        margin-right: 1rem;
+    }
+
     .img {
         width: 10%;
         margin-right: 1rem;
@@ -54,7 +61,7 @@ const Container = styled.div`
     }
 
     .ingredients {
-        width: 40%;
+        width: 30%;
         margin-right: 1rem;
     }
 

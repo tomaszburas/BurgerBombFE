@@ -1,16 +1,17 @@
-import { AddBox } from '../AddBox';
 import styled from 'styled-components';
 import { useEmit, useEventrixState } from 'eventrix';
 import { InfoEditForm } from './InfoEditForm';
 import { InfoItems } from './InfoItems';
+import { Form } from 'types';
+import { FormBox } from '../FormBox';
 
 export const InfoContainer = () => {
     const emit = useEmit();
-    const [addForm] = useEventrixState<boolean>('addForm');
+    const [addForm] = useEventrixState<boolean>(Form.ADD);
 
     return (
         <Container>
-            <button title="Edit Info" onClick={() => emit('addForm', true)}>
+            <button title="Edit Info" onClick={() => emit(Form.ADD, true)}>
                 Edit Info
             </button>
             <div className="info-container">
@@ -36,9 +37,9 @@ export const InfoContainer = () => {
                 </div>
             </div>
             {addForm && (
-                <AddBox>
+                <FormBox name={Form.ADD}>
                     <InfoEditForm />
-                </AddBox>
+                </FormBox>
             )}
         </Container>
     );

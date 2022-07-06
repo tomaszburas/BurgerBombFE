@@ -6,8 +6,8 @@ import { LoaderData } from '../LoaderData';
 import styled from 'styled-components';
 
 export const InfoItems = () => {
-    const [info] = useEventrixState<InfoEntityResponse>('info');
     const emit = useEmit();
+    const [info] = useEventrixState<InfoEntityResponse>('info');
 
     useEffect(() => {
         (async () => {

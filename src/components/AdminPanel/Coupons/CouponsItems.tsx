@@ -7,8 +7,8 @@ import { NoData } from '../NoData';
 import { CouponsItem } from './CouponsItem';
 
 export const CouponsItems = () => {
-    const [coupons] = useEventrixState<CouponEntityResponse[]>('coupons');
     const emit = useEmit();
+    const [coupons] = useEventrixState<CouponEntityResponse[]>('coupons');
 
     useEffect(() => {
         (async () => {

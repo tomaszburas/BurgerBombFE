@@ -1,16 +1,17 @@
 import styled from 'styled-components';
-import { AddBox } from '../AddBox';
 import { useEmit, useEventrixState } from 'eventrix';
-import { CouponsAddForm } from './CouponsAddForm';
+import { CouponsAddForm } from './Form/CouponsAddForm';
 import { CouponsItems } from './CouponsItems';
+import { Form } from 'types';
+import { FormBox } from '../FormBox';
 
 export const CouponsContainer = () => {
     const emit = useEmit();
-    const [addForm] = useEventrixState<boolean>('addForm');
+    const [addForm] = useEventrixState<boolean>(Form.ADD);
 
     return (
         <Container>
-            <button title="Add Coupon" onClick={() => emit('addForm', true)}>
+            <button title="Add Coupon" onClick={() => emit(Form.ADD, true)}>
                 Add Coupon
             </button>
             <div className="header">
@@ -22,9 +23,9 @@ export const CouponsContainer = () => {
                 <CouponsItems />
             </div>
             {addForm && (
-                <AddBox>
+                <FormBox name={Form.ADD}>
                     <CouponsAddForm />
-                </AddBox>
+                </FormBox>
             )}
         </Container>
     );

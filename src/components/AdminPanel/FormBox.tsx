@@ -1,20 +1,37 @@
 import styled from 'styled-components';
+import { useEmit } from 'eventrix';
 import { ReactNode } from 'react';
+import { Form } from 'types';
 
 interface Props {
     children: ReactNode;
-    setPopUp: (param: boolean) => void;
+    name: Form;
+    state?: (element: boolean) => void;
 }
 
-export const EditBox = ({ setPopUp, children }: Props) => {
+export const FormBox = ({ children, name, state }: Props) => {
+    const emit = useEmit();
+
+    const closeForm = (name: Form) => {
+        if (name === Form.ADD) {
+            emit(name, false);
+        }
+
+        if (state) {
+            if (name === Form.EDIT) {
+                state(false);
+            }
+        }
+    };
+
     return (
         <Container>
-            <div className="bg" onClick={() => setPopUp(false)} />
+            <div className="bg" onClick={() => closeForm(name)} />
             <div className="wrapper-add-box">
                 <i
                     className="bx bx-x"
                     title="Close"
-                    onClick={() => setPopUp(false)}
+                    onClick={() => closeForm(name)}
                 />
                 {children}
             </div>

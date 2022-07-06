@@ -1,43 +1,96 @@
+import { LoaderData } from '../../LoaderData';
+import { NoData } from '../../NoData';
 import styled from 'styled-components';
-import { useEmit, useEventrixState } from 'eventrix';
-import { FormEvent, useState } from 'react';
-import { IngredientEntityResponse } from 'types';
-import { LoaderData } from '../LoaderData';
-import { NoData } from '../NoData';
+import { FormEvent } from 'react';
+import { BurgerForm, IngredientEntityResponse, Form } from 'types';
+import { useEventrixState } from 'eventrix';
 
-export const BurgersAddForm = () => {
-    const emit = useEmit();
+interface Props {
+    handler: (e: FormEvent) => void;
+    name: Form;
+    form: any;
+    setForm: (elements: BurgerForm) => void;
+}
+
+export const BurgersForm = ({ handler, form, setForm, name }: Props) => {
     const [ingredients] =
         useEventrixState<IngredientEntityResponse[]>('ingredients');
-    const [form, setForm] = useState({
-        name: '',
-        price: '',
-        img: '',
-        ingredients: [],
-    });
 
-    const handlerAddForm = async (e: FormEvent) => {
-        e.preventDefault();
+    const handleCheckInput = (id: string) => {
+        const checked = form.ingredients.includes(id);
+        let newIngredient: string[];
+
+        if (checked) {
+            newIngredient = form.ingredients.filter((e: string) => e !== id);
+        } else {
+            newIngredient = [...form.ingredients, id];
+        }
+
+        setForm({ ...form, ingredients: newIngredient });
+    };
+
+    const handleActiveInput = (e: any) => {
+        setForm({ ...form, active: e.target.checked });
     };
 
     return (
         <Container>
-            <form onSubmit={handlerAddForm}>
+            <form onSubmit={handler}>
                 <div className="input-box">
-                    <input type="text" id="name" />
+                    <input
+                        type="text"
+                        id="name"
+                        value={form.name}
+                        onChange={(e) =>
+                            setForm({ ...form, name: e.target.value })
+                        }
+                        required={name === Form.ADD}
+                    />
                     <label htmlFor="name">Name</label>
                 </div>
                 <div className="input-box">
-                    <input type="number" id="price" />
+                    <input
+                        type="number"
+                        id="price"
+                        value={form.price}
+                        onChange={(e) =>
+                            setForm({ ...form, price: Number(e.target.value) })
+                        }
+                        required={name === Form.ADD}
+                    />
                     <label htmlFor="price">Price</label>
                 </div>
                 <div className="input-box">
                     <span className="title">Image</span>
-                    <input type="file" id="img" />
+                    <input
+                        type="file"
+                        id="img"
+                        name="img"
+                        accept="image/png, image/jpeg"
+                        onChange={(e: any) => {
+                            setForm({ ...form, img: e.target.files[0] });
+                        }}
+                        required={name === Form.ADD}
+                    />
+                </div>
+                <div className="cb-input">
+                    <span className="title">Active in menu</span>
+                    <div className="cb-wrapper">
+                        <div className="cb-container">
+                            <input
+                                type="checkbox"
+                                id="active"
+                                name="active"
+                                checked={form.active}
+                                onChange={handleActiveInput}
+                            />
+                            <label htmlFor="active">active</label>
+                        </div>
+                    </div>
                 </div>
                 <div className="cb-input">
                     <span className="title">Ingredients</span>
-                    <div className="cb-wrapper">
+                    <div className="cb-wrapper overflow">
                         {ingredients === null ? (
                             <LoaderData />
                         ) : ingredients.length > 0 ? (
@@ -49,6 +102,12 @@ export const BurgersAddForm = () => {
                                         type="checkbox"
                                         id={ingredient.id}
                                         name={ingredient.id}
+                                        checked={form.ingredients.includes(
+                                            ingredient.id
+                                        )}
+                                        onChange={() =>
+                                            handleCheckInput(ingredient.id)
+                                        }
                                     />
                                     <label htmlFor={ingredient.id}>
                                         {ingredient.name}
@@ -109,9 +168,12 @@ const Container = styled.div`
                 }
             }
 
+            .overflow {
+                overflow: auto;
+            }
+
             .cb-wrapper {
                 max-height: 10rem;
-                overflow: auto;
                 margin-top: 0.7rem;
 
                 .cb-container {

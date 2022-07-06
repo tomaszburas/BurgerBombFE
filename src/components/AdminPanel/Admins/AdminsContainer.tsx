@@ -1,20 +1,17 @@
 import styled from 'styled-components';
 import { AdminsItems } from './AdminsItems';
-import { AddBox } from '../AddBox';
-import { useEventrixState, useEmit } from 'eventrix';
-import { AdminsAddForm } from './AdminsAddForm';
+import { useEmit, useEventrixState } from 'eventrix';
+import { AdminsAddForm } from './Form/AdminsAddForm';
+import { Form } from 'types';
+import { FormBox } from '../FormBox';
 
 export const AdminsContainer = () => {
-    const [addForm] = useEventrixState<boolean>('addForm');
     const emit = useEmit();
-
-    const handlerBtn = () => {
-        emit('addForm', true);
-    };
+    const [addForm] = useEventrixState<boolean>(Form.ADD);
 
     return (
         <Container>
-            <button title="Add Admin" onClick={handlerBtn}>
+            <button title="Add Admin" onClick={() => emit(Form.ADD, true)}>
                 Add Admin
             </button>
             <div className="header">
@@ -26,9 +23,9 @@ export const AdminsContainer = () => {
                 <AdminsItems />
             </div>
             {addForm && (
-                <AddBox>
+                <FormBox name={Form.ADD}>
                     <AdminsAddForm />
-                </AddBox>
+                </FormBox>
             )}
         </Container>
     );

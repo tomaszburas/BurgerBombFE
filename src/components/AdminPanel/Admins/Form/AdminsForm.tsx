@@ -1,66 +1,18 @@
+import { NewAdminEntity, Role, Form } from 'types';
 import styled from 'styled-components';
-import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../config';
-import { toast } from 'react-toastify';
-import { Role } from 'types';
-import { useEmit } from 'eventrix';
+import { FormEvent } from 'react';
 
 interface Props {
-    id: string;
-    email: string;
-    role: string;
-    setPopUp: (param: boolean) => void;
+    handler: (e: FormEvent) => void;
+    name: Form;
+    form: NewAdminEntity;
+    setForm: (elements: NewAdminEntity) => void;
 }
 
-export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
-    const emit = useEmit();
-    const [form, setForm] = useState({
-        email: email,
-        password: '',
-        role: role,
-    });
-
-    const handlerEditForm = async (e: FormEvent) => {
-        e.preventDefault();
-
-        if (
-            email === form.email &&
-            form.password === '' &&
-            role === form.role
-        ) {
-            toast.warning('Please update data');
-            return;
-        }
-
-        const res = await fetch(`${HOSTPORT}/admin/${id}`, {
-            method: 'PUT',
-            credentials: 'include',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: form.email.trim(),
-                password: form.password.trim(),
-                role: form.role,
-            }),
-        });
-
-        const data = await res.json();
-
-        if (!data.success) {
-            toast.error(data.message);
-            return;
-        }
-
-        emit('users:update', data.user);
-        setPopUp(false);
-        toast.success(data.message);
-    };
-
+export const AdminsForm = ({ handler, form, setForm, name }: Props) => {
     return (
         <Container>
-            <form onSubmit={handlerEditForm}>
+            <form onSubmit={handler}>
                 <div className="input-box">
                     <input
                         type="email"
@@ -69,6 +21,7 @@ export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
                         onChange={(e) =>
                             setForm({ ...form, email: e.target.value })
                         }
+                        required={name === Form.ADD}
                     />
                     <label htmlFor="email">Email</label>
                 </div>
@@ -80,6 +33,7 @@ export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
                         onChange={(e) =>
                             setForm({ ...form, password: e.target.value })
                         }
+                        required={name === Form.ADD}
                     />
                     <label htmlFor="password">Password</label>
                 </div>
@@ -91,7 +45,8 @@ export const AdminsEditForm = ({ id, email, role, setPopUp }: Props) => {
                         value={form.role}
                         onChange={(e) =>
                             setForm({ ...form, role: e.target.value })
-                        }>
+                        }
+                        required={name === Form.ADD}>
                         <option value={Role.ADMIN}>{Role.ADMIN}</option>
                         <option value={Role.SUPER_ADMIN}>
                             {Role.SUPER_ADMIN}

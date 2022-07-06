@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { AddBox } from '../AddBox';
 import { useEmit, useEventrixState } from 'eventrix';
-import { IngredientsAddForm } from './IngredientsAddForm';
+import { IngredientsAddForm } from './Form/IngredientsAddForm';
 import { IngredientsItems } from './IngredientsItems';
+import { Form } from 'types';
+import { FormBox } from '../FormBox';
 
 export const IngredientsContainer = () => {
     const emit = useEmit();
-    const [addForm] = useEventrixState<boolean>('addForm');
+    const [addForm] = useEventrixState<boolean>(Form.ADD);
 
     return (
         <Container>
-            <button
-                title="Add Ingredient"
-                onClick={() => emit('addForm', true)}>
+            <button title="Add Ingredient" onClick={() => emit(Form.ADD, true)}>
                 Add Ingredient
             </button>
             <div className="header">
@@ -24,9 +23,9 @@ export const IngredientsContainer = () => {
                 <IngredientsItems />
             </div>
             {addForm && (
-                <AddBox>
+                <FormBox name={Form.ADD}>
                     <IngredientsAddForm />
-                </AddBox>
+                </FormBox>
             )}
         </Container>
     );

@@ -3,9 +3,10 @@ import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { useState } from 'react';
 import { HOSTPORT } from '../../../config';
 import { toast } from 'react-toastify';
-import { AdminsEditForm } from './AdminsEditForm';
-import { EditBox } from '../EditBox';
+import { AdminsEditForm } from './Form/AdminsEditForm';
 import { useEmit } from 'eventrix';
+import { Form } from 'types';
+import { FormBox } from '../FormBox';
 
 interface Props {
     id: string;
@@ -14,11 +15,11 @@ interface Props {
 }
 
 export const AdminsItem = ({ id, email, role }: Props) => {
-    const [removePopUp, setRemovePopUp] = useState(false);
-    const [editBg, setEditBg] = useState(false);
     const emit = useEmit();
+    const [removePopUp, setRemovePopUp] = useState(false);
+    const [editForm, setEditForm] = useState(false);
 
-    const handlerRemoveBtn = async () => {
+    const handleRemove = async () => {
         const res = await fetch(`${HOSTPORT}/admin/${id}`, {
             method: 'DELETE',
             credentials: 'include',
@@ -43,7 +44,7 @@ export const AdminsItem = ({ id, email, role }: Props) => {
                 <i
                     className="bx bxs-edit"
                     title="Edit"
-                    onClick={() => setEditBg(true)}
+                    onClick={() => setEditForm(true)}
                 />
                 <i
                     className="bx bx-trash"
@@ -53,20 +54,20 @@ export const AdminsItem = ({ id, email, role }: Props) => {
             </div>
             {removePopUp && (
                 <ConfirmationPopUp
-                    title={`Are you sure you want to remove user ${email}?`}
+                    title={`Are you sure you want to remove ${email} user?`}
                     setPopUp={setRemovePopUp}
-                    handlerRemoveBtn={handlerRemoveBtn}
+                    handlerRemoveBtn={handleRemove}
                 />
             )}
-            {editBg && (
-                <EditBox setPopUp={setEditBg}>
+            {editForm && (
+                <FormBox name={Form.EDIT} state={setEditForm}>
                     <AdminsEditForm
                         id={id}
                         email={email}
                         role={role}
-                        setPopUp={setEditBg}
+                        state={setEditForm}
                     />
-                </EditBox>
+                </FormBox>
             )}
         </Container>
     );

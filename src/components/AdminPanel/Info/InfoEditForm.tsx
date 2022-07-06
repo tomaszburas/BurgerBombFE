@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEmit, useEventrixState } from 'eventrix';
-import { InfoEntityResponse } from 'types';
+import { InfoEntityResponse, Form } from 'types';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
 import { HOSTPORT } from '../../../config';
@@ -78,7 +78,7 @@ export const InfoEditForm = () => {
         }
 
         emit('info:update', data.info);
-        emit('addForm', false);
+        emit(Form.ADD, false);
         toast.success(data.message);
     };
 

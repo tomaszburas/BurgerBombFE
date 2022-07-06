@@ -1,59 +1,18 @@
+import { FormEvent } from 'react';
 import styled from 'styled-components';
-import { useEmit } from 'eventrix';
-import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../config';
-import { toast } from 'react-toastify';
+import { NewCouponEntity, Form } from 'types';
 
 interface Props {
-    id: string;
-    name: string;
-    value: number;
-    setPopUp: (param: boolean) => void;
+    handler: (e: FormEvent) => void;
+    form: NewCouponEntity;
+    setForm: (elements: NewCouponEntity) => void;
+    name: Form;
 }
 
-export const CouponsEditForm = ({ id, name, value, setPopUp }: Props) => {
-    const [form, setForm] = useState({
-        name,
-        value,
-    });
-    const emit = useEmit();
-
-    const handlerEditForm = async (e: FormEvent) => {
-        e.preventDefault();
-
-        if (name === form.name && value === form.value) {
-            toast.warning('Please update data');
-            return;
-        }
-
-        const res = await fetch(`${HOSTPORT}/coupon/${id}`, {
-            method: 'PUT',
-            credentials: 'include',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name: form.name.trim(),
-                value: Number(form.value),
-            }),
-        });
-
-        const data = await res.json();
-
-        if (!data.success) {
-            toast.error(data.message);
-            return;
-        }
-
-        emit('coupons:update', data.coupon);
-        setPopUp(false);
-        toast.success(data.message);
-    };
-
+export const CouponsForm = ({ handler, form, setForm, name }: Props) => {
     return (
         <Container>
-            <form onSubmit={handlerEditForm}>
+            <form onSubmit={handler}>
                 <div className="input-box">
                     <input
                         type="text"
@@ -62,7 +21,7 @@ export const CouponsEditForm = ({ id, name, value, setPopUp }: Props) => {
                         onChange={(e) =>
                             setForm({ ...form, name: e.target.value })
                         }
-                        required
+                        required={name === Form.ADD}
                     />
                     <label htmlFor="name">Name</label>
                 </div>
@@ -76,7 +35,7 @@ export const CouponsEditForm = ({ id, name, value, setPopUp }: Props) => {
                         onChange={(e) =>
                             setForm({ ...form, value: Number(e.target.value) })
                         }
-                        required
+                        required={name === Form.ADD}
                     />
                     <label htmlFor="value">Value</label>
                 </div>

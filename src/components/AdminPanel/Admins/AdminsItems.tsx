@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { AdminsItem } from './AdminsItem';
 import { useEffect } from 'react';
 import { HOSTPORT } from '../../../config';
@@ -8,8 +7,8 @@ import { NoData } from '../NoData';
 import { LoaderData } from '../LoaderData';
 
 export const AdminsItems = () => {
-    const [users] = useEventrixState<AdminEntityResponse[]>('users');
     const emit = useEmit();
+    const [users] = useEventrixState<AdminEntityResponse[]>('users');
 
     useEffect(() => {
         (async () => {
@@ -24,14 +23,14 @@ export const AdminsItems = () => {
 
     if (users === null) {
         return (
-            <Container>
+            <>
                 <LoaderData />
-            </Container>
+            </>
         );
     }
 
     return (
-        <Container>
+        <>
             {users.length === 0 ? (
                 <NoData />
             ) : (
@@ -44,8 +43,6 @@ export const AdminsItems = () => {
                     />
                 ))
             )}
-        </Container>
+        </>
     );
 };
-
-const Container = styled.div``;

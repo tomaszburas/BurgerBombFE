@@ -8,7 +8,7 @@ import { InfoContainer } from '../components/AdminPanel/Info/InfoContainer';
 import { IngredientsContainer } from '../components/AdminPanel/Ingredients/IngredientsContainer';
 import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer';
 import { CouponsContainer } from '../components/AdminPanel/Coupons/CouponsContainer';
-import { AdminPanelItems } from '../types/adminPanelItems';
+import { AdminPanelItems } from 'types';
 import { useEmit } from 'eventrix';
 import { HOSTPORT } from '../config';
 
