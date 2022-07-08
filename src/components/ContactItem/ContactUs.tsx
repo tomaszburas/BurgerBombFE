@@ -1,13 +1,13 @@
 interface Props {
     phone: string;
-    mail: string;
+    email: string;
 }
 
-export const ContactUs = ({ phone, mail }: Props) => {
+export const ContactUs = ({ phone, email }: Props) => {
     return (
         <>
             <p>{phone}</p>
-            <p>{mail}</p>
+            <p>{email}</p>
         </>
     );
 };

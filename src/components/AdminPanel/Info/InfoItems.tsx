@@ -2,7 +2,7 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { InfoEntityResponse } from 'types';
 import { useEffect } from 'react';
 import { HOSTPORT } from '../../../config';
-import { LoaderData } from '../LoaderData';
+import { LoaderData } from '../../LoaderData';
 import styled from 'styled-components';
 
 export const InfoItems = () => {

@@ -4,7 +4,7 @@ import { HOSTPORT } from '../../../config';
 import { useEmit, useEventrixState } from 'eventrix';
 import { AdminEntityResponse } from 'types';
 import { NoData } from '../NoData';
-import { LoaderData } from '../LoaderData';
+import { LoaderData } from '../../LoaderData';
 
 export const AdminsItems = () => {
     const emit = useEmit();

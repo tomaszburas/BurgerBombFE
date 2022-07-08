@@ -1,6 +1,6 @@
 import { useEventrixState } from 'eventrix';
 import { IngredientEntityResponse } from 'types';
-import { LoaderData } from '../LoaderData';
+import { LoaderData } from '../../LoaderData';
 import { NoData } from '../NoData';
 import { IngredientsItem } from './IngredientsItem';
 

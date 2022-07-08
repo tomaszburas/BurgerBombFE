@@ -1,4 +1,4 @@
-import { LoaderData } from '../../LoaderData';
+import { LoaderData } from '../../../LoaderData';
 import { NoData } from '../../NoData';
 import styled from 'styled-components';
 import { FormEvent } from 'react';

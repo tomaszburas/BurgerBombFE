@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useEmit, useEventrixState } from 'eventrix';
 import { BurgerEntityResponse } from 'types';
-import { LoaderData } from '../LoaderData';
+import { LoaderData } from '../../LoaderData';
 import { NoData } from '../NoData';
 import { useEffect, useState } from 'react';
 import { HOSTPORT } from '../../../config';

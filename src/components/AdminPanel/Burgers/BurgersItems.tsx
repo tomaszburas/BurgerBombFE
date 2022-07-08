@@ -1,6 +1,6 @@
 import { useEventrixState } from 'eventrix';
 import { BurgerEntityResponse } from 'types';
-import { LoaderData } from '../LoaderData';
+import { LoaderData } from '../../LoaderData';
 import { NoData } from '../NoData';
 import { BurgersItem } from './BurgersItem';
 

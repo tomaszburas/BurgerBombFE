@@ -2,7 +2,7 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { CouponEntityResponse } from 'types';
 import { useEffect } from 'react';
 import { HOSTPORT } from '../../../config';
-import { LoaderData } from '../LoaderData';
+import { LoaderData } from '../../LoaderData';
 import { NoData } from '../NoData';
 import { CouponsItem } from './CouponsItem';
 

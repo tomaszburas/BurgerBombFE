@@ -2,6 +2,11 @@ import styled from 'styled-components';
 import { ContactUs } from './ContactUs';
 import { OpeningHours } from './OpeningHours';
 import { VisitUs } from './VisitUs';
+import { useEmit, useEventrixState } from 'eventrix';
+import { LoaderData } from '../LoaderData';
+import { useEffect } from 'react';
+import { HOSTPORT } from '../../config';
+import { InfoEntityResponse } from 'types';
 
 interface Props {
     icon: string;
@@ -9,6 +14,20 @@ interface Props {
 }
 
 export const ContactItem = ({ icon, name }: Props) => {
+    const emit = useEmit();
+    const [info] = useEventrixState<InfoEntityResponse>('info');
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`${HOSTPORT}/info`, {
+                credentials: 'include',
+                mode: 'cors',
+            });
+            const data = await res.json();
+            emit('info:set', data.info);
+        })();
+    }, [emit]);
+
     return (
         <Container>
             <div className="top">
@@ -16,27 +35,33 @@ export const ContactItem = ({ icon, name }: Props) => {
             </div>
             <div className="center">{name}</div>
             <div className="bottom">
-                {name === 'VISIT US' && (
-                    <VisitUs
-                        city="Warszawa"
-                        number="42"
-                        zipCode="02-321"
-                        street="Koluszki"
-                    />
-                )}
-                {name === 'CONTACT US' && (
-                    <ContactUs
-                        phone="+48 999 999 999"
-                        mail="contact@burgerbomb.com"
-                    />
-                )}
-                {name === 'OPENING HOURS' && (
-                    <OpeningHours
-                        monThu="12PM - 9:30PM"
-                        friSat="12PM - 10:30PM"
-                        sun="12PM - 9:30PM"
-                    />
-                )}
+                {name === 'VISIT US' &&
+                    (info === null ? (
+                        <LoaderData color="#F8B400" />
+                    ) : (
+                        <VisitUs
+                            city={info.city}
+                            number={info.number}
+                            zipCode={info.zipCode}
+                            street={info.street}
+                        />
+                    ))}
+                {name === 'CONTACT US' &&
+                    (info === null ? (
+                        <LoaderData color="#F8B400" />
+                    ) : (
+                        <ContactUs phone={info.phone} email={info.email} />
+                    ))}
+                {name === 'OPENING HOURS' &&
+                    (info === null ? (
+                        <LoaderData color="#F8B400" />
+                    ) : (
+                        <OpeningHours
+                            monThu={`${info.monThu.from} - ${info.monThu.to}`}
+                            friSat={`${info.friSat.from} - ${info.friSat.to}`}
+                            sun={`${info.sun.from} - ${info.sun.to}`}
+                        />
+                    ))}
             </div>
         </Container>
     );

@@ -2,13 +2,17 @@ import styled from 'styled-components';
 import { TailSpin } from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-export const LoaderData = () => {
+interface Props {
+    color?: string;
+}
+
+export const LoaderData = ({ color }: Props) => {
     return (
         <Container>
             <TailSpin
                 height="80"
                 width="80"
-                color="#125B50"
+                color={color ? color : '#125B50'}
                 ariaLabel="loading"
             />
         </Container>
