@@ -1,45 +1,68 @@
 import styled from 'styled-components';
-import burgerImg from '../../assets/images/burger-home.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AddBurgerToBasket } from './AddBurgerToBasket';
+import { useEmit, useEventrixState } from 'eventrix';
+import { LoaderData } from '../LoaderData';
+import { HOSTPORT } from '../../config';
+import { BurgerEntityResponse } from 'types';
+import { ingredientsName } from '../../utils/ingredients-name';
 
 export const BurgerOfTheDay = () => {
+    const emit = useEmit();
+    const [botd] = useEventrixState<BurgerEntityResponse>('botd');
     const [addBtn, setAddBtn] = useState(false);
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`${HOSTPORT}/botd`, {
+                credentials: 'include',
+                mode: 'cors',
+            });
+
+            const data = await res.json();
+            emit('botd:set', data.botd?.burger);
+        })();
+    }, [emit]);
 
     return (
         <Container>
             <div className="container">
                 <h2>Burger of the day</h2>
-                <div className="wrapper">
-                    <div className="left">
-                        <img src={burgerImg} alt="burger" />
+                {botd === null ? (
+                    <LoaderData color="#FF6363" />
+                ) : (
+                    <div className="wrapper">
+                        <div className="left">
+                            <img
+                                src={`${HOSTPORT}/../images/${botd.img}`}
+                                alt={`${botd.name} img`}
+                            />
+                        </div>
+                        <div className="center">
+                            <p className="burger-name">
+                                {botd.name.toUpperCase()} BURGER
+                            </p>
+                            <p
+                                className="burger-price"
+                                title="Add to basket"
+                                onClick={() => setAddBtn(true)}>
+                                $ {botd.price}
+                                <i className="bx bx-plus" id="menu" />
+                            </p>
+                        </div>
+                        <div className="right">
+                            {ingredientsName(botd.ingredients)}.
+                        </div>
                     </div>
-                    <div className="center">
-                        <p className="burger-name">KOZI BURGER</p>
-                        <p
-                            className="burger-price"
-                            title="Add to basket"
-                            onClick={() => setAddBtn(true)}>
-                            $7.99
-                            <i className="bx bx-plus" id="menu" />
-                        </p>
-                    </div>
-                    <div className="right">
-                        Black Angus beef, bacon, Chorizo, Cheddar cheese,
-                        tomato, pickled cucumber, fresh arugula, roasted onion,
-                        and sauce.
-                    </div>
-                </div>
+                )}
             </div>
             {addBtn ? (
                 <AddBurgerToBasket
                     setAddBtn={setAddBtn}
-                    name={'Kozi Burger'}
-                    price={7.99}
-                    image={burgerImg}
-                    ingredients={
-                        'Chorizo, Cheddar cheese,tomato, pickled cucumber'
-                    }
+                    name={botd.name}
+                    price={botd.price}
+                    image={botd.img}
+                    ingredients={ingredientsName(botd.ingredients)}
                 />
             ) : null}
         </Container>
@@ -70,6 +93,7 @@ const Container = styled.div`
 
         .wrapper {
             display: flex;
+            width: 100%;
 
             .left {
                 width: 30%;
@@ -79,7 +103,7 @@ const Container = styled.div`
                 align-items: center;
 
                 img {
-                    width: 12rem;
+                    width: 10rem;
                 }
             }
 
