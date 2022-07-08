@@ -16,9 +16,6 @@ export const InfoItems = () => {
                 mode: 'cors',
             });
             const data = await res.json();
-
-            console.log(data.info);
-
             emit('info:set', data.info);
         })();
     }, [emit]);
