@@ -50,7 +50,7 @@ export const InfoEditForm = () => {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/info/${info.id}`, {
+        const res = await fetch(`${HOSTPORT}/info`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',

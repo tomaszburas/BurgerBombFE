@@ -30,6 +30,7 @@ export const IngredientsItem = ({ id, name, price }: Props) => {
         setRemovePopUp(false);
         if (data.success) {
             emit('ingredients:remove', data.id);
+            emit('burgers:set', data.burgers);
             toast.success(data.message);
         } else {
             toast.error(data.message);

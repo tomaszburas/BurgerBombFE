@@ -17,11 +17,13 @@ export const InfoItems = () => {
             });
             const data = await res.json();
 
+            console.log(data.info);
+
             emit('info:set', data.info);
         })();
     }, [emit]);
 
-    if (info === null) {
+    if (!info) {
         return (
             <Container>
                 <LoaderData />

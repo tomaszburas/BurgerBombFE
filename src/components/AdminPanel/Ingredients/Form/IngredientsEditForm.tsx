@@ -48,6 +48,7 @@ export const IngredientsEditForm = ({ id, name, price, state }: Props) => {
         }
 
         emit('ingredients:update', data.ingredient);
+        emit('burgers:set', data.burgers);
         state(false);
         toast.success(data.message);
     };

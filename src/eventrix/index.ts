@@ -14,6 +14,7 @@ import {
     InfoEntityResponse,
     IngredientEntityResponse,
 } from 'types';
+import botdReceiver from './receivers/botdReceiver';
 
 interface State {
     isAuth: null | boolean;
@@ -24,6 +25,7 @@ interface State {
     info: null | InfoEntityResponse;
     [Form.ADD]: boolean;
     [Form.EDIT]: boolean;
+    botd: null | BurgerEntityResponse;
 }
 
 const initialState: State = {
@@ -35,6 +37,7 @@ const initialState: State = {
     info: null,
     [Form.ADD]: false,
     [Form.EDIT]: false,
+    botd: null,
 };
 
 const eventsReceiver = [
@@ -44,6 +47,7 @@ const eventsReceiver = [
     couponsReceiver,
     infoReceiver,
     burgersReceiver,
+    botdReceiver,
     ...formBgReceiver,
 ];
 
