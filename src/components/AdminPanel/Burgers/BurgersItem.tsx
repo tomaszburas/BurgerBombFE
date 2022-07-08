@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IngredientEntity, Form, BurgerIngredient } from 'types';
+import { Form, BurgerIngredient } from 'types';
 import { HOSTPORT } from '../../../config';
 import { useState } from 'react';
 import { useEmit } from 'eventrix';
@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { FormBox } from '../FormBox';
 import { BurgersEditForm } from './Form/BurgersEditForm';
+import { ingredientsName } from '../../../utils/ingredients-name';
 
 interface Props {
     id: string;
@@ -29,10 +30,6 @@ export const BurgersItem = ({
     const [removePopUp, setRemovePopUp] = useState(false);
     const [editForm, setEditForm] = useState(false);
     const [activeInput, setActiveInput] = useState(active);
-
-    const ingredientsNameString = () => {
-        return ingredients.map((ingredient) => ingredient.name).join(', ');
-    };
 
     const ingredientsId = () => {
         return ingredients.map((ingredient) => ingredient.id);
@@ -91,7 +88,7 @@ export const BurgersItem = ({
                 <img src={`${HOSTPORT}/../images/${img}`} alt={`${name} img`} />
             </div>
             <p className="name">{name} burger</p>
-            <p className="ingredients">{ingredientsNameString()}</p>
+            <p className="ingredients">{ingredientsName(ingredients)}</p>
             <p className="price">$ {price}</p>
             <div className="nav">
                 <i

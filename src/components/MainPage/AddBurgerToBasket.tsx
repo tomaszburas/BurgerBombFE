@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { AddAndRemoveBtns } from '../AddAndRemoveBtns';
+import { HOSTPORT } from '../../config';
 
 interface Props {
     setAddBtn: (param: boolean) => void;
@@ -26,10 +27,13 @@ export const AddBurgerToBasket = ({
                     onClick={() => setAddBtn(false)}
                 />
                 <div className="burger-top">
-                    <img src={image} alt="burger" />
+                    <img
+                        src={`${HOSTPORT}/../images/${image}`}
+                        alt={`${name} img`}
+                    />
                 </div>
                 <div className="burger-center">
-                    <p className="name">{name} BURGER</p>
+                    <p className="name">{name.toUpperCase()} BURGER</p>
                     <p className="ingredients">{ingredients}</p>
                 </div>
                 <div className="burger-bottom">
