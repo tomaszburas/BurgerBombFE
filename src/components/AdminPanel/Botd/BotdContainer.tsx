@@ -21,6 +21,7 @@ export const BotdContainer = () => {
             });
 
             const data = await res.json();
+            setBurgerId(data.botd?.burger.id);
             emit('botd:set', data.botd?.burger);
         })();
     }, [emit]);
@@ -61,7 +62,7 @@ export const BotdContainer = () => {
                         <select
                             name="burgers"
                             id="burgers"
-                            value={burgerId ? burgerId : ''}
+                            value={burgerId}
                             onChange={(e) => setBurgerId(e.target.value)}>
                             {burgers.map((burger) => (
                                 <option key={burger.id} value={burger.id}>
