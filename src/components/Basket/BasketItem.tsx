@@ -1,27 +1,81 @@
 import styled from 'styled-components';
 import { AddAndRemoveBtns } from '../AddAndRemoveBtns';
+import { BasketEntity } from 'types';
+import { useEmit } from 'eventrix';
+import { useEffect, useState } from 'react';
+import { round } from '../../utils/round';
 
 interface Props {
     title?: string;
+    burger: BasketEntity;
 }
 
-export const BasketItem = ({ title }: Props) => {
+export const BasketItem = ({ title, burger }: Props) => {
+    const [totalValue, setTotalValue] = useState(burger.totalValue);
+    const [burgerQuantity, setBurgerQuantity] = useState(burger.burgerQuantity);
+    const [unmount, setUnmount] = useState(false);
+    const emit = useEmit();
+
+    useEffect(() => {
+        (async () => {
+            if (burgerQuantity === 0) {
+                setUnmount(true);
+                await emit('basket:remove', burger.id);
+                return;
+            }
+
+            await emit('basket:update', {
+                ...burger,
+                totalValue,
+                burgerQuantity,
+            });
+        })();
+    }, [burgerQuantity]);
+
+    const handleAdd = () => {
+        setTotalValue((prev) =>
+            round(prev + burger.totalValue / burger.burgerQuantity)
+        );
+        setBurgerQuantity((prev) => prev + 1);
+    };
+
+    const handleDelete = () => {
+        setBurgerQuantity((prev) => prev - 1);
+        setTotalValue((prev) =>
+            round(prev - burger.totalValue / burger.burgerQuantity)
+        );
+    };
+
+    if (unmount) return null;
+
     return (
         <Container>
             <div className="left">
-                <p className="burger">1 x CRISBY BURGER</p>
-                <p className="ingredient">+ tomato</p>
-                <p className="ingredient">+ cucumber</p>
+                <p className="burger">
+                    {burgerQuantity} x {burger.name.toUpperCase()} BURGER
+                </p>
+                {burger.extraIngredients.length > 0 &&
+                    burger.extraIngredients.map((ingredient) => (
+                        <p key={ingredient.id} className="ingredient">
+                            + {ingredient.name}
+                        </p>
+                    ))}
+                <p className="frying">
+                    meat preparation: {burger.meatPreparation}
+                </p>
             </div>
-            {title !== 'summary' ? (
+            {title !== 'summary' && (
                 <div className="center">
-                    <AddAndRemoveBtns />
+                    {
+                        <AddAndRemoveBtns
+                            handleAdd={handleAdd}
+                            handleDelete={handleDelete}
+                        />
+                    }
                 </div>
-            ) : null}
+            )}
             <div className="right">
-                <p className="price">$ 9</p>
-                <p className="price">$ 2</p>
-                <p className="price">$ 2</p>
+                <p className="price">$ {totalValue}</p>
             </div>
         </Container>
     );

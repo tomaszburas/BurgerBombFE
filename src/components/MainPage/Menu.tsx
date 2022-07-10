@@ -1,31 +1,61 @@
 import styled from 'styled-components';
-import AVOBEKO from '../../assets/images/burgers/avobeko.png';
-import CRISBY from '../../assets/images/burgers/crisby.png';
-import NEWYORK from '../../assets/images/burgers/newyork.png';
 import { Burger } from './Burger';
+import { useEmit, useEventrixState } from 'eventrix';
+import { LoaderData } from '../LoaderData';
+import { useEffect, useState } from 'react';
+import { HOSTPORT } from '../../config';
+import { BurgerEntityResponse } from 'types';
 
 export const Menu = () => {
+    const emit = useEmit();
+    const [burgers] = useEventrixState('burgers');
+    const [activeBurgers, setActiveBurgers] = useState([]);
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch(`${HOSTPORT}/burger`, {
+                credentials: 'include',
+                mode: 'cors',
+            });
+
+            const data = await res.json();
+            emit('burgers:set', data.burgers);
+
+            setActiveBurgers(
+                data.burgers.filter(
+                    (burger: BurgerEntityResponse) => burger.active
+                )
+            );
+        })();
+    }, [emit]);
+
+    if (burgers === null) {
+        return (
+            <Container>
+                <div className="wrapper">
+                    <LoaderData />
+                </div>
+            </Container>
+        );
+    }
+
+    if (activeBurgers.length === 0) {
+        return null;
+    }
+
     return (
         <Container>
             <div className="wrapper">
-                <Burger
-                    name="AVOBEKO"
-                    price={9}
-                    image={AVOBEKO}
-                    ingredients="Black Angus beef, avocado, bacon, Cheddar cheese, tomato, red onion, pickled cucumber, fresh arugula, and sauce."
-                />
-                <Burger
-                    name="CRISBY"
-                    price={9}
-                    image={CRISBY}
-                    ingredients="Black Angus beef, bacon, Chorizo, Cheddar cheese, tomato, pickled cucumber, fresh arugula, roasted onion, and sauce"
-                />
-                <Burger
-                    name="NEWYORK"
-                    price={9}
-                    image={NEWYORK}
-                    ingredients="Black Angus beef, Cheddar cheese, bacon, fried eggs, tomato, fresh arugula, and sauce."
-                />
+                {activeBurgers.map((burger: BurgerEntityResponse) => (
+                    <Burger
+                        key={burger.id}
+                        id={burger.id}
+                        name={burger.name}
+                        price={burger.price}
+                        image={burger.img}
+                        ingredients={burger.ingredients}
+                    />
+                ))}
             </div>
         </Container>
     );
@@ -41,7 +71,8 @@ const Container = styled.section`
         width: 1200px;
         margin: 2rem 0;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        gap: 5%;
         flex-wrap: wrap;
     }
 `;

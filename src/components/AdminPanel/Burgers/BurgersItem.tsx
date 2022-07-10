@@ -87,7 +87,7 @@ export const BurgersItem = ({
             <div className="img">
                 <img src={`${HOSTPORT}/../images/${img}`} alt={`${name} img`} />
             </div>
-            <p className="name">{name} burger</p>
+            <p className="name">{name}</p>
             <p className="ingredients">{ingredientsName(ingredients)}</p>
             <p className="price">$ {price}</p>
             <div className="nav">
@@ -106,7 +106,7 @@ export const BurgersItem = ({
                 <ConfirmationPopUp
                     title={`Are you sure you want to remove ${name} burger?`}
                     setPopUp={setRemovePopUp}
-                    handlerRemoveBtn={handleRemove}
+                    handler={handleRemove}
                 />
             )}
             {editForm && (

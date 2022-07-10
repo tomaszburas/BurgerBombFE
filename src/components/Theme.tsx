@@ -10,7 +10,7 @@ const theme = {
         red: '#FF6363',
     },
     fontSize: {
-        sm: '1rem',
+        sm: '1.2rem',
         base: '1.5rem',
         lg: '2rem',
         xl: '2.5rem',

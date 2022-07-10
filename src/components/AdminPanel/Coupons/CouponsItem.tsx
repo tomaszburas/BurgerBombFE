@@ -56,7 +56,7 @@ export const CouponsItem = ({ id, value, name }: Props) => {
                 <ConfirmationPopUp
                     title={`Are you sure you want to remove ${name} coupon?`}
                     setPopUp={setRemovePopUp}
-                    handlerRemoveBtn={handleRemove}
+                    handler={handleRemove}
                 />
             )}
             {editForm && (

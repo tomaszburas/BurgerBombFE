@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
-export const AddAndRemoveBtns = () => {
+interface Props {
+    handleAdd: () => void;
+    handleDelete: () => void;
+}
+
+export const AddAndRemoveBtns = ({ handleAdd, handleDelete }: Props) => {
     return (
         <Container>
-            <button className="plus" title="Add">
+            <button className="plus" title="Add" onClick={handleAdd}>
                 +
             </button>
-            <button className="minus" title="Remove">
+            <button className="minus" title="Remove" onClick={handleDelete}>
                 -
             </button>
         </Container>

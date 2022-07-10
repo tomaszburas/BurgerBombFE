@@ -3,9 +3,12 @@ import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useEventrixState } from 'eventrix';
+import { BasketEntity } from 'types';
 
 export const Header = () => {
     const [navbar, setNavbar] = useState(false);
+    const [basket] = useEventrixState<BasketEntity[]>('basket');
 
     const changeBackground = () => {
         if (window.scrollY > 0) {
@@ -37,9 +40,11 @@ export const Header = () => {
 
                 <Link to="/basket">
                     <i className="bx bxs-basket">
-                        <div className="pulse-badge-wrapper">
-                            <div className="pulse-badge" />
-                        </div>
+                        {basket.length !== 0 && (
+                            <div className="pulse-badge-wrapper">
+                                <div className="pulse-badge" />
+                            </div>
+                        )}
                     </i>
                 </Link>
             </div>

@@ -11,7 +11,9 @@ export const BotdContainer = () => {
     const emit = useEmit();
     const [burgers] = useEventrixState<BurgerEntityResponse[]>('burgers');
     const [botd] = useEventrixState<BurgerEntityResponse>('botd');
-    const [burgerId, setBurgerId] = useState(botd?.id);
+    const [burgerId, setBurgerId] = useState(
+        burgers.length === 1 ? burgers[0].id : botd?.id
+    );
 
     useEffect(() => {
         (async () => {
@@ -21,8 +23,11 @@ export const BotdContainer = () => {
             });
 
             const data = await res.json();
-            setBurgerId(data.botd?.burger.id);
-            emit('botd:set', data.botd?.burger);
+
+            if (data.botd.burger !== false) {
+                setBurgerId(data.botd.burger.id);
+                emit('botd:set', data.botd.burger);
+            }
         })();
     }, [emit]);
 

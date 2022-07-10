@@ -56,7 +56,7 @@ export const AdminsItem = ({ id, email, role }: Props) => {
                 <ConfirmationPopUp
                     title={`Are you sure you want to remove ${email} user?`}
                     setPopUp={setRemovePopUp}
-                    handlerRemoveBtn={handleRemove}
+                    handler={handleRemove}
                 />
             )}
             {editForm && (

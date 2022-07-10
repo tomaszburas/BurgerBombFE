@@ -3,14 +3,10 @@ import styled from 'styled-components';
 interface Props {
     title: string;
     setPopUp: (param: boolean) => void;
-    handlerRemoveBtn: () => void;
+    handler: () => void;
 }
 
-export const ConfirmationPopUp = ({
-    title,
-    setPopUp,
-    handlerRemoveBtn,
-}: Props) => {
+export const ConfirmationPopUp = ({ title, setPopUp, handler }: Props) => {
     return (
         <Container>
             <div className="bg" onClick={() => setPopUp(false)} />
@@ -28,7 +24,7 @@ export const ConfirmationPopUp = ({
                         onClick={() => setPopUp(false)}>
                         No
                     </button>
-                    <button title="Yes" onClick={handlerRemoveBtn}>
+                    <button title="Yes" onClick={handler}>
                         Yes
                     </button>
                 </div>
@@ -50,7 +46,7 @@ const Container = styled.div`
     }
 
     .wrapper-popup {
-        position: absolute;
+        position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -59,6 +55,7 @@ const Container = styled.div`
         width: 30%;
         height: fit-content;
         z-index: 10;
+        color: ${(props) => props.theme.colors.brown};
 
         .bx-x {
             position: absolute;

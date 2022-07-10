@@ -1,10 +1,18 @@
 import styled from 'styled-components';
 import { OrderHeader } from '../components/Headers/OrderHeader';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { OrderSummary } from '../components/Order/OrderSummary';
 import { BasketItems } from '../components/Basket/BasketItems';
+import { useEventrixState } from 'eventrix';
+import { BasketEntity } from 'types';
 
 export const Summary = () => {
+    const [basket] = useEventrixState<BasketEntity[]>('basket');
+
+    if (basket.length === 0) {
+        return <Navigate to="/" />;
+    }
+
     return (
         <Container>
             <div className="wrapper">

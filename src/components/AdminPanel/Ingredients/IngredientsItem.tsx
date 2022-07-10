@@ -57,7 +57,7 @@ export const IngredientsItem = ({ id, name, price }: Props) => {
                 <ConfirmationPopUp
                     title={`Are you sure you want to remove ${name} ingredient?`}
                     setPopUp={setRemovePopUp}
-                    handlerRemoveBtn={handleRemove}
+                    handler={handleRemove}
                 />
             )}
             {editForm && (

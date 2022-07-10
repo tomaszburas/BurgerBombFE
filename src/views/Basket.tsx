@@ -3,8 +3,40 @@ import { Link } from 'react-router-dom';
 import { OrderHeader } from '../components/Headers/OrderHeader';
 import { BasketItems } from '../components/Basket/BasketItems';
 import { OrderSummary } from '../components/Order/OrderSummary';
+import { useEmit, useEventrixState } from 'eventrix';
+import { BasketEntity } from 'types';
+import { FormEvent, useState } from 'react';
+import { HOSTPORT } from '../config';
+import { toast } from 'react-toastify';
 
 export const Basket = () => {
+    const emit = useEmit();
+    const [basket] = useEventrixState<BasketEntity[]>('basket');
+    const [coupon, setCoupon] = useState('');
+
+    const handleCoupon = async (e: FormEvent) => {
+        e.preventDefault();
+
+        if (coupon === '') {
+            return;
+        }
+
+        const res = await fetch(`${HOSTPORT}/coupon/code/${coupon}`, {
+            credentials: 'include',
+            mode: 'cors',
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+            toast.error(data.message);
+            return;
+        }
+
+        emit('coupons:set', data.coupon);
+        toast.success('Coupon activated 🎉');
+    };
+
     return (
         <Container>
             <div className="wrapper">
@@ -13,31 +45,45 @@ export const Basket = () => {
                     <div className="basket-wrapper">
                         <div className="basket-title">
                             <p>Your Basket</p>
-                            <Link to="/order">
-                                <button title="Order">Order</button>
-                            </Link>
+                            {basket.length !== 0 && (
+                                <Link to="/order">
+                                    <button title="Order">Order</button>
+                                </Link>
+                            )}
                         </div>
                         <div className="basket-order">
                             <div className="basket-items-wrapper">
                                 <BasketItems />
                             </div>
                         </div>
-                        <div className="basket-footer">
-                            <form>
-                                <div className="input-box input-coupon">
-                                    <input type="text" id="coupon" />
-                                    <label htmlFor="coupon">Coupon Code</label>
+                        {basket.length !== 0 && (
+                            <div className="basket-footer">
+                                <form>
+                                    <div className="input-box input-coupon">
+                                        <input
+                                            type="text"
+                                            id="coupon"
+                                            value={coupon}
+                                            onChange={(e) =>
+                                                setCoupon(e.target.value)
+                                            }
+                                        />
+                                        <label htmlFor="coupon">
+                                            Coupon Code
+                                        </label>
+                                    </div>
+                                    <button
+                                        title="Add coupon"
+                                        className="color-brown"
+                                        onClick={handleCoupon}>
+                                        Save
+                                    </button>
+                                </form>
+                                <div className="order-summary">
+                                    <OrderSummary />
                                 </div>
-                                <button
-                                    title="Add coupon"
-                                    className="color-brown">
-                                    Save
-                                </button>
-                            </form>
-                            <div className="order-summary">
-                                <OrderSummary />
                             </div>
-                        </div>
+                        )}
                     </div>
                 </section>
             </div>

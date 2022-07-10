@@ -6,11 +6,20 @@ import { LoaderData } from '../LoaderData';
 import { HOSTPORT } from '../../config';
 import { BurgerEntityResponse } from 'types';
 import { ingredientsName } from '../../utils/ingredients-name';
+import { ConfirmationPopUp } from '../AdminPanel/ConfirmationPopUp';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerOfTheDay = () => {
     const emit = useEmit();
+    const navigate = useNavigate();
     const [botd] = useEventrixState<BurgerEntityResponse>('botd');
     const [addBtn, setAddBtn] = useState(false);
+    const [popUp, setPopUp] = useState(false);
+
+    const handlePopUp = () => {
+        setPopUp(false);
+        navigate('/basket');
+    };
 
     useEffect(() => {
         (async () => {
@@ -20,9 +29,13 @@ export const BurgerOfTheDay = () => {
             });
 
             const data = await res.json();
-            emit('botd:set', data.botd?.burger);
+            emit('botd:set', data.botd.burger);
         })();
     }, [emit]);
+
+    if (!botd?.id) {
+        return null;
+    }
 
     return (
         <Container>
@@ -56,15 +69,24 @@ export const BurgerOfTheDay = () => {
                     </div>
                 )}
             </div>
-            {addBtn ? (
+            {addBtn && (
                 <AddBurgerToBasket
                     setAddBtn={setAddBtn}
+                    id={botd.id}
                     name={botd.name}
                     price={botd.price}
                     image={botd.img}
-                    ingredients={ingredientsName(botd.ingredients)}
+                    ingredients={botd.ingredients}
+                    setPopUp={setPopUp}
                 />
-            ) : null}
+            )}
+            {popUp && (
+                <ConfirmationPopUp
+                    title={`Do you want to go to the basket?`}
+                    setPopUp={setPopUp}
+                    handler={handlePopUp}
+                />
+            )}
         </Container>
     );
 };
@@ -121,7 +143,7 @@ const Container = styled.div`
                 }
 
                 .burger-price {
-                    padding: 1rem;
+                    padding: 0.5rem 1rem;
                     background-color: ${(props) => props.theme.colors.red};
                     cursor: pointer;
                     display: flex;

@@ -47,7 +47,7 @@ export const CouponsEditForm = ({ id, name, value, state }: Props) => {
             return;
         }
 
-        emit('coupons:update', data.coupon);
+        emit('coupons:set', data.coupon);
         state(false);
         toast.success(data.message);
     };

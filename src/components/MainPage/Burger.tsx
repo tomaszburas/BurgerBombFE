@@ -1,42 +1,67 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { AddBurgerToBasket } from './AddBurgerToBasket';
+import { HOSTPORT } from '../../config';
+import { BurgerIngredient } from 'types';
+import { ingredientsName } from '../../utils/ingredients-name';
+import { ConfirmationPopUp } from '../AdminPanel/ConfirmationPopUp';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
+    id: string;
     name: string;
     price: number;
     image: string;
-    ingredients: string;
+    ingredients: BurgerIngredient[];
 }
 
-export const Burger = ({ name, price, image, ingredients }: Props) => {
+export const Burger = ({ id, name, price, image, ingredients }: Props) => {
+    const navigate = useNavigate();
     const [addBtn, setAddBtn] = useState(false);
+    const [popUp, setPopUp] = useState(false);
+
+    const handlePopUp = () => {
+        setPopUp(false);
+        navigate('/basket');
+    };
 
     return (
         <Container>
             <div className="top">
-                <img src={image} alt="burger" />
+                <img
+                    src={`${HOSTPORT}/../images/${image}`}
+                    alt={`${name} img`}
+                />
             </div>
             <div
                 className="center"
                 title="Add to basket"
                 onClick={() => setAddBtn(true)}>
-                <p className="burger-name">{name} BURGER</p>
+                <p className="burger-name">{name.toUpperCase()} BURGER</p>
                 <p className="burger-price">
-                    ${price}
+                    $ {price}
                     <i className="bx bx-plus" />
                 </p>
             </div>
-            <div className="bottom">{ingredients}</div>
-            {addBtn ? (
+            <div className="bottom">{ingredientsName(ingredients)}</div>
+            {addBtn && (
                 <AddBurgerToBasket
                     setAddBtn={setAddBtn}
+                    id={id}
                     name={name}
                     price={price}
                     image={image}
                     ingredients={ingredients}
+                    setPopUp={setPopUp}
                 />
-            ) : null}
+            )}
+            {popUp && (
+                <ConfirmationPopUp
+                    title={`Do you want to go to the basket?`}
+                    setPopUp={setPopUp}
+                    handler={handlePopUp}
+                />
+            )}
         </Container>
     );
 };
@@ -81,5 +106,7 @@ const Container = styled.div`
 
     .bottom {
         margin-bottom: 1rem;
+        padding: 0 1rem;
+        width: 100%;
     }
 `;
