@@ -1,19 +1,19 @@
 import styled from 'styled-components';
 import { AddAndRemoveBtns } from '../AddAndRemoveBtns';
-import { HOSTPORT } from '../../config';
+import { HOST } from '../../config';
 import { ingredientsName } from '../../utils/ingredients-name';
 import {
     BasketEntity,
     BurgerIngredient,
+    IngredientEntity,
     MeatPreparation,
-    IngredientEntityResponse,
 } from 'types';
 import { useEffect, useState } from 'react';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
-import _ from 'lodash';
 import { toast } from 'react-toastify';
 import { v4 as uuidv4 } from 'uuid';
+import { round } from '../../utils/round';
 
 interface Props {
     setAddBtn: (param: boolean) => void;
@@ -40,13 +40,13 @@ export const AddBurgerToBasket = ({
     const [meatPreparation, setMeatPreparation] =
         useState<MeatPreparation | null>(null);
     const [burgerQuantity, setBurgerQuantity] = useState(1);
-    const [allIngredients, setAllIngredients] = useState<
-        IngredientEntityResponse[]
-    >([]);
+    const [allIngredients, setAllIngredients] = useState<IngredientEntity[]>(
+        []
+    );
     const [checkedIngredients, setCheckedIngredients] = useState<
-        IngredientEntityResponse[]
+        IngredientEntity[]
     >([]);
-    const [uuid, setUuid] = useState(uuidv4());
+    const [uuid] = useState(uuidv4());
     const [basket] = useEventrixState<BasketEntity[]>('basket');
     const [burgerState, setBurgerState] = useState<BasketEntity>({
         id: uuid,
@@ -61,7 +61,7 @@ export const AddBurgerToBasket = ({
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/ingredient`, {
+            const res = await fetch(`${HOST}/ingredient`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -85,7 +85,7 @@ export const AddBurgerToBasket = ({
         });
     }, [ingredientsValue, burgerQuantity, totalValue, meatPreparation]);
 
-    const filterIngredients = (allIngredients: IngredientEntityResponse[]) => {
+    const filterIngredients = (allIngredients: IngredientEntity[]) => {
         return allIngredients.filter((element) => {
             const ingredient = ingredients.find((el) => el.id === element.id);
             return !ingredient;
@@ -124,7 +124,7 @@ export const AddBurgerToBasket = ({
     };
 
     const handleTotalValue = () => {
-        setTotalValue(burgerQuantity * (price + ingredientsValue));
+        setTotalValue(round(burgerQuantity * (price + ingredientsValue)));
     };
 
     const handleAddToBasket = () => {
@@ -139,34 +139,41 @@ export const AddBurgerToBasket = ({
         );
 
         if (basketState) {
-            const a = {
-                id: basketState.burgerId,
-                extraIngredients: basketState.extraIngredients,
-                meatPreparation: basketState.meatPreparation,
-            };
+            if (
+                basketState.burgerId === burgerState.burgerId &&
+                basketState.meatPreparation === burgerState.meatPreparation
+            ) {
+                const ingredientsCompare = basketState.extraIngredients
+                    .map((ingredient) => {
+                        return !!burgerState.extraIngredients.find(
+                            (element) => element.id === ingredient.id
+                        );
+                    })
+                    .every((el) => el);
 
-            const b = {
-                id: burgerState.burgerId,
-                extraIngredients: burgerState.extraIngredients,
-                meatPreparation: burgerState.meatPreparation,
-            };
+                if (
+                    ingredientsCompare ||
+                    (basketState.extraIngredients.length === 0 &&
+                        burgerState.extraIngredients.length === 0)
+                ) {
+                    const value = {
+                        id: basketState.id,
+                        burgerId: basketState.burgerId,
+                        name: basketState.name,
+                        price: basketState.price,
+                        extraIngredients: basketState.extraIngredients,
+                        burgerQuantity:
+                            burgerState.burgerQuantity +
+                            basketState.burgerQuantity,
+                        totalValue:
+                            burgerState.totalValue + basketState.totalValue,
+                        meatPreparation: basketState.meatPreparation,
+                    };
 
-            if (_.isEqual(a, b)) {
-                const value = {
-                    id: basketState.id,
-                    burgerId: basketState.burgerId,
-                    name: basketState.name,
-                    price: basketState.price,
-                    extraIngredients: basketState.extraIngredients,
-                    burgerQuantity:
-                        burgerState.burgerQuantity + basketState.burgerQuantity,
-                    totalValue: burgerState.totalValue + basketState.totalValue,
-                    meatPreparation: basketState.meatPreparation,
-                };
-
-                emit('basket:update', value);
-                setPopUp(true);
-                return;
+                    emit('basket:update', value);
+                    setPopUp(true);
+                    return;
+                }
             }
         }
 
@@ -194,7 +201,7 @@ export const AddBurgerToBasket = ({
                 />
                 <div className="burger-top">
                     <img
-                        src={`${HOSTPORT}/../images/${image}`}
+                        src={`${HOST}/../images/${image}`}
                         alt={`${name} img`}
                     />
                 </div>
@@ -256,7 +263,7 @@ export const AddBurgerToBasket = ({
                         <LoaderData />
                     ) : (
                         filterIngredients(allIngredients).map(
-                            (ingredient: IngredientEntityResponse) => (
+                            (ingredient: IngredientEntity) => (
                                 <div className="checkbox" key={ingredient.id}>
                                     <div className="checkbox-left">
                                         <input
@@ -267,7 +274,7 @@ export const AddBurgerToBasket = ({
                                             required
                                         />
                                         <label htmlFor={ingredient.id}>
-                                            <span></span>
+                                            <span />
                                             {ingredient.name}
                                         </label>
                                     </div>

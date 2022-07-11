@@ -1,12 +1,12 @@
 import styled from 'styled-components';
-import { ConfirmationPopUp } from '../ConfirmationPopUp';
+import { ConfirmationPopUp } from '../../ConfirmationPopUp';
 import { useState } from 'react';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 import { toast } from 'react-toastify';
 import { AdminsEditForm } from './Form/AdminsEditForm';
 import { useEmit } from 'eventrix';
 import { Form } from 'types';
-import { FormBox } from '../FormBox';
+import { FormBox } from '../../FormBox';
 
 interface Props {
     id: string;
@@ -20,7 +20,7 @@ export const AdminsItem = ({ id, email, role }: Props) => {
     const [editForm, setEditForm] = useState(false);
 
     const handleRemove = async () => {
-        const res = await fetch(`${HOSTPORT}/admin/${id}`, {
+        const res = await fetch(`${HOST}/admin/${id}`, {
             method: 'DELETE',
             credentials: 'include',
             mode: 'cors',
@@ -29,7 +29,7 @@ export const AdminsItem = ({ id, email, role }: Props) => {
 
         setRemovePopUp(false);
         if (data.success) {
-            emit('users:remove', data.id);
+            emit('users:remove', id);
             toast.success(data.message);
         } else {
             toast.error(data.message);

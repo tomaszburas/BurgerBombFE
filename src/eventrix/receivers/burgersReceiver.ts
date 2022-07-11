@@ -1,5 +1,5 @@
 import { EventsReceiver } from 'eventrix';
-import { BurgerEntityResponse } from 'types';
+import { BurgerEntity } from 'types';
 
 const burgersReceiver = new EventsReceiver(
     [
@@ -21,15 +21,13 @@ const burgersReceiver = new EventsReceiver(
         if (eventName === 'burgers:remove') {
             stateManager.setState(
                 'burgers',
-                burgers.filter(
-                    (burger: BurgerEntityResponse) => burger.id !== value
-                )
+                burgers.filter((burger: BurgerEntity) => burger.id !== value)
             );
         }
         if (eventName === 'burgers:update') {
             stateManager.setState(
                 'burgers',
-                burgers.map((burger: BurgerEntityResponse) => {
+                burgers.map((burger: BurgerEntity) => {
                     if (burger.id === value.id) {
                         return value;
                     } else {
@@ -41,7 +39,7 @@ const burgersReceiver = new EventsReceiver(
         if (eventName === 'burgers:updateActive') {
             stateManager.setState(
                 'burgers',
-                burgers.map((burger: BurgerEntityResponse) => {
+                burgers.map((burger: BurgerEntity) => {
                     if (burger.id === value.id) {
                         return { ...burger, active: value.active };
                     } else {

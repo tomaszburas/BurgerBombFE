@@ -1,30 +1,30 @@
 import styled from 'styled-components';
 import { useEmit, useEventrixState } from 'eventrix';
-import { BurgerEntityResponse } from 'types';
 import { LoaderData } from '../../LoaderData';
-import { NoData } from '../NoData';
+import { NoData } from '../../NoData';
 import { useEffect, useState } from 'react';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 import { toast } from 'react-toastify';
+import { BurgerEntity } from 'types';
 
 export const BotdContainer = () => {
     const emit = useEmit();
-    const [burgers] = useEventrixState<BurgerEntityResponse[]>('burgers');
-    const [botd] = useEventrixState<BurgerEntityResponse>('botd');
+    const [burgers] = useEventrixState<BurgerEntity[]>('burgers');
+    const [botd] = useEventrixState<BurgerEntity>('botd');
     const [burgerId, setBurgerId] = useState(
         burgers.length === 1 ? burgers[0].id : botd?.id
     );
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/botd`, {
+            const res = await fetch(`${HOST}/botd`, {
                 credentials: 'include',
                 mode: 'cors',
             });
 
             const data = await res.json();
 
-            if (data.botd.burger !== false) {
+            if (data.botd.burger !== null) {
                 setBurgerId(data.botd.burger.id);
                 emit('botd:set', data.botd.burger);
             }
@@ -32,7 +32,7 @@ export const BotdContainer = () => {
     }, [emit]);
 
     const handleSaveBotd = async () => {
-        const res = await fetch(`${HOSTPORT}/botd`, {
+        const res = await fetch(`${HOST}/botd`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
@@ -59,7 +59,7 @@ export const BotdContainer = () => {
         <Container>
             <div className="header">Burger of the day</div>
             <div className="data-wrapper">
-                {burgers === null ? (
+                {!burgers ? (
                     <LoaderData />
                 ) : burgers.length > 0 ? (
                     <>

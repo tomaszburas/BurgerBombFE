@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { NewAdminEntity, Role, Form } from 'types';
 import { useEmit } from 'eventrix';
@@ -16,7 +16,7 @@ export const AdminsAddForm = () => {
     const handleAddForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/admin`, {
+        const res = await fetch(`${HOST}/admin`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',

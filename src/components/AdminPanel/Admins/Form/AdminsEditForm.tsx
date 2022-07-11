@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { NewAdminEntity, Form } from 'types';
 import { useEmit } from 'eventrix';
@@ -32,7 +32,7 @@ export const AdminsEditForm = ({ id, email, role, state }: Props) => {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/admin/${id}`, {
+        const res = await fetch(`${HOST}/admin/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',

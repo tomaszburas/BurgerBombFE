@@ -6,30 +6,30 @@ import ingredientsReceiver from './receivers/ingredientsReceiver';
 import infoReceiver from './receivers/infoReceiver';
 import couponsReceiver from './receivers/couponReceiver';
 import burgersReceiver from './receivers/burgersReceiver';
-import {
-    Form,
-    AdminEntityResponse,
-    BurgerEntityResponse,
-    CouponEntityResponse,
-    InfoEntityResponse,
-    IngredientEntityResponse,
-    BasketEntity,
-    OrderEntity,
-} from 'types';
 import botdReceiver from './receivers/botdReceiver';
 import basketReceiver from './receivers/basketReceiver';
 import orderReceiver from './receivers/orderReceiver';
+import {
+    Form,
+    AdminEntityResponse,
+    BasketEntity,
+    OrderEntity,
+    IngredientEntity,
+    CouponEntity,
+    BurgerEntity,
+    InfoEntity,
+} from 'types';
 
 interface State {
     isAuth: null | boolean;
     users: null | AdminEntityResponse[];
-    ingredients: null | IngredientEntityResponse[];
-    coupons: null | CouponEntityResponse[];
-    burgers: null | BurgerEntityResponse[];
-    info: null | InfoEntityResponse;
+    ingredients: null | IngredientEntity[];
+    coupons: null | CouponEntity[];
+    burgers: null | BurgerEntity[];
+    info: null | InfoEntity;
     [Form.ADD]: boolean;
     [Form.EDIT]: boolean;
-    botd: null | BurgerEntityResponse;
+    botd: null | BurgerEntity;
     basket: BasketEntity[];
     order: OrderEntity | null;
 }

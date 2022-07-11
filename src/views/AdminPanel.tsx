@@ -10,7 +10,7 @@ import { OrdersContainer } from '../components/AdminPanel/Orders/OrdersContainer
 import { CouponsContainer } from '../components/AdminPanel/Coupons/CouponsContainer';
 import { AdminPanelItems } from 'types';
 import { useEmit } from 'eventrix';
-import { HOSTPORT } from '../config';
+import { HOST } from '../config';
 
 export const AdminPanel = () => {
     const [menuItem, setMenuItem] = useState(AdminPanelItems.ORDERS);
@@ -18,11 +18,11 @@ export const AdminPanel = () => {
 
     useEffect(() => {
         (async () => {
-            const resBurgers = fetch(`${HOSTPORT}/burger`, {
+            const resBurgers = fetch(`${HOST}/burger`, {
                 credentials: 'include',
                 mode: 'cors',
             });
-            const resIngredients = fetch(`${HOSTPORT}/ingredient`, {
+            const resIngredients = fetch(`${HOST}/ingredient`, {
                 credentials: 'include',
                 mode: 'cors',
             });

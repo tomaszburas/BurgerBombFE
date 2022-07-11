@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { useEmit, useEventrixState } from 'eventrix';
-import { InfoEntityResponse, Form } from 'types';
+import { Form, InfoEntity } from 'types';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 
 export const InfoEditForm = () => {
     const emit = useEmit();
-    const [info] = useEventrixState<InfoEntityResponse>('info');
+    const [info] = useEventrixState<InfoEntity>('info');
     const [form, setForm] = useState({
         street: info.street,
         number: info.number,
@@ -50,7 +50,7 @@ export const InfoEditForm = () => {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/info`, {
+        const res = await fetch(`${HOST}/info`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',

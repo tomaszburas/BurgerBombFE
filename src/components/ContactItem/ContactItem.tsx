@@ -5,8 +5,8 @@ import { VisitUs } from './VisitUs';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
 import { useEffect } from 'react';
-import { HOSTPORT } from '../../config';
-import { InfoEntityResponse } from 'types';
+import { HOST } from '../../config';
+import { InfoEntity } from 'types';
 
 interface Props {
     icon: string;
@@ -15,11 +15,11 @@ interface Props {
 
 export const ContactItem = ({ icon, name }: Props) => {
     const emit = useEmit();
-    const [info] = useEventrixState<InfoEntityResponse>('info');
+    const [info] = useEventrixState<InfoEntity>('info');
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/info`, {
+            const res = await fetch(`${HOST}/info`, {
                 credentials: 'include',
                 mode: 'cors',
             });

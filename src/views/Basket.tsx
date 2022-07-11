@@ -6,7 +6,7 @@ import { OrderSummary } from '../components/Order/OrderSummary';
 import { useEmit, useEventrixState } from 'eventrix';
 import { BasketEntity } from 'types';
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../config';
+import { HOST } from '../config';
 import { toast } from 'react-toastify';
 
 export const Basket = () => {
@@ -21,7 +21,7 @@ export const Basket = () => {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/coupon/code/${coupon}`, {
+        const res = await fetch(`${HOST}/coupon/code/${coupon}`, {
             credentials: 'include',
             mode: 'cors',
         });

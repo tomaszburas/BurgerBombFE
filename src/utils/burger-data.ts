@@ -1,6 +1,6 @@
 import { BurgerForm } from 'types';
 
-export const burgerData = (form: BurgerForm) => {
+export const burgerData = (form: BurgerForm): FormData => {
     const dataReq = new FormData();
     dataReq.append('name', form.name);
     dataReq.append('price', String(form.price));

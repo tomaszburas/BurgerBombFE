@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
-import { HOSTPORT } from '../../config';
+import { HOST } from '../../config';
 import { useEmit } from 'eventrix';
 import { toast } from 'react-toastify';
 
@@ -10,7 +10,7 @@ export const AdminHeader = () => {
     const emit = useEmit();
 
     const logout = async () => {
-        const res = await fetch(`${HOSTPORT}/admin/logout`, {
+        const res = await fetch(`${HOST}/admin/logout`, {
             credentials: 'include',
             mode: 'cors',
         });

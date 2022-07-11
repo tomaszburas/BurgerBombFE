@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 import { toast } from 'react-toastify';
-import { ConfirmationPopUp } from '../ConfirmationPopUp';
+import { ConfirmationPopUp } from '../../ConfirmationPopUp';
 import { IngredientsEditForm } from './Form/IngredientsEditForm';
 import { useEmit } from 'eventrix';
 import { Form } from 'types';
-import { FormBox } from '../FormBox';
+import { FormBox } from '../../FormBox';
 
 interface Props {
     id: string;
@@ -20,7 +20,7 @@ export const IngredientsItem = ({ id, name, price }: Props) => {
     const [editForm, setEditForm] = useState(false);
 
     const handleRemove = async () => {
-        const res = await fetch(`${HOSTPORT}/ingredient/${id}`, {
+        const res = await fetch(`${HOST}/ingredient/${id}`, {
             method: 'DELETE',
             credentials: 'include',
             mode: 'cors',

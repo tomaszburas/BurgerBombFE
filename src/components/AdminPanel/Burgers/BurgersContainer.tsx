@@ -3,7 +3,7 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { BurgersAddForm } from './Form/BurgersAddForm';
 import { BurgersItems } from './BurgersItems';
 import { Form } from 'types';
-import { FormBox } from '../FormBox';
+import { FormBox } from '../../FormBox';
 
 export const BurgersContainer = () => {
     const emit = useEmit();

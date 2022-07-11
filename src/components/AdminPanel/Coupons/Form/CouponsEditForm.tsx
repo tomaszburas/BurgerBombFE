@@ -1,6 +1,6 @@
 import { useEmit } from 'eventrix';
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { CouponsForm } from './CouponsForm';
 import { NewCouponEntity, Form } from 'types';
@@ -27,7 +27,7 @@ export const CouponsEditForm = ({ id, name, value, state }: Props) => {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/coupon/${id}`, {
+        const res = await fetch(`${HOST}/coupon/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -47,7 +47,7 @@ export const CouponsEditForm = ({ id, name, value, state }: Props) => {
             return;
         }
 
-        emit('coupons:set', data.coupon);
+        emit('coupons:update', data.coupon);
         state(false);
         toast.success(data.message);
     };

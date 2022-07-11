@@ -3,7 +3,7 @@ import { AdminsItems } from './AdminsItems';
 import { useEmit, useEventrixState } from 'eventrix';
 import { AdminsAddForm } from './Form/AdminsAddForm';
 import { Form } from 'types';
-import { FormBox } from '../FormBox';
+import { FormBox } from '../../FormBox';
 
 export const AdminsContainer = () => {
     const emit = useEmit();

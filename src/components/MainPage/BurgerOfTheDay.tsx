@@ -3,16 +3,16 @@ import { useEffect, useState } from 'react';
 import { AddBurgerToBasket } from './AddBurgerToBasket';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
-import { HOSTPORT } from '../../config';
-import { BurgerEntityResponse } from 'types';
+import { HOST } from '../../config';
 import { ingredientsName } from '../../utils/ingredients-name';
-import { ConfirmationPopUp } from '../AdminPanel/ConfirmationPopUp';
+import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { useNavigate } from 'react-router-dom';
+import { BurgerEntity } from 'types';
 
 export const BurgerOfTheDay = () => {
     const emit = useEmit();
     const navigate = useNavigate();
-    const [botd] = useEventrixState<BurgerEntityResponse>('botd');
+    const [botd] = useEventrixState<BurgerEntity>('botd');
     const [addBtn, setAddBtn] = useState(false);
     const [popUp, setPopUp] = useState(false);
 
@@ -23,7 +23,7 @@ export const BurgerOfTheDay = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/botd`, {
+            const res = await fetch(`${HOST}/botd`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -47,7 +47,7 @@ export const BurgerOfTheDay = () => {
                     <div className="wrapper">
                         <div className="left">
                             <img
-                                src={`${HOSTPORT}/../images/${botd.img}`}
+                                src={`${HOST}/../images/${botd.img}`}
                                 alt={`${botd.name} img`}
                             />
                         </div>

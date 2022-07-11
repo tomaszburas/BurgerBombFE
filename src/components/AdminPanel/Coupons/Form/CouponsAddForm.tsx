@@ -1,6 +1,6 @@
 import { useEmit } from 'eventrix';
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { CouponsForm } from './CouponsForm';
 import { NewCouponEntity } from 'types';
@@ -16,7 +16,7 @@ export const CouponsAddForm = () => {
     const handleAddForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/coupon`, {
+        const res = await fetch(`${HOST}/coupon`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',

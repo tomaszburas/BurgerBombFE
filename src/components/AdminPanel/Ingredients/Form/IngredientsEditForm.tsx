@@ -1,4 +1,4 @@
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
 import { useEmit } from 'eventrix';
@@ -27,7 +27,7 @@ export const IngredientsEditForm = ({ id, name, price, state }: Props) => {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/ingredient/${id}`, {
+        const res = await fetch(`${HOST}/ingredient/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -54,13 +54,11 @@ export const IngredientsEditForm = ({ id, name, price, state }: Props) => {
     };
 
     return (
-        <>
-            <IngredientsForm
-                handler={handleEditForm}
-                form={form}
-                setForm={setForm}
-                name={Form.EDIT}
-            />
-        </>
+        <IngredientsForm
+            handler={handleEditForm}
+            form={form}
+            setForm={setForm}
+            name={Form.EDIT}
+        />
     );
 };

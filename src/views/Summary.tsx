@@ -3,14 +3,37 @@ import { OrderHeader } from '../components/Headers/OrderHeader';
 import { Link, Navigate } from 'react-router-dom';
 import { OrderSummary } from '../components/Order/OrderSummary';
 import { BasketItems } from '../components/Basket/BasketItems';
-import { useEventrixState } from 'eventrix';
-import { BasketEntity } from 'types';
+import { useEmit, useEventrixState } from 'eventrix';
+import { BasketEntity, OrderEntity } from 'types';
+import { Loader } from '../components/Loader';
+import { useEffect, useState } from 'react';
 
 export const Summary = () => {
+    const emit = useEmit();
     const [basket] = useEventrixState<BasketEntity[]>('basket');
+    const [order] = useEventrixState<OrderEntity>('order');
+    const [isLoaded, setLoaded] = useState(false);
+
+    useEffect(() => {
+        if (!isLoaded) {
+            setLoaded(true);
+        }
+        console.log(order);
+        return () => {
+            if (isLoaded) {
+                emit('order:set', null);
+                emit('basket:reset');
+                emit('coupons:set', null);
+            }
+        };
+    }, [isLoaded]);
 
     if (basket.length === 0) {
         return <Navigate to="/" />;
+    }
+
+    if (order === null) {
+        return <Loader />;
     }
 
     return (
@@ -20,7 +43,8 @@ export const Summary = () => {
                 <section className="summary">
                     <div className="summary-wrapper">
                         <div className="summary-title">
-                            Thank you for your order Tomasz 🎉
+                            Thank you for your order (#{order.orderNumber}){' '}
+                            {order.client.firstName} 🎉
                         </div>
                         <div className="summary-center">
                             <div className="summary-items-wrapper">
@@ -33,8 +57,9 @@ export const Summary = () => {
                         <div className="summary-footer">
                             <p className="text">
                                 Your order will be delivered as soon as
-                                possible. When the supplier arrives have $ 35
-                                ready if you chose cash as payment method.
+                                possible. When the supplier arrives have ${' '}
+                                {Math.ceil(order.value)} ready if you chose cash
+                                as payment method.
                             </p>
                             <Link to="/">
                                 <button title="Go home">Home</button>

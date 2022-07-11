@@ -1,5 +1,5 @@
 import { EventsReceiver } from 'eventrix';
-import { CouponEntityResponse } from 'types';
+import { CouponEntity } from 'types';
 
 const couponsReceiver = new EventsReceiver(
     ['coupons:set', 'coupons:add', 'coupons:remove', 'coupons:update'],
@@ -15,15 +15,13 @@ const couponsReceiver = new EventsReceiver(
         if (eventName === 'coupons:remove') {
             stateManager.setState(
                 'coupons',
-                coupons.filter(
-                    (coupon: CouponEntityResponse) => coupon.id !== value
-                )
+                coupons.filter((coupon: CouponEntity) => coupon.id !== value)
             );
         }
         if (eventName === 'coupons:update') {
             stateManager.setState(
                 'coupons',
-                coupons.map((coupon: CouponEntityResponse) => {
+                coupons.map((coupon: CouponEntity) => {
                     if (coupon.id === value.id) {
                         return value;
                     } else {

@@ -1,8 +1,8 @@
 import { LoaderData } from '../../../LoaderData';
-import { NoData } from '../../NoData';
+import { NoData } from '../../../NoData';
 import styled from 'styled-components';
 import { FormEvent } from 'react';
-import { BurgerForm, IngredientEntityResponse, Form } from 'types';
+import { BurgerForm, Form, IngredientEntity } from 'types';
 import { useEventrixState } from 'eventrix';
 
 interface Props {
@@ -13,8 +13,7 @@ interface Props {
 }
 
 export const BurgersForm = ({ handler, form, setForm, name }: Props) => {
-    const [ingredients] =
-        useEventrixState<IngredientEntityResponse[]>('ingredients');
+    const [ingredients] = useEventrixState<IngredientEntity[]>('ingredients');
 
     const handleCheckInput = (id: string) => {
         const checked = form.ingredients.includes(id);

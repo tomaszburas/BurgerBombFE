@@ -1,18 +1,18 @@
 import { useEmit, useEventrixState } from 'eventrix';
-import { CouponEntityResponse } from 'types';
 import { useEffect } from 'react';
-import { HOSTPORT } from '../../../config';
+import { CouponEntity } from 'types';
+import { HOST } from '../../../config';
 import { LoaderData } from '../../LoaderData';
-import { NoData } from '../NoData';
+import { NoData } from '../../NoData';
 import { CouponsItem } from './CouponsItem';
 
 export const CouponsItems = () => {
     const emit = useEmit();
-    const [coupons] = useEventrixState<CouponEntityResponse[]>('coupons');
+    const [coupons] = useEventrixState<CouponEntity[]>('coupons');
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/coupon`, {
+            const res = await fetch(`${HOST}/coupon`, {
                 credentials: 'include',
                 mode: 'cors',
             });

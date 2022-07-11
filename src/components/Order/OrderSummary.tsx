@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useEventrixState } from 'eventrix';
-import { BasketEntity, CouponEntityResponse } from 'types';
+import { BasketEntity, CouponEntity } from 'types';
 import { useEffect, useState } from 'react';
 import { round } from '../../utils/round';
 
 export const OrderSummary = () => {
     const [basket] = useEventrixState<BasketEntity[]>('basket');
-    const [coupons] = useEventrixState<CouponEntityResponse>('coupons');
+    const [coupons] = useEventrixState<CouponEntity>('coupons');
     const [couponActive, setCouponActive] = useState(false);
     const [value, setValue] = useState(
         basket.reduce((prev, curr) => prev + curr.totalValue, 0)

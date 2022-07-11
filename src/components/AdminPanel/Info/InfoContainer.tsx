@@ -3,7 +3,7 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { InfoEditForm } from './InfoEditForm';
 import { InfoItems } from './InfoItems';
 import { Form } from 'types';
-import { FormBox } from '../FormBox';
+import { FormBox } from '../../FormBox';
 
 export const InfoContainer = () => {
     const emit = useEmit();

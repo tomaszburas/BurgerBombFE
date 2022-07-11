@@ -1,27 +1,28 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { BasketItems } from '../Basket/BasketItems';
 import { OrderSummary } from './OrderSummary';
 import { BasketEntity, CouponEntity, OrderFormEntity } from 'types';
-import { useEventrixState } from 'eventrix';
-import { HOSTPORT } from '../../config';
-import { useState } from 'react';
+import { useEmit, useEventrixState } from 'eventrix';
+import { HOST } from '../../config';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
     form: OrderFormEntity;
 }
 
 export const OrderItems = ({ form }: Props) => {
+    const emit = useEmit();
     const [basket] = useEventrixState<BasketEntity[]>('basket');
     const [coupon] = useEventrixState<CouponEntity[]>('coupons');
+    const navigate = useNavigate();
 
     const handleOrder = async () => {
         if (basket.length === 0) {
             return;
         }
 
-        const res = await fetch(`${HOSTPORT}/order`, {
+        const res = await fetch(`${HOST}/order`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
@@ -41,6 +42,9 @@ export const OrderItems = ({ form }: Props) => {
             toast.error(data.message);
             return;
         }
+
+        emit('order:set', data.order);
+        navigate('/summary');
     };
 
     return (
@@ -51,11 +55,9 @@ export const OrderItems = ({ form }: Props) => {
             <div className="summary">
                 <OrderSummary />
                 <div className="button-wrapper">
-                    {/*<Link to="/summary">*/}
                     <button title="Submit your order" onClick={handleOrder}>
                         Submit your order
                     </button>
-                    {/*</Link>*/}
                 </div>
             </div>
         </Container>

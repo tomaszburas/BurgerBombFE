@@ -1,23 +1,20 @@
 import styled from 'styled-components';
-import { OrdersItem } from './OrdersItem';
+import { OrdersItems } from './OrdersItems';
 
 export const OrdersContainer = () => {
     return (
         <Container>
             <div className="header">
                 <p className="lp">Lp</p>
-                <p className="burger">Burger</p>
-                <p className="address">Address</p>
-                <p className="price">Price</p>
-                <p className="pm">Pay. Method</p>
+                <p className="order">Order</p>
+                <p className="client">Client</p>
+                <p className="value">Value</p>
+                <p className="pm">Pay.</p>
                 <p className="status">Status</p>
                 <p className="nav">Actions</p>
             </div>
             <div className="data-wrapper">
-                <OrdersItem />
-                <OrdersItem />
-                <OrdersItem />
-                <OrdersItem />
+                <OrdersItems />
             </div>
         </Container>
     );
@@ -25,6 +22,7 @@ export const OrdersContainer = () => {
 
 const Container = styled.div`
     height: 100%;
+    font-size: ${(props) => props.theme.fontSize.sm};
 
     .header {
         width: 100%;
@@ -39,38 +37,38 @@ const Container = styled.div`
         margin-right: 1rem;
     }
 
-    .burger {
-        width: 20%;
+    .order {
+        width: 25%;
         margin-right: 1rem;
     }
 
-    .address {
-        width: 20%;
+    .client {
+        width: 25%;
         margin-right: 1rem;
     }
 
-    .price {
+    .value {
         width: 15%;
         margin-right: 1rem;
     }
 
     .pm {
-        width: 20%;
+        width: 5%;
         margin-right: 1rem;
     }
 
     .status {
-        width: 10%;
+        width: 18%;
         margin-right: 1rem;
     }
 
     .nav {
-        width: 10%;
+        width: 7%;
     }
 
     .data-wrapper {
         margin-top: 0.5rem;
-        height: calc(100% - ${(props) => props.theme.fontSize.base} - 4.5rem);
+        height: calc(100% - ${(props) => props.theme.fontSize.sm} - 4.5rem);
         overflow: auto;
     }
 `;

@@ -1,5 +1,5 @@
 import { EventsReceiver } from 'eventrix';
-import { IngredientEntityResponse } from 'types';
+import { IngredientEntity } from 'types';
 
 const ingredientsReceiver = new EventsReceiver(
     [
@@ -21,15 +21,14 @@ const ingredientsReceiver = new EventsReceiver(
             stateManager.setState(
                 'ingredients',
                 ingredients.filter(
-                    (ingredient: IngredientEntityResponse) =>
-                        ingredient.id !== value
+                    (ingredient: IngredientEntity) => ingredient.id !== value
                 )
             );
         }
         if (eventName === 'ingredients:update') {
             stateManager.setState(
                 'ingredients',
-                ingredients.map((ingredient: IngredientEntityResponse) => {
+                ingredients.map((ingredient: IngredientEntity) => {
                     if (ingredient.id === value.id) {
                         return value;
                     } else {

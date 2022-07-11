@@ -1,9 +1,9 @@
 import { AdminsItem } from './AdminsItem';
 import { useEffect } from 'react';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 import { useEmit, useEventrixState } from 'eventrix';
 import { AdminEntityResponse } from 'types';
-import { NoData } from '../NoData';
+import { NoData } from '../../NoData';
 import { LoaderData } from '../../LoaderData';
 
 export const AdminsItems = () => {
@@ -12,7 +12,7 @@ export const AdminsItems = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/admin`, {
+            const res = await fetch(`${HOST}/admin`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -22,11 +22,7 @@ export const AdminsItems = () => {
     }, [emit]);
 
     if (users === null) {
-        return (
-            <>
-                <LoaderData />
-            </>
-        );
+        return <LoaderData />;
     }
 
     return (

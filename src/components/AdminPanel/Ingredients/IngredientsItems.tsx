@@ -1,12 +1,11 @@
 import { useEventrixState } from 'eventrix';
-import { IngredientEntityResponse } from 'types';
 import { LoaderData } from '../../LoaderData';
-import { NoData } from '../NoData';
+import { NoData } from '../../NoData';
 import { IngredientsItem } from './IngredientsItem';
+import { IngredientEntity } from 'types';
 
 export const IngredientsItems = () => {
-    const [ingredients] =
-        useEventrixState<IngredientEntityResponse[]>('ingredients');
+    const [ingredients] = useEventrixState<IngredientEntity[]>('ingredients');
 
     if (ingredients === null) {
         return (

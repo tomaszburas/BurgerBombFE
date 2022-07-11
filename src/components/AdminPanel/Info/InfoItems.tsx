@@ -1,17 +1,17 @@
 import { useEmit, useEventrixState } from 'eventrix';
-import { InfoEntityResponse } from 'types';
 import { useEffect } from 'react';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 import { LoaderData } from '../../LoaderData';
 import styled from 'styled-components';
+import { InfoEntity } from 'types';
 
 export const InfoItems = () => {
     const emit = useEmit();
-    const [info] = useEventrixState<InfoEntityResponse>('info');
+    const [info] = useEventrixState<InfoEntity>('info');
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/info`, {
+            const res = await fetch(`${HOST}/info`, {
                 credentials: 'include',
                 mode: 'cors',
             });

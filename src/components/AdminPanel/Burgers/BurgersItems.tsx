@@ -1,18 +1,14 @@
 import { useEventrixState } from 'eventrix';
-import { BurgerEntityResponse } from 'types';
+import { BurgerEntity } from 'types';
 import { LoaderData } from '../../LoaderData';
-import { NoData } from '../NoData';
+import { NoData } from '../../NoData';
 import { BurgersItem } from './BurgersItem';
 
 export const BurgersItems = () => {
-    const [burgers] = useEventrixState<BurgerEntityResponse[]>('burgers');
+    const [burgers] = useEventrixState<BurgerEntity[]>('burgers');
 
     if (burgers === null) {
-        return (
-            <>
-                <LoaderData />
-            </>
-        );
+        return <LoaderData />;
     }
 
     return (

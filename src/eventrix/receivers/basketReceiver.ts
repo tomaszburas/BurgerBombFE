@@ -2,12 +2,22 @@ import { EventsReceiver } from 'eventrix';
 import { BasketEntity } from 'types';
 
 const basketReceiver = new EventsReceiver(
-    ['basket:set', 'basket:add', 'basket:update', 'basket:remove'],
+    [
+        'basket:set',
+        'basket:add',
+        'basket:update',
+        'basket:remove',
+        'basket:reset',
+    ],
     (eventName, value, stateManager) => {
         const basket = stateManager.getState('basket');
 
         if (eventName === 'basket:set') {
             stateManager.setState('basket', [value]);
+        }
+
+        if (eventName === 'basket:reset') {
+            stateManager.setState('basket', []);
         }
 
         if (eventName === 'basket:add') {

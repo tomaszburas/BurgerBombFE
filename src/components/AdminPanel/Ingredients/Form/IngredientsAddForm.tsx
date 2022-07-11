@@ -1,5 +1,5 @@
 import { useEmit } from 'eventrix';
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
 import { NewIngredientEntity, Form } from 'types';
@@ -15,7 +15,7 @@ export const IngredientsAddForm = () => {
     const handleAddForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/ingredient`, {
+        const res = await fetch(`${HOST}/ingredient`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',

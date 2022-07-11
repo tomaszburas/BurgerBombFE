@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Form, BurgerIngredient } from 'types';
-import { HOSTPORT } from '../../../config';
+import { HOST } from '../../../config';
 import { useState } from 'react';
 import { useEmit } from 'eventrix';
 import { toast } from 'react-toastify';
-import { ConfirmationPopUp } from '../ConfirmationPopUp';
-import { FormBox } from '../FormBox';
+import { ConfirmationPopUp } from '../../ConfirmationPopUp';
+import { FormBox } from '../../FormBox';
 import { BurgersEditForm } from './Form/BurgersEditForm';
 import { ingredientsName } from '../../../utils/ingredients-name';
 
@@ -39,7 +39,7 @@ export const BurgersItem = ({
         const checked = e.target.checked;
         setActiveInput(checked);
 
-        const res = await fetch(`${HOSTPORT}/burger/active/${id}`, {
+        const res = await fetch(`${HOST}/burger/active/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -52,12 +52,12 @@ export const BurgersItem = ({
         const data = await res.json();
 
         if (data.success) {
-            emit('burgers:updateActive', { id, checked });
+            emit('burgers:updateActive', { id, active: checked });
         }
     };
 
     const handleRemove = async () => {
-        const res = await fetch(`${HOSTPORT}/burger/${id}`, {
+        const res = await fetch(`${HOST}/burger/${id}`, {
             method: 'DELETE',
             credentials: 'include',
             mode: 'cors',
@@ -85,7 +85,7 @@ export const BurgersItem = ({
                 />
             </div>
             <div className="img">
-                <img src={`${HOSTPORT}/../images/${img}`} alt={`${name} img`} />
+                <img src={`${HOST}/../images/${img}`} alt={`${name} img`} />
             </div>
             <p className="name">{name}</p>
             <p className="ingredients">{ingredientsName(ingredients)}</p>

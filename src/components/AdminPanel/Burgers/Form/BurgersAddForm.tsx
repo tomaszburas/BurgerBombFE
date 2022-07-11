@@ -1,7 +1,7 @@
 import { useEmit } from 'eventrix';
 import { FormEvent, useState } from 'react';
 import { BurgerForm, Form } from 'types';
-import { HOSTPORT } from '../../../../config';
+import { HOST } from '../../../../config';
 import { toast } from 'react-toastify';
 import { BurgersForm } from './BurgersForm';
 import { burgerData } from '../../../../utils/burger-data';
@@ -19,7 +19,7 @@ export const BurgersAddForm = () => {
     const handleAddForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/burger`, {
+        const res = await fetch(`${HOST}/burger`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',

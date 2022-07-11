@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { AddBurgerToBasket } from './AddBurgerToBasket';
-import { HOSTPORT } from '../../config';
+import { HOST } from '../../config';
 import { BurgerIngredient } from 'types';
 import { ingredientsName } from '../../utils/ingredients-name';
-import { ConfirmationPopUp } from '../AdminPanel/ConfirmationPopUp';
+import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { useNavigate } from 'react-router-dom';
 
 interface Props {
@@ -28,10 +28,7 @@ export const Burger = ({ id, name, price, image, ingredients }: Props) => {
     return (
         <Container>
             <div className="top">
-                <img
-                    src={`${HOSTPORT}/../images/${image}`}
-                    alt={`${name} img`}
-                />
+                <img src={`${HOST}/../images/${image}`} alt={`${name} img`} />
             </div>
             <div
                 className="center"

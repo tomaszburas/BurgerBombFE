@@ -3,8 +3,8 @@ import { Burger } from './Burger';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
 import { useEffect, useState } from 'react';
-import { HOSTPORT } from '../../config';
-import { BurgerEntityResponse } from 'types';
+import { HOST } from '../../config';
+import { BurgerEntity } from 'types';
 
 export const Menu = () => {
     const emit = useEmit();
@@ -13,7 +13,7 @@ export const Menu = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOSTPORT}/burger`, {
+            const res = await fetch(`${HOST}/burger`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -22,9 +22,7 @@ export const Menu = () => {
             emit('burgers:set', data.burgers);
 
             setActiveBurgers(
-                data.burgers.filter(
-                    (burger: BurgerEntityResponse) => burger.active
-                )
+                data.burgers.filter((burger: BurgerEntity) => burger.active)
             );
         })();
     }, [emit]);
@@ -46,7 +44,7 @@ export const Menu = () => {
     return (
         <Container>
             <div className="wrapper">
-                {activeBurgers.map((burger: BurgerEntityResponse) => (
+                {activeBurgers.map((burger: BurgerEntity) => (
                     <Burger
                         key={burger.id}
                         id={burger.id}

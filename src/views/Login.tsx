@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
-import { HOSTPORT } from '../config';
+import { HOST } from '../config';
 import { toast } from 'react-toastify';
 import { useEmit } from 'eventrix';
 
@@ -14,7 +14,7 @@ export const Login = () => {
     const submitForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOSTPORT}/admin/login`, {
+        const res = await fetch(`${HOST}/admin/login`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
