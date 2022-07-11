@@ -85,4 +85,28 @@ const Container = styled.div`
             }
         }
     }
+
+    @media only screen and (max-width: 1400px) {
+        .wrapper-popup {
+            width: 40%;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .wrapper-popup {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 900px) {
+        .wrapper-popup {
+            width: 70%;
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        .wrapper-popup {
+            width: 90%;
+        }
+    }
 `;
