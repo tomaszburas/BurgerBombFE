@@ -14,9 +14,11 @@ import {
     InfoEntityResponse,
     IngredientEntityResponse,
     BasketEntity,
+    OrderEntity,
 } from 'types';
 import botdReceiver from './receivers/botdReceiver';
 import basketReceiver from './receivers/basketReceiver';
+import orderReceiver from './receivers/orderReceiver';
 
 interface State {
     isAuth: null | boolean;
@@ -29,6 +31,7 @@ interface State {
     [Form.EDIT]: boolean;
     botd: null | BurgerEntityResponse;
     basket: BasketEntity[];
+    order: OrderEntity | null;
 }
 
 const initialState: State = {
@@ -42,6 +45,7 @@ const initialState: State = {
     [Form.EDIT]: false,
     botd: null,
     basket: [],
+    order: null,
 };
 
 const eventsReceiver = [
@@ -53,6 +57,7 @@ const eventsReceiver = [
     burgersReceiver,
     botdReceiver,
     basketReceiver,
+    orderReceiver,
     ...formBgReceiver,
 ];
 
