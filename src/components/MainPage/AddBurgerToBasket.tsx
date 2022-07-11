@@ -510,4 +510,23 @@ const Container = styled.div`
             }
         }
     }
+
+    @media only screen and (max-width: 1300px) {
+        .wrapper-add-burger {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 850px) {
+        .wrapper-add-burger {
+            width: 80%;
+            height: 90vh;
+        }
+    }
+
+    @media only screen and (max-width: 550px) {
+        .wrapper-add-burger {
+            width: 90%;
+        }
+    }
 `;
