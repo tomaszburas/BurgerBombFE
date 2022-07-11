@@ -44,7 +44,6 @@ export const App = () => {
 
 const Container = styled.section`
     width: 100%;
-    height: 100vh;
     background-color: ${(props) => props.theme.colors.cream};
     color: ${(props) => props.theme.colors.brown};
     font-size: ${(props) => props.theme.fontSize.base};

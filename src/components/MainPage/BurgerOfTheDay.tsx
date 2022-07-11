@@ -98,7 +98,7 @@ const Container = styled.div`
     padding-bottom: 2rem;
 
     .container {
-        width: 1200px;
+        width: 80%;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -164,6 +164,56 @@ const Container = styled.div`
                 width: 30%;
                 display: flex;
                 align-items: center;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .container {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .container {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        .container {
+            .wrapper {
+                flex-direction: column;
+                align-items: center;
+                .left {
+                    width: 80%;
+                    margin-right: 0;
+                    margin-bottom: 1rem;
+                }
+                .center {
+                    width: 80%;
+                    margin-right: 0;
+                    margin-bottom: 1.5rem;
+                }
+                .right {
+                    width: 80%;
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 650px) {
+        .container {
+            .wrapper {
+                .left {
+                    width: 100%;
+                }
+                .center {
+                    width: 100%;
+                }
+                .right {
+                    width: 100%;
+                }
             }
         }
     }

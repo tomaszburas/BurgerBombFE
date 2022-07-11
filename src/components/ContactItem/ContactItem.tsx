@@ -88,4 +88,9 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
     }
+
+    @media only screen and (max-width: 850px) {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
 `;

@@ -66,11 +66,23 @@ const Container = styled.section`
     justify-content: center;
 
     .wrapper {
-        width: 1200px;
+        width: 80%;
         margin: 2rem 0;
         display: flex;
         justify-content: center;
         gap: 5%;
         flex-wrap: wrap;
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .wrapper {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .wrapper {
+            width: 90%;
+        }
     }
 `;

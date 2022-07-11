@@ -67,7 +67,7 @@ const Container = styled.section<{ isActive: boolean }>`
     transition: background-color 0.5s ease-out;
 
     .wrapper {
-        width: 1200px;
+        width: 80%;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -142,6 +142,38 @@ const Container = styled.section<{ isActive: boolean }>`
                 border: 4px solid ${(props) => props.theme.colors.red};
                 transform: scale(0.5);
                 animation: pulse1 2s infinite;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .wrapper {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .wrapper {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width: 850px) {
+        padding: 0.5rem 0;
+
+        .wrapper {
+            .logo {
+                height: 3rem;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 600px) {
+        font-size: ${(props) => props.theme.fontSize.sm};
+
+        .wrapper {
+            ul {
+                display: none;
             }
         }
     }

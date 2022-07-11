@@ -106,4 +106,28 @@ const Container = styled.div`
         padding: 0 1rem;
         width: 100%;
     }
+
+    @media only screen and (max-width: 1500px) {
+        width: 45%;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        width: 70%;
+
+        .top {
+            img {
+                width: 60%;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 650px) {
+        width: 100%;
+
+        .top {
+            img {
+                width: 60%;
+            }
+        }
+    }
 `;

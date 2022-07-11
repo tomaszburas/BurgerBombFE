@@ -54,7 +54,7 @@ const Shape = styled.div`
 `;
 
 const Wrapper = styled.section`
-    width: 1200px;
+    width: 80%;
     margin: 1rem 1rem 0 1rem;
 
     .main {
@@ -147,6 +147,71 @@ const Wrapper = styled.section`
             .top {
                 z-index: 1;
                 cursor: pointer;
+            }
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        width: 60%;
+    }
+
+    @media only screen and (max-width: 1250px) {
+        width: 90%;
+    }
+
+    @media only screen and (max-width: 800px) {
+        .main {
+            .container {
+                flex-direction: column;
+                justify-content: center;
+                width: 100%;
+                padding-top: 5rem;
+
+                .info-txt {
+                    width: 100%;
+
+                    h1 {
+                        margin-bottom: 1rem;
+                    }
+
+                    .about-txt {
+                        margin-bottom: 2rem;
+                        line-height: 2rem;
+                    }
+
+                    .wrapper {
+                        .rock-mouse {
+                            border: 2px solid
+                                ${(props) => props.theme.colors.eden};
+                        }
+
+                        .rock-mouse::after {
+                            background: ${(props) => props.theme.colors.eden};
+                        }
+                    }
+                }
+
+                .info-img {
+                    width: 100%;
+                    align-items: center;
+
+                    img {
+                        width: 70%;
+                        padding-top: 2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        .main {
+            .container {
+                .info-img {
+                    img {
+                        width: 90%;
+                    }
+                }
             }
         }
     }
