@@ -98,7 +98,7 @@ const Container = styled.div`
     }
 
     .data-wrapper {
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         display: flex;
         align-items: center;
 
