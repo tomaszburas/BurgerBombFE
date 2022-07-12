@@ -12,13 +12,42 @@ interface Props {
     order: OrderEntity;
 }
 
+const itemColor = (status: OrderStatus): string => {
+    if (status === OrderStatus.NEW) {
+        return '#CEE5D0';
+    }
+
+    if (status === OrderStatus.COMPLETED) {
+        return '#ECB390';
+    }
+
+    if (status === OrderStatus.IN_PROGRESS) {
+        return '#FCF8E8';
+    }
+
+    return '';
+};
+
 export const OrdersItem = ({ order }: Props) => {
     const emit = useEmit();
     const [removePopUp, setRemovePopUp] = useState(false);
     const [status, setStatus] = useState(String(order.status));
+    const [color, setColor] = useState(itemColor(order.status));
 
     const changeStatus = async (e: any) => {
         setStatus(e.target.value);
+
+        if (e.target.value === OrderStatus.NEW) {
+            setColor('#CEE5D0');
+        }
+
+        if (e.target.value === OrderStatus.COMPLETED) {
+            setColor('#ECB390');
+        }
+
+        if (e.target.value === OrderStatus.IN_PROGRESS) {
+            setColor('#FCF8E8');
+        }
 
         const res = await fetch(`${HOST}/order/${order.id}`, {
             method: 'PUT',
@@ -63,7 +92,7 @@ export const OrdersItem = ({ order }: Props) => {
     };
 
     return (
-        <Container>
+        <Container color={color}>
             <p className="lp">#{order.orderNumber}</p>
             <div className="order">
                 {order.order.map((element) => (
@@ -107,9 +136,7 @@ export const OrdersItem = ({ order }: Props) => {
                         coupon: -{order.coupon.value}%
                     </p>
                 )}
-                <p className="price-sum">
-                    $ <span className="bold">{order.value}</span>
-                </p>
+                <p className="price-sum">$ {order.value}</p>
             </div>
             <p className="pm">{order.paymentMethod}</p>
             <div className="status">
@@ -146,10 +173,10 @@ export const OrdersItem = ({ order }: Props) => {
     );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ color: string }>`
     display: flex;
-    padding: 0 1rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem 1rem 0 1rem;
+    background-color: ${(props) => props.color};
 
     .date {
         margin-bottom: 0.5rem;

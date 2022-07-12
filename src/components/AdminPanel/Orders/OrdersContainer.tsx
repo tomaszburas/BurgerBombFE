@@ -67,7 +67,7 @@ const Container = styled.div`
     }
 
     .data-wrapper {
-        margin-top: 0.5rem;
+        margin-top: 0;
         height: calc(100% - ${(props) => props.theme.fontSize.sm} - 4.5rem);
         overflow: auto;
     }

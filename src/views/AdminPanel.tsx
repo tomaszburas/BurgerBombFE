@@ -159,7 +159,7 @@ const Container = styled.div`
     justify-content: center;
 
     .wrapper {
-        width: 1200px;
+        width: 80%;
         height: calc(100% - 2rem);
         display: flex;
         flex-direction: column;
@@ -209,6 +209,18 @@ const Container = styled.div`
         .bx-trash {
             color: ${(props) => props.theme.colors.red};
             cursor: pointer;
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .wrapper {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .wrapper {
+            width: 90%;
         }
     }
 `;
