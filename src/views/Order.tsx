@@ -47,13 +47,13 @@ export const Order = () => {
 
 const Container = styled.div`
     width: 100%;
+    height: 100vh;
     display: flex;
     justify-content: center;
     background-color: ${(props) => props.theme.colors.cream};
 
     .wrapper {
-        width: 1200px;
-        height: calc(100% - 2rem);
+        width: 80%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -97,6 +97,41 @@ const Container = styled.div`
                     padding: 1rem;
                     border: 1px solid;
                     margin-left: 1rem;
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .wrapper {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .wrapper {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width: 1000px) {
+        height: 100%;
+        .wrapper {
+            .order {
+                .order-wrapper {
+                    flex-direction: column;
+
+                    .left-wrapper {
+                        width: 100%;
+                        margin-bottom: 1rem;
+                    }
+
+                    .right-wrapper {
+                        width: 100%;
+                        padding: 1rem;
+                        margin-left: 0;
+                        margin-bottom: 1rem;
+                    }
                 }
             }
         }

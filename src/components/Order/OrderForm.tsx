@@ -300,7 +300,7 @@ const Form = styled.form`
     }
 
     .checkbox {
-        margin-top: 2rem;
+        margin-top: 1rem;
         display: flex;
         align-items: center;
 
@@ -348,6 +348,12 @@ const Form = styled.form`
                 animation: pull 0.4s linear;
                 z-index: 1;
             }
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        .checkbox {
+            font-size: ${(props) => props.theme.fontSize.sm};
         }
     }
 `;

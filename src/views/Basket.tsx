@@ -98,7 +98,7 @@ const Container = styled.div`
     justify-content: center;
 
     .wrapper {
-        width: 1200px;
+        width: 80%;
         height: calc(100% - 2rem);
         display: flex;
         flex-direction: column;
@@ -161,6 +161,69 @@ const Container = styled.div`
                             input {
                                 background: ${(props) =>
                                     props.theme.colors.yellow};
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .wrapper {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .wrapper {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        .wrapper {
+            .basket {
+                .basket-wrapper {
+                    .basket-footer {
+                        display: flex;
+                        flex-direction: column;
+
+                        form {
+                            width: 100%;
+                            justify-content: space-between;
+
+                            .input-coupon {
+                                input {
+                                }
+                            }
+                        }
+
+                        .order-summary {
+                            margin-top: 1rem;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 580px) {
+        .wrapper {
+            .basket {
+                .basket-wrapper {
+                    .basket-order {
+                        .basket-items-wrapper {
+                            font-size: 1rem;
+                        }
+                    }
+                    .basket-footer {
+                        form {
+                            .input-coupon {
+                                input {
+                                    width: 100%;
+                                }
                             }
                         }
                     }

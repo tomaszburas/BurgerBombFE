@@ -76,4 +76,42 @@ const Container = styled.section`
             opacity: 30%;
         }
     }
+
+    @media only screen and (max-width: 850px) {
+        padding: 0.5rem 0;
+        .logo {
+            height: 3rem;
+        }
+    }
+
+    @media only screen and (max-width: 800px) {
+        .path {
+            font-size: 1rem;
+
+            .margin-right {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 550px) {
+        .path {
+            font-size: 0.8rem;
+
+            .margin-right {
+                margin-right: 0.5rem;
+            }
+
+            .title {
+                padding: 0.5rem 0.5rem;
+            }
+
+            .active {
+                color: ${(props) => props.theme.colors.eden};
+                padding: 0.5rem 0.5rem;
+                border: 1px solid ${(props) => props.theme.colors.eden};
+                opacity: 100%;
+            }
+        }
+    }
 `;

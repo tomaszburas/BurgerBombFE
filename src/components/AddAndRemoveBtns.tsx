@@ -21,7 +21,6 @@ export const AddAndRemoveBtns = ({ handleAdd, handleDelete }: Props) => {
 const Container = styled.div`
     button {
         color: ${(props) => props.theme.colors.cream};
-        font-size: ${(props) => props.theme.fontSize.base};
         font-weight: bold;
     }
 
@@ -35,5 +34,11 @@ const Container = styled.div`
         padding: 0.3rem 0.7rem;
         background-color: ${(props) => props.theme.colors.red};
         border-radius: 0;
+    }
+
+    @media only screen and (max-width: 550px) {
+        button {
+            font-size: ${(props) => props.theme.fontSize.sm};
+        }
     }
 `;

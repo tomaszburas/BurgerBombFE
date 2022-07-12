@@ -18,7 +18,6 @@ export const Summary = () => {
         if (!isLoaded) {
             setLoaded(true);
         }
-        console.log(order);
         return () => {
             if (isLoaded) {
                 emit('order:set', null);
@@ -79,7 +78,7 @@ const Container = styled.div`
     justify-content: center;
 
     .wrapper {
-        width: 1200px;
+        width: 80%;
         height: calc(100% - 2rem);
         display: flex;
         flex-direction: column;
@@ -103,6 +102,7 @@ const Container = styled.div`
                     border: 1px solid;
                     display: flex;
                     justify-content: center;
+                    text-align: center;
                 }
 
                 .summary-center {
@@ -139,6 +139,46 @@ const Container = styled.div`
                         padding: 0 1rem;
                         cursor: pointer;
                         margin-left: 1rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (min-width: 2000px) {
+        .wrapper {
+            width: 60%;
+        }
+    }
+
+    @media only screen and (max-width: 1250px) {
+        .wrapper {
+            width: 90%;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        .wrapper {
+            .summary {
+                .summary-wrapper {
+                    .summary-center {
+                        .summary-items-wrapper {
+                            font-size: ${(props) => props.theme.fontSize.sm};
+
+                            .total-value-wrapper {
+                                font-size: ${(props) =>
+                                    props.theme.fontSize.base};
+                            }
+                        }
+                    }
+
+                    .summary-footer {
+                        flex-direction: column;
+
+                        .text {
+                            font-size: ${(props) => props.theme.fontSize.sm};
+                            margin-bottom: 1rem;
+                        }
                     }
                 }
             }
