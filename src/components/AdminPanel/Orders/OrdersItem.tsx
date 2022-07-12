@@ -14,15 +14,15 @@ interface Props {
 
 const itemColor = (status: OrderStatus): string => {
     if (status === OrderStatus.NEW) {
-        return '#CEE5D0';
+        return '#CCF6C8';
     }
 
     if (status === OrderStatus.COMPLETED) {
-        return '#ECB390';
+        return '#F6D6AD';
     }
 
     if (status === OrderStatus.IN_PROGRESS) {
-        return '#FCF8E8';
+        return '#FAFCC2';
     }
 
     return '';
@@ -38,15 +38,15 @@ export const OrdersItem = ({ order }: Props) => {
         setStatus(e.target.value);
 
         if (e.target.value === OrderStatus.NEW) {
-            setColor('#CEE5D0');
+            setColor('#CCF6C8');
         }
 
         if (e.target.value === OrderStatus.COMPLETED) {
-            setColor('#ECB390');
+            setColor('#F6D6AD');
         }
 
         if (e.target.value === OrderStatus.IN_PROGRESS) {
-            setColor('#FCF8E8');
+            setColor('#FAFCC2');
         }
 
         const res = await fetch(`${HOST}/order/${order.id}`, {
@@ -131,12 +131,9 @@ export const OrdersItem = ({ order }: Props) => {
                 <p className="email">{order.client.email}</p>
             </div>
             <div className="value">
-                {order.coupon && (
-                    <p className="price-coupon">
-                        coupon: -{order.coupon.value}%
-                    </p>
-                )}
-                <p className="price-sum">$ {order.value}</p>
+                <p className="price-sum">
+                    <span className="bold">$ {order.value}</span>
+                </p>
             </div>
             <p className="pm">{order.paymentMethod}</p>
             <div className="status">
@@ -180,6 +177,7 @@ const Container = styled.div<{ color: string }>`
 
     .date {
         margin-bottom: 0.5rem;
+        font-size: 1rem;
     }
 
     .email {
