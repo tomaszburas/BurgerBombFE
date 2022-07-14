@@ -1,9 +1,10 @@
 import { useEmit } from 'eventrix';
 import { FormEvent, useState } from 'react';
-import { HOST } from '../../../../config';
+import { API_URL } from '../../../../config';
 import { toast } from 'react-toastify';
 import { CouponsForm } from './CouponsForm';
 import { NewCouponEntity, Form } from 'types';
+import { toastOptions } from '../../../../utils/toastOptions';
 
 interface Props {
     id: string;
@@ -14,6 +15,7 @@ interface Props {
 
 export const CouponsEditForm = ({ id, name, value, state }: Props) => {
     const emit = useEmit();
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState<NewCouponEntity>({
         name,
         value,
@@ -21,13 +23,16 @@ export const CouponsEditForm = ({ id, name, value, state }: Props) => {
 
     const handleEditForm = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
 
         if (name === form.name && value === form.value) {
             toast.warning('Please update data');
             return;
         }
 
-        const res = await fetch(`${HOST}/coupon/${id}`, {
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/coupon/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -43,23 +48,32 @@ export const CouponsEditForm = ({ id, name, value, state }: Props) => {
         const data = await res.json();
 
         if (!data.success) {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
+            setLoading(false);
             return;
         }
 
+        toast.update(load, {
+            ...toastOptions,
+            render: data.message,
+            type: 'success',
+        });
+        setLoading(false);
         emit('coupons:update', data.coupon);
         state(false);
-        toast.success(data.message);
     };
 
     return (
-        <>
-            <CouponsForm
-                handler={handleEditForm}
-                form={form}
-                setForm={setForm}
-                name={Form.EDIT}
-            />
-        </>
+        <CouponsForm
+            handler={handleEditForm}
+            form={form}
+            setForm={setForm}
+            name={Form.EDIT}
+            loading={loading}
+        />
     );
 };

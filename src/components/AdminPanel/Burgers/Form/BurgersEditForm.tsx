@@ -1,10 +1,11 @@
 import { useEmit } from 'eventrix';
 import { FormEvent, useState } from 'react';
 import { BurgerForm, Form } from 'types';
-import { HOST } from '../../../../config';
+import { API_URL } from '../../../../config';
 import { toast } from 'react-toastify';
 import { BurgersForm } from './BurgersForm';
 import { burgerData } from '../../../../utils/burger-data';
+import { toastOptions } from '../../../../utils/toastOptions';
 
 interface Props {
     id: string;
@@ -24,6 +25,7 @@ export const BurgersEditForm = ({
     active,
 }: Props) => {
     const emit = useEmit();
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState<BurgerForm>({
         name,
         price,
@@ -34,6 +36,7 @@ export const BurgersEditForm = ({
 
     const handleEditForm = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
 
         if (
             name === form.name &&
@@ -46,7 +49,9 @@ export const BurgersEditForm = ({
             return;
         }
 
-        const res = await fetch(`${HOST}/burger/${id}`, {
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/burger/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -56,23 +61,32 @@ export const BurgersEditForm = ({
         const data = await res.json();
 
         if (!data.success) {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
+            setLoading(false);
             return;
         }
 
+        toast.update(load, {
+            ...toastOptions,
+            render: data.message,
+            type: 'success',
+        });
+        setLoading(false);
         emit('burgers:update', data.burger);
         state(false);
-        toast.success(data.message);
     };
 
     return (
-        <>
-            <BurgersForm
-                handler={handleEditForm}
-                name={Form.EDIT}
-                form={form}
-                setForm={setForm}
-            />
-        </>
+        <BurgersForm
+            handler={handleEditForm}
+            name={Form.EDIT}
+            form={form}
+            setForm={setForm}
+            loading={loading}
+        />
     );
 };

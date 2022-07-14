@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 import { useState } from 'react';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { toast } from 'react-toastify';
 import { ConfirmationPopUp } from '../../ConfirmationPopUp';
 import { IngredientsEditForm } from './Form/IngredientsEditForm';
 import { useEmit } from 'eventrix';
 import { Form } from 'types';
 import { FormBox } from '../../FormBox';
+import { toastOptions } from '../../../utils/toastOptions';
 
 interface Props {
     id: string;
@@ -20,20 +21,30 @@ export const IngredientsItem = ({ id, name, price }: Props) => {
     const [editForm, setEditForm] = useState(false);
 
     const handleRemove = async () => {
-        const res = await fetch(`${HOST}/ingredient/${id}`, {
+        setRemovePopUp(false);
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/ingredient/${id}`, {
             method: 'DELETE',
             credentials: 'include',
             mode: 'cors',
         });
         const data = await res.json();
 
-        setRemovePopUp(false);
         if (data.success) {
             emit('ingredients:remove', data.id);
             emit('burgers:set', data.burgers);
-            toast.success(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'success',
+            });
         } else {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
         }
     };
 

@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useEventrixState } from 'eventrix';
 import { BasketEntity } from 'types';
+import { PREFIX } from '../../config';
 
 export const Header = () => {
     const [navbar, setNavbar] = useState(false);
@@ -23,22 +24,31 @@ export const Header = () => {
     return (
         <Container isActive={navbar}>
             <div className="wrapper">
-                <NavHashLink smooth to="/#">
+                <NavHashLink smooth to={PREFIX ? `${PREFIX}#` : `/#`}>
                     <img className="logo" src={logo} alt="logo" />
                 </NavHashLink>
                 <ul>
-                    <NavHashLink smooth to="/#" className="li">
+                    <NavHashLink
+                        smooth
+                        to={PREFIX ? `${PREFIX}#` : `/#`}
+                        className="li">
                         Home
                     </NavHashLink>
-                    <NavHashLink smooth to="#menu" className="li">
+                    <NavHashLink
+                        smooth
+                        to={PREFIX ? `${PREFIX}#menu` : `/#menu`}
+                        className="li">
                         Menu
                     </NavHashLink>
-                    <NavHashLink smooth to="#contact" className="li">
+                    <NavHashLink
+                        smooth
+                        to={PREFIX ? `${PREFIX}#contact` : `/#contact`}
+                        className="li">
                         Contact
                     </NavHashLink>
                 </ul>
 
-                <Link to="/basket">
+                <Link to={`${PREFIX}/basket`}>
                     <i className="bx bxs-basket">
                         {basket.length !== 0 && (
                             <div className="pulse-badge-wrapper">

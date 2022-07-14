@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { AddBurgerToBasket } from './AddBurgerToBasket';
-import { HOST } from '../../config';
+import { API_URL, PREFIX } from '../../config';
 import { BurgerIngredient } from 'types';
 import { ingredientsName } from '../../utils/ingredients-name';
 import { ConfirmationPopUp } from '../ConfirmationPopUp';
@@ -22,13 +22,16 @@ export const Burger = ({ id, name, price, image, ingredients }: Props) => {
 
     const handlePopUp = () => {
         setPopUp(false);
-        navigate('/basket');
+        navigate(`${PREFIX}/basket`);
     };
 
     return (
         <Container>
             <div className="top">
-                <img src={`${HOST}/../images/${image}`} alt={`${name} img`} />
+                <img
+                    src={`${API_URL}/../images/${image}`}
+                    alt={`${name} img`}
+                />
             </div>
             <div
                 className="center"
@@ -70,7 +73,11 @@ const Container = styled.div`
     align-items: center;
 
     .top {
-        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
         img {
             width: 80%;
         }
@@ -84,6 +91,7 @@ const Container = styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-top: 0.5rem;
         margin-bottom: 1rem;
         cursor: pointer;
 

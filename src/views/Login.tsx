@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
-import { HOST } from '../config';
+import { API_URL, PREFIX } from '../config';
 import { toast } from 'react-toastify';
 import { useEmit } from 'eventrix';
 
@@ -14,7 +14,7 @@ export const Login = () => {
     const submitForm = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${HOST}/admin/login`, {
+        const res = await fetch(`${API_URL}/admin/login`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
@@ -35,7 +35,7 @@ export const Login = () => {
         }
 
         await emit('isAuth', true);
-        navigate('/admin');
+        navigate(`${PREFIX}/admin`);
     };
 
     return (

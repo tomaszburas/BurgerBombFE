@@ -6,6 +6,7 @@ import { Navigate } from 'react-router-dom';
 import { BasketEntity } from 'types';
 import { OrderForm } from '../components/Order/OrderForm';
 import { useState } from 'react';
+import { PREFIX } from '../config';
 
 export const Order = () => {
     const [basket] = useEventrixState<BasketEntity[]>('basket');
@@ -23,7 +24,7 @@ export const Order = () => {
     });
 
     if (basket.length === 0) {
-        return <Navigate to="/" />;
+        return <Navigate to={`${PREFIX}`} />;
     }
 
     return (
@@ -80,7 +81,7 @@ const Container = styled.div`
 
         .order {
             width: 100%;
-            height: calc(100% - 6rem);
+            height: calc(100% - 5rem);
             background-color: ${(props) => props.theme.colors.yellow};
 
             .order-wrapper {
@@ -136,4 +137,14 @@ const Container = styled.div`
             }
         }
     }
+
+  @media only screen and (max-width: 850px) {
+    .wrapper {
+      margin-top: 0.5rem;
+      
+      .order {
+        height: calc(100% - 4rem);
+    }
+  }
+  
 `;

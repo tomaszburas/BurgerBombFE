@@ -1,15 +1,23 @@
 import styled from 'styled-components';
 import { FormEvent } from 'react';
 import { NewIngredientEntity, Form } from 'types';
+import { LoaderData } from '../../../LoaderData';
 
 interface Props {
     handler: (e: FormEvent) => void;
     form: NewIngredientEntity;
     setForm: (elements: NewIngredientEntity) => void;
     name: Form;
+    loading: boolean;
 }
 
-export const IngredientsForm = ({ handler, form, setForm, name }: Props) => {
+export const IngredientsForm = ({
+    handler,
+    form,
+    setForm,
+    name,
+    loading,
+}: Props) => {
     return (
         <Container>
             <form onSubmit={handler}>
@@ -40,7 +48,11 @@ export const IngredientsForm = ({ handler, form, setForm, name }: Props) => {
                     <label htmlFor="price">Price</label>
                 </div>
                 <div className="button-wrapper">
-                    <button title="Save">Save</button>
+                    {loading ? (
+                        <LoaderData width={30} height={30} />
+                    ) : (
+                        <button title="Save">Save</button>
+                    )}
                 </div>
             </form>
         </Container>

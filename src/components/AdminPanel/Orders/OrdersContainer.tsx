@@ -53,12 +53,12 @@ const Container = styled.div`
     }
 
     .pm {
-        width: 5%;
+        width: 8%;
         margin-right: 1rem;
     }
 
     .status {
-        width: 18%;
+        width: 15%;
         margin-right: 1rem;
     }
 
@@ -68,7 +68,7 @@ const Container = styled.div`
 
     .data-wrapper {
         margin-top: 0.5rem;
-        height: calc(100% - ${(props) => props.theme.fontSize.sm} - 4.5rem);
+        height: calc(100% - ${(props) => props.theme.fontSize.sm} - 1.5rem);
         overflow: auto;
     }
 `;

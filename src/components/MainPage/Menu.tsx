@@ -3,7 +3,7 @@ import { Burger } from './Burger';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
 import { useEffect, useState } from 'react';
-import { HOST } from '../../config';
+import { API_URL } from '../../config';
 import { BurgerEntity } from 'types';
 
 export const Menu = () => {
@@ -13,7 +13,7 @@ export const Menu = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/burger`, {
+            const res = await fetch(`${API_URL}/burger`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -72,6 +72,7 @@ const Container = styled.section`
         justify-content: center;
         gap: 5%;
         flex-wrap: wrap;
+        height: 100%;
     }
 
     @media only screen and (min-width: 2000px) {

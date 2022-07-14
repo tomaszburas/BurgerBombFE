@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import { OrderEntity, OrderStatus } from 'types';
 import { format } from 'date-fns';
 import { v4 as uuid } from 'uuid';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { toast } from 'react-toastify';
 import { useEmit } from 'eventrix';
 import { ConfirmationPopUp } from '../../ConfirmationPopUp';
 import { useState } from 'react';
+import { toastOptions } from '../../../utils/toastOptions';
 
 interface Props {
     order: OrderEntity;
@@ -49,7 +50,7 @@ export const OrdersItem = ({ order }: Props) => {
             setColor('#FAFCC2');
         }
 
-        const res = await fetch(`${HOST}/order/${order.id}`, {
+        const res = await fetch(`${API_URL}/order/${order.id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -75,19 +76,29 @@ export const OrdersItem = ({ order }: Props) => {
     };
 
     const handleRemove = async () => {
-        const res = await fetch(`${HOST}/order/${order.id}`, {
+        setRemovePopUp(false);
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/order/${order.id}`, {
             method: 'DELETE',
             credentials: 'include',
             mode: 'cors',
         });
         const data = await res.json();
 
-        setRemovePopUp(false);
         if (data.success) {
             emit('order:remove', order.id);
-            toast.success(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'success',
+            });
         } else {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
         }
     };
 
@@ -174,6 +185,7 @@ const Container = styled.div<{ color: string }>`
     display: flex;
     padding: 0.5rem 1rem 0 1rem;
     background-color: ${(props) => props.color};
+    border-bottom: 1px solid;
 
     .date {
         margin-bottom: 0.5rem;

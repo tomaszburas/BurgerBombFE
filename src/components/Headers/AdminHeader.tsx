@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
-import { HOST } from '../../config';
+import { API_URL, PREFIX } from '../../config';
 import { useEmit } from 'eventrix';
 import { toast } from 'react-toastify';
 
@@ -10,7 +10,7 @@ export const AdminHeader = () => {
     const emit = useEmit();
 
     const logout = async () => {
-        const res = await fetch(`${HOST}/admin/logout`, {
+        const res = await fetch(`${API_URL}/admin/logout`, {
             credentials: 'include',
             mode: 'cors',
         });
@@ -25,7 +25,7 @@ export const AdminHeader = () => {
 
     return (
         <Container>
-            <Link to="/">
+            <Link to={PREFIX ? `${PREFIX}` : `/`}>
                 <img className="logo" src={logo} alt="logo" />
             </Link>
             <ul>
@@ -45,7 +45,7 @@ const Container = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     .logo {
         height: 4rem;

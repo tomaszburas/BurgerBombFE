@@ -1,7 +1,7 @@
 import { useEmit, useEventrixState } from 'eventrix';
 import { useEffect } from 'react';
 import { CouponEntity } from 'types';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { LoaderData } from '../../LoaderData';
 import { NoData } from '../../NoData';
 import { CouponsItem } from './CouponsItem';
@@ -12,7 +12,7 @@ export const CouponsItems = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/coupon`, {
+            const res = await fetch(`${API_URL}/coupon`, {
                 credentials: 'include',
                 mode: 'cors',
             });

@@ -3,10 +3,13 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { Form, InfoEntity } from 'types';
 import { toast } from 'react-toastify';
 import { FormEvent, useState } from 'react';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
+import { toastOptions } from '../../../utils/toastOptions';
+import { LoaderData } from '../../LoaderData';
 
 export const InfoEditForm = () => {
     const emit = useEmit();
+    const [loading, setLoading] = useState(false);
     const [info] = useEventrixState<InfoEntity>('info');
     const [form, setForm] = useState({
         street: info.street,
@@ -31,6 +34,7 @@ export const InfoEditForm = () => {
 
     const handlerEditForm = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
 
         if (
             info.street === form.street &&
@@ -50,7 +54,9 @@ export const InfoEditForm = () => {
             return;
         }
 
-        const res = await fetch(`${HOST}/info`, {
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/info`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -73,13 +79,23 @@ export const InfoEditForm = () => {
         const data = await res.json();
 
         if (!data.success) {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
+            setLoading(false);
             return;
         }
 
+        toast.update(load, {
+            ...toastOptions,
+            render: data.message,
+            type: 'success',
+        });
         emit('info:update', data.info);
         emit(Form.ADD, false);
-        toast.success(data.message);
+        setLoading(false);
     };
 
     return (
@@ -276,7 +292,11 @@ export const InfoEditForm = () => {
                 </div>
 
                 <div className="button-wrapper">
-                    <button title="Save">Save</button>
+                    {loading ? (
+                        <LoaderData width={30} height={30} />
+                    ) : (
+                        <button title="Save">Save</button>
+                    )}
                 </div>
             </form>
         </Container>

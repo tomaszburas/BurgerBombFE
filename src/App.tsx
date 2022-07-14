@@ -9,18 +9,19 @@ import { Order } from './views/Order';
 import { Summary } from './views/Summary';
 import { AdminPanel } from './views/AdminPanel';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { PREFIX } from './config';
 
 export const App = () => {
     return (
         <Theme>
             <Container>
                 <Routes>
-                    <Route path="/" element={<Main />} />
-                    <Route path="/basket" element={<Basket />} />
-                    <Route path="/order" element={<Order />} />
-                    <Route path="/summary" element={<Summary />} />
+                    <Route path={`${PREFIX}/`} element={<Main />} />
+                    <Route path={`${PREFIX}/basket`} element={<Basket />} />
+                    <Route path={`${PREFIX}/order`} element={<Order />} />
+                    <Route path={`${PREFIX}/summary`} element={<Summary />} />
                     <Route
-                        path="/admin"
+                        path={`${PREFIX}/admin`}
                         element={
                             <ProtectedRoute checkAuth={true}>
                                 <AdminPanel />
@@ -28,14 +29,14 @@ export const App = () => {
                         }
                     />
                     <Route
-                        path="/login"
+                        path={`${PREFIX}/login`}
                         element={
                             <ProtectedRoute checkAuth={false}>
                                 <Login />
                             </ProtectedRoute>
                         }
                     />
-                    <Route path="*" element={<Navigate to="/" />} />
+                    <Route path="*" element={<Navigate to={`${PREFIX}`} />} />
                 </Routes>
             </Container>
         </Theme>
@@ -105,5 +106,20 @@ const Container = styled.section`
         color: ${(props) => props.theme.colors.cream};
         padding: 0.5rem 1rem;
         cursor: pointer;
+    }
+
+    @media only screen and (max-width: 500px) {
+        font-size: ${(props) => props.theme.fontSize.sm};
+
+        .input-box {
+            input {
+                padding: 0.5rem;
+            }
+        }
+
+        button {
+            font-size: ${(props) => props.theme.fontSize.sm};
+            padding: 0.4rem 0.7rem;
+        }
     }
 `;

@@ -29,10 +29,10 @@ export const Home = () => {
                     </div>
                 </div>
                 <div className="info-sm">
-                    <Link to="/" className="top" title="Facebook">
+                    <Link to="" className="top" title="Facebook">
                         <i className="bx bxl-facebook-square" />
                     </Link>
-                    <Link to="/" className="top" title="Instagram">
+                    <Link to="" className="top" title="Instagram">
                         <i className="bx bxl-instagram-alt" />
                     </Link>
                 </div>
@@ -210,6 +210,18 @@ const Wrapper = styled.section`
                 .info-img {
                     img {
                         width: 90%;
+                    }
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 500px) {
+        .main {
+            .container {
+                .info-txt {
+                    h1 {
+                        font-size: ${(props) => props.theme.fontSize.base};
                     }
                 }
             }

@@ -40,5 +40,9 @@ const Container = styled.div`
         button {
             font-size: ${(props) => props.theme.fontSize.sm};
         }
+
+        .plus {
+            padding: 0.3rem 0.6rem;
+        }
     }
 `;

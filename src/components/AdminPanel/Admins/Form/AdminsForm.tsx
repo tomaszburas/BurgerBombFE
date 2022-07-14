@@ -1,15 +1,23 @@
 import { NewAdminEntity, Role, Form } from 'types';
 import styled from 'styled-components';
 import { FormEvent } from 'react';
+import { LoaderData } from '../../../LoaderData';
 
 interface Props {
     handler: (e: FormEvent) => void;
     name: Form;
     form: NewAdminEntity;
     setForm: (elements: NewAdminEntity) => void;
+    loading: boolean;
 }
 
-export const AdminsForm = ({ handler, form, setForm, name }: Props) => {
+export const AdminsForm = ({
+    handler,
+    form,
+    setForm,
+    name,
+    loading,
+}: Props) => {
     return (
         <Container>
             <form onSubmit={handler}>
@@ -54,7 +62,11 @@ export const AdminsForm = ({ handler, form, setForm, name }: Props) => {
                     </select>
                 </div>
                 <div className="button-wrapper">
-                    <button title="Save">Save</button>
+                    {loading ? (
+                        <LoaderData width={30} height={30} />
+                    ) : (
+                        <button title="Save">Save</button>
+                    )}
                 </div>
             </form>
         </Container>

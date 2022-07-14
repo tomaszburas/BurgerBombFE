@@ -6,22 +6,28 @@ import { OrderSummary } from '../components/Order/OrderSummary';
 import { useEmit, useEventrixState } from 'eventrix';
 import { BasketEntity } from 'types';
 import { FormEvent, useState } from 'react';
-import { HOST } from '../config';
+import { API_URL, PREFIX } from '../config';
 import { toast } from 'react-toastify';
+import { toastOptions } from '../utils/toastOptions';
+import { LoaderData } from '../components/LoaderData';
 
 export const Basket = () => {
     const emit = useEmit();
     const [basket] = useEventrixState<BasketEntity[]>('basket');
     const [coupon, setCoupon] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleCoupon = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
 
         if (coupon === '') {
             return;
         }
 
-        const res = await fetch(`${HOST}/coupon/code/${coupon}`, {
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/coupon/code/${coupon}`, {
             credentials: 'include',
             mode: 'cors',
         });
@@ -29,12 +35,22 @@ export const Basket = () => {
         const data = await res.json();
 
         if (!data.success) {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
+            setLoading(false);
             return;
         }
 
+        toast.update(load, {
+            ...toastOptions,
+            render: 'Coupon activated 🎉',
+            type: 'success',
+        });
+        setLoading(false);
         emit('coupons:set', data.coupon);
-        toast.success('Coupon activated 🎉');
     };
 
     return (
@@ -46,7 +62,7 @@ export const Basket = () => {
                         <div className="basket-title">
                             <p>Your Basket</p>
                             {basket.length !== 0 && (
-                                <Link to="/order">
+                                <Link to={`${PREFIX}/order`}>
                                     <button title="Order">Order</button>
                                 </Link>
                             )}
@@ -72,12 +88,16 @@ export const Basket = () => {
                                             Coupon Code
                                         </label>
                                     </div>
-                                    <button
-                                        title="Add coupon"
-                                        className="color-brown"
-                                        onClick={handleCoupon}>
-                                        Save
-                                    </button>
+                                    {loading ? (
+                                        <LoaderData width={30} height={30} />
+                                    ) : (
+                                        <button
+                                            title="Add coupon"
+                                            className="color-brown"
+                                            onClick={handleCoupon}>
+                                            Save
+                                        </button>
+                                    )}
                                 </form>
                                 <div className="order-summary">
                                     <OrderSummary />
@@ -99,7 +119,6 @@ const Container = styled.div`
 
     .wrapper {
         width: 80%;
-        height: calc(100% - 2rem);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -107,7 +126,7 @@ const Container = styled.div`
 
         .basket {
             width: 100%;
-            height: calc(100% - 6rem);
+            height: calc(100% - 5rem);
             background-color: ${(props) => props.theme.colors.yellow};
 
             .basket-wrapper {
@@ -181,12 +200,13 @@ const Container = styled.div`
         }
     }
 
-    @media only screen and (max-width: 800px) {
+    @media only screen and (max-width: 850px) {
         .wrapper {
+            margin-top: 0.5rem;
             .basket {
+                height: calc(100% - 4rem);
                 .basket-wrapper {
                     .basket-footer {
-                        display: flex;
                         flex-direction: column;
 
                         form {
@@ -216,6 +236,7 @@ const Container = styled.div`
                     .basket-order {
                         .basket-items-wrapper {
                             font-size: 1rem;
+                            margin-left: 0;
                         }
                     }
                     .basket-footer {

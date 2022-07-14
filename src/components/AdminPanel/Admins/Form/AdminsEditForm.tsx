@@ -1,9 +1,10 @@
 import { FormEvent, useState } from 'react';
-import { HOST } from '../../../../config';
+import { API_URL } from '../../../../config';
 import { toast } from 'react-toastify';
 import { NewAdminEntity, Form } from 'types';
 import { useEmit } from 'eventrix';
 import { AdminsForm } from './AdminsForm';
+import { toastOptions } from '../../../../utils/toastOptions';
 
 interface Props {
     id: string;
@@ -14,6 +15,7 @@ interface Props {
 
 export const AdminsEditForm = ({ id, email, role, state }: Props) => {
     const emit = useEmit();
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState<NewAdminEntity>({
         email: email,
         password: '',
@@ -22,6 +24,7 @@ export const AdminsEditForm = ({ id, email, role, state }: Props) => {
 
     const handleEditForm = async (e: FormEvent) => {
         e.preventDefault();
+        setLoading(true);
 
         if (
             email === form.email &&
@@ -32,7 +35,9 @@ export const AdminsEditForm = ({ id, email, role, state }: Props) => {
             return;
         }
 
-        const res = await fetch(`${HOST}/admin/${id}`, {
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/admin/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -49,23 +54,32 @@ export const AdminsEditForm = ({ id, email, role, state }: Props) => {
         const data = await res.json();
 
         if (!data.success) {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
+            setLoading(false);
             return;
         }
 
+        toast.update(load, {
+            ...toastOptions,
+            render: data.message,
+            type: 'success',
+        });
+        setLoading(false);
         emit('users:update', data.user);
         state(false);
-        toast.success(data.message);
     };
 
     return (
-        <>
-            <AdminsForm
-                handler={handleEditForm}
-                form={form}
-                setForm={setForm}
-                name={Form.EDIT}
-            />
-        </>
+        <AdminsForm
+            handler={handleEditForm}
+            form={form}
+            setForm={setForm}
+            name={Form.EDIT}
+            loading={loading}
+        />
     );
 };

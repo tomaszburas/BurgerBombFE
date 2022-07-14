@@ -163,13 +163,13 @@ export const OrderForm = ({ form, setForm }: Props) => {
                         }
                         required
                     />
-                    <label htmlFor="conditions">
-                        <span />
-                    </label>
                 </div>
+
                 <div className="checkbox-right">
-                    I accept the provisions of the Regulations and the Privacy
-                    Policy (required)
+                    <label htmlFor="conditions">
+                        I accept the provisions of the Regulations and the
+                        Privacy Policy (required)
+                    </label>
                 </div>
             </div>
         </Form>
@@ -305,55 +305,16 @@ const Form = styled.form`
         align-items: center;
 
         input {
-            display: none;
-        }
-
-        @keyframes pull {
-            0% {
-                height: 0;
-            }
-            100% {
-                height: 1.4rem;
-            }
-        }
-
-        input + label span {
-            display: inline-block;
-            width: 1.4rem;
-            height: 1.4rem;
-            margin-right: 1rem;
-            &:before,
-            &:after {
-                @include transition(all 0.3s ease-in-out);
-                content: '';
-                position: absolute;
-                z-index: 1;
-                box-sizing: border-box;
-                width: 1.4rem;
-                height: 1.4rem;
-                background: ${(props) => props.theme.colors.cream};
-                border: 2px solid ${(props) => props.theme.colors.brown};
-            }
-            &:after {
-                z-index: 0;
-                border: none;
-            }
-        }
-
-        input:checked + label span {
-            &:after {
-                width: 1.4rem;
-                height: 1.4rem;
-                background: ${(props) => props.theme.colors.brown};
-                animation: pull 0.4s linear;
-                z-index: 1;
-            }
+            transform: scale(2);
+            margin: 0 1rem 0 0.5rem;
         }
     }
 
     @media only screen and (max-width: 700px) {
         .checkbox {
-            font-size: ${(props) => props.theme.fontSize.sm};
+            input {
+                transform: scale(1.5);
+            }
         }
     }
 `;

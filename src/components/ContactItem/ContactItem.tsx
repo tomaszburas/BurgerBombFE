@@ -5,7 +5,7 @@ import { VisitUs } from './VisitUs';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
 import { useEffect } from 'react';
-import { HOST } from '../../config';
+import { API_URL } from '../../config';
 import { InfoEntity } from 'types';
 
 interface Props {
@@ -19,7 +19,7 @@ export const ContactItem = ({ icon, name }: Props) => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/info`, {
+            const res = await fetch(`${API_URL}/info`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -91,6 +91,6 @@ const Container = styled.div`
 
     @media only screen and (max-width: 850px) {
         width: 100%;
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
     }
 `;

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { AddBurgerToBasket } from './AddBurgerToBasket';
 import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../LoaderData';
-import { HOST } from '../../config';
+import { API_URL, PREFIX } from '../../config';
 import { ingredientsName } from '../../utils/ingredients-name';
 import { ConfirmationPopUp } from '../ConfirmationPopUp';
 import { useNavigate } from 'react-router-dom';
@@ -18,12 +18,12 @@ export const BurgerOfTheDay = () => {
 
     const handlePopUp = () => {
         setPopUp(false);
-        navigate('/basket');
+        navigate(`${PREFIX}/basket`);
     };
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/botd`, {
+            const res = await fetch(`${API_URL}/botd`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -47,7 +47,7 @@ export const BurgerOfTheDay = () => {
                     <div className="wrapper">
                         <div className="left">
                             <img
-                                src={`${HOST}/../images/${botd.img}`}
+                                src={`${API_URL}/../images/${botd.img}`}
                                 alt={`${botd.name} img`}
                             />
                         </div>

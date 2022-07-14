@@ -60,9 +60,7 @@ export const BasketItem = ({ title, burger }: Props) => {
                             + {ingredient.name}
                         </p>
                     ))}
-                <p className="frying">
-                    meat preparation: {burger.meatPreparation}
-                </p>
+                <p className="frying">meat: {burger.meatPreparation}</p>
             </div>
             {title !== 'summary' && (
                 <div className="center">
@@ -88,7 +86,7 @@ const Container = styled.div`
     margin-bottom: 1rem;
 
     .left {
-        width: 60%;
+        width: 55%;
 
         .ingredient {
             margin-left: 1.5rem;
@@ -100,7 +98,7 @@ const Container = styled.div`
     }
 
     .right {
-        width: 15%;
+        width: 20%;
         text-align: right;
     }
 `;

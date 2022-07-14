@@ -10,9 +10,16 @@ interface Props {
     name: Form;
     form: any;
     setForm: (elements: BurgerForm) => void;
+    loading: boolean;
 }
 
-export const BurgersForm = ({ handler, form, setForm, name }: Props) => {
+export const BurgersForm = ({
+    handler,
+    form,
+    setForm,
+    name,
+    loading,
+}: Props) => {
     const [ingredients] = useEventrixState<IngredientEntity[]>('ingredients');
 
     const handleCheckInput = (id: string) => {
@@ -119,7 +126,11 @@ export const BurgersForm = ({ handler, form, setForm, name }: Props) => {
                     </div>
                 </div>
                 <div className="button-wrapper">
-                    <button title="Save">Save</button>
+                    {loading ? (
+                        <LoaderData width={30} height={30} />
+                    ) : (
+                        <button title="Save">Save</button>
+                    )}
                 </div>
             </form>
         </Container>

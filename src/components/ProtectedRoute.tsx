@@ -2,7 +2,7 @@ import { ReactElement } from 'react';
 import { Navigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useEventrixState, useEmit } from 'eventrix';
-import { HOST } from '../config';
+import { API_URL, PREFIX } from '../config';
 import { Loader } from './Loader';
 
 interface Props {
@@ -16,7 +16,7 @@ export const ProtectedRoute = ({ checkAuth, children }: Props): any => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/admin/auth`, {
+            const res = await fetch(`${API_URL}/admin/auth`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -33,10 +33,10 @@ export const ProtectedRoute = ({ checkAuth, children }: Props): any => {
     if (isAuth === null) return <Loader />;
 
     if (!checkAuth) {
-        return !isAuth ? children : <Navigate to="/admin" />;
+        return !isAuth ? children : <Navigate to={`${PREFIX}/admin`} />;
     }
 
     if (checkAuth) {
-        return isAuth ? children : <Navigate to="/login" />;
+        return isAuth ? children : <Navigate to={`${PREFIX}/login`} />;
     }
 };

@@ -43,6 +43,7 @@ const Container = styled.section`
         .wrapper {
             flex-direction: column;
             align-items: center;
+            margin-top: 1rem;
         }
     }
 `;

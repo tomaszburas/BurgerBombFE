@@ -3,6 +3,7 @@ import { BasketItem } from './BasketItem';
 import { useEventrixState } from 'eventrix';
 import { BasketEntity } from 'types';
 import { Link } from 'react-router-dom';
+import { PREFIX } from '../../config';
 
 interface Props {
     title?: string;
@@ -16,7 +17,7 @@ export const BasketItems = ({ title }: Props) => {
             {basket.length === 0 ? (
                 <div className="empty">
                     <p className="empty-title">empty</p>
-                    <Link to="/">
+                    <Link to={PREFIX ? `${PREFIX}` : `/`}>
                         <button title="Go to menu">Go to menu</button>
                     </Link>
                 </div>

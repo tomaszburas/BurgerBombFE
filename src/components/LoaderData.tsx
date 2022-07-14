@@ -4,14 +4,16 @@ import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 interface Props {
     color?: string;
+    height?: number;
+    width?: number;
 }
 
-export const LoaderData = ({ color }: Props) => {
+export const LoaderData = ({ color, height, width }: Props) => {
     return (
         <Container>
             <TailSpin
-                height="80"
-                width="80"
+                height={height ? height : '80'}
+                width={width ? width : '80'}
                 color={color ? color : '#125B50'}
                 ariaLabel="loading"
             />

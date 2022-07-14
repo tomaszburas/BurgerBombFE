@@ -7,6 +7,7 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { BasketEntity, OrderEntity } from 'types';
 import { Loader } from '../components/Loader';
 import { useEffect, useState } from 'react';
+import { PREFIX } from '../config';
 
 export const Summary = () => {
     const emit = useEmit();
@@ -60,7 +61,7 @@ export const Summary = () => {
                                 {Math.ceil(order.value)} ready if you chose cash
                                 as payment method.
                             </p>
-                            <Link to="/">
+                            <Link to={PREFIX ? `${PREFIX}` : `/`}>
                                 <button title="Go home">Home</button>
                             </Link>
                         </div>
@@ -79,7 +80,6 @@ const Container = styled.div`
 
     .wrapper {
         width: 80%;
-        height: calc(100% - 2rem);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -87,7 +87,7 @@ const Container = styled.div`
 
         .summary {
             width: 100%;
-            height: calc(100% - 6rem);
+            height: calc(100% - 5rem);
             background-color: ${(props) => props.theme.colors.yellow};
 
             .summary-wrapper {
@@ -157,6 +157,16 @@ const Container = styled.div`
         }
     }
 
+    @media only screen and (max-width: 850px) {
+        .wrapper {
+            margin-top: 0.5rem;
+
+            .summary {
+                height: calc(100% - 4rem);
+            }
+        }
+    }
+
     @media only screen and (max-width: 700px) {
         .wrapper {
             .summary {
@@ -176,8 +186,7 @@ const Container = styled.div`
                         flex-direction: column;
 
                         .text {
-                            font-size: ${(props) => props.theme.fontSize.sm};
-                            margin-bottom: 1rem;
+                            display: none;
                         }
                     }
                 }

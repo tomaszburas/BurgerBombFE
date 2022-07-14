@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import logo from '../../assets/images/logo.png';
+import { PREFIX } from '../../config';
 
 interface Props {
     title: string;
@@ -9,7 +10,7 @@ interface Props {
 export const OrderHeader = ({ title }: Props) => {
     return (
         <Container>
-            <Link to="/">
+            <Link to={PREFIX ? `${PREFIX}#` : `/#`}>
                 <img className="logo" src={logo} alt="logo" />
             </Link>
             <div className="path">
@@ -44,7 +45,7 @@ const Container = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 
     .logo {
         height: 4rem;
@@ -78,7 +79,6 @@ const Container = styled.section`
     }
 
     @media only screen and (max-width: 850px) {
-        padding: 0.5rem 0;
         .logo {
             height: 3rem;
         }
@@ -96,22 +96,7 @@ const Container = styled.section`
 
     @media only screen and (max-width: 550px) {
         .path {
-            font-size: 0.8rem;
-
-            .margin-right {
-                margin-right: 0.5rem;
-            }
-
-            .title {
-                padding: 0.5rem 0.5rem;
-            }
-
-            .active {
-                color: ${(props) => props.theme.colors.eden};
-                padding: 0.5rem 0.5rem;
-                border: 1px solid ${(props) => props.theme.colors.eden};
-                opacity: 100%;
-            }
+            display: none;
         }
     }
 `;

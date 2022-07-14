@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Form, BurgerIngredient } from 'types';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { useState } from 'react';
 import { useEmit } from 'eventrix';
 import { toast } from 'react-toastify';
@@ -8,6 +8,7 @@ import { ConfirmationPopUp } from '../../ConfirmationPopUp';
 import { FormBox } from '../../FormBox';
 import { BurgersEditForm } from './Form/BurgersEditForm';
 import { ingredientsName } from '../../../utils/ingredients-name';
+import { toastOptions } from '../../../utils/toastOptions';
 
 interface Props {
     id: string;
@@ -39,7 +40,7 @@ export const BurgersItem = ({
         const checked = e.target.checked;
         setActiveInput(checked);
 
-        const res = await fetch(`${HOST}/burger/active/${id}`, {
+        const res = await fetch(`${API_URL}/burger/active/${id}`, {
             method: 'PUT',
             credentials: 'include',
             mode: 'cors',
@@ -57,19 +58,29 @@ export const BurgersItem = ({
     };
 
     const handleRemove = async () => {
-        const res = await fetch(`${HOST}/burger/${id}`, {
+        setRemovePopUp(false);
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/burger/${id}`, {
             method: 'DELETE',
             credentials: 'include',
             mode: 'cors',
         });
         const data = await res.json();
 
-        setRemovePopUp(false);
         if (data.success) {
             emit('burgers:remove', data.id);
-            toast.success(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'success',
+            });
         } else {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
         }
     };
 
@@ -85,7 +96,7 @@ export const BurgersItem = ({
                 />
             </div>
             <div className="img">
-                <img src={`${HOST}/../images/${img}`} alt={`${name} img`} />
+                <img src={`${API_URL}/../images/${img}`} alt={`${name} img`} />
             </div>
             <p className="name">{name}</p>
             <p className="ingredients">{ingredientsName(ingredients)}</p>

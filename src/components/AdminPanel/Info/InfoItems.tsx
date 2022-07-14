@@ -1,6 +1,6 @@
 import { useEmit, useEventrixState } from 'eventrix';
 import { useEffect } from 'react';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { LoaderData } from '../../LoaderData';
 import styled from 'styled-components';
 import { InfoEntity } from 'types';
@@ -11,7 +11,7 @@ export const InfoItems = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/info`, {
+            const res = await fetch(`${API_URL}/info`, {
                 credentials: 'include',
                 mode: 'cors',
             });

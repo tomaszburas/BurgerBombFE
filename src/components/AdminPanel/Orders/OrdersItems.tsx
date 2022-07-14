@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { useEmit, useEventrixState } from 'eventrix';
 import { OrderEntity } from 'types';
 import { NoData } from '../../NoData';
@@ -12,7 +12,7 @@ export const OrdersItems = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/order`, {
+            const res = await fetch(`${API_URL}/order`, {
                 credentials: 'include',
                 mode: 'cors',
             });

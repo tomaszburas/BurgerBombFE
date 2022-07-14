@@ -1,6 +1,6 @@
 import { AdminsItem } from './AdminsItem';
 import { useEffect } from 'react';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { useEmit, useEventrixState } from 'eventrix';
 import { AdminEntityResponse } from 'types';
 import { NoData } from '../../NoData';
@@ -12,7 +12,7 @@ export const AdminsItems = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/admin`, {
+            const res = await fetch(`${API_URL}/admin`, {
                 credentials: 'include',
                 mode: 'cors',
             });

@@ -3,9 +3,10 @@ import { useEmit, useEventrixState } from 'eventrix';
 import { LoaderData } from '../../LoaderData';
 import { NoData } from '../../NoData';
 import { useEffect, useState } from 'react';
-import { HOST } from '../../../config';
+import { API_URL } from '../../../config';
 import { toast } from 'react-toastify';
 import { BurgerEntity } from 'types';
+import { toastOptions } from '../../../utils/toastOptions';
 
 export const BotdContainer = () => {
     const emit = useEmit();
@@ -17,7 +18,7 @@ export const BotdContainer = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/botd`, {
+            const res = await fetch(`${API_URL}/botd`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -32,7 +33,8 @@ export const BotdContainer = () => {
     }, [emit]);
 
     const handleSaveBotd = async () => {
-        const res = await fetch(`${HOST}/botd`, {
+        const load = toast.loading('Please wait...');
+        const res = await fetch(`${API_URL}/botd`, {
             method: 'POST',
             credentials: 'include',
             mode: 'cors',
@@ -47,12 +49,20 @@ export const BotdContainer = () => {
         const data = await res.json();
 
         if (!data.success) {
-            toast.error(data.message);
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
             return;
         }
 
+        toast.update(load, {
+            ...toastOptions,
+            render: data.message,
+            type: 'success',
+        });
         emit('botd:set', data.botd.burger);
-        toast.success(data.message);
     };
 
     return (

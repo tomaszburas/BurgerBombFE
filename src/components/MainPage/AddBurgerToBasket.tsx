@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { AddAndRemoveBtns } from '../AddAndRemoveBtns';
-import { HOST } from '../../config';
+import { API_URL } from '../../config';
 import { ingredientsName } from '../../utils/ingredients-name';
 import {
     BasketEntity,
@@ -61,7 +61,7 @@ export const AddBurgerToBasket = ({
 
     useEffect(() => {
         (async () => {
-            const res = await fetch(`${HOST}/ingredient`, {
+            const res = await fetch(`${API_URL}/ingredient`, {
                 credentials: 'include',
                 mode: 'cors',
             });
@@ -129,7 +129,7 @@ export const AddBurgerToBasket = ({
 
     const handleAddToBasket = () => {
         if (meatPreparation === null) {
-            toast.error('Please select the degree of frying meat');
+            toast.error('Please select the degree of meat preparation');
             return;
         }
 
@@ -201,7 +201,7 @@ export const AddBurgerToBasket = ({
                 />
                 <div className="burger-top">
                     <img
-                        src={`${HOST}/../images/${image}`}
+                        src={`${API_URL}/../images/${image}`}
                         alt={`${name} img`}
                     />
                 </div>
@@ -244,7 +244,7 @@ export const AddBurgerToBasket = ({
                             <input
                                 type="radio"
                                 id="wellDone"
-                                name="frying"
+                                name="meatPreparation"
                                 value={MeatPreparation.WELL_DONE}
                                 onChange={() =>
                                     setMeatPreparation(
@@ -271,10 +271,8 @@ export const AddBurgerToBasket = ({
                                             id={ingredient.id}
                                             value={ingredient.id}
                                             onChange={handleCheckInput}
-                                            required
                                         />
                                         <label htmlFor={ingredient.id}>
-                                            <span />
                                             {ingredient.name}
                                         </label>
                                     </div>
@@ -434,49 +432,8 @@ const Container = styled.div`
                 justify-content: space-between;
 
                 input {
-                    display: none;
-                }
-
-                @keyframes pull {
-                    0% {
-                        height: 0;
-                    }
-                    100% {
-                        height: 1.2rem;
-                    }
-                }
-
-                input + label span {
-                    display: inline-block;
-                    width: 1.2rem;
-                    height: 1.2rem;
-                    margin-right: 0.5rem;
-                    &:before,
-                    &:after {
-                        @include transition(all 0.3s ease-in-out);
-                        content: '';
-                        position: absolute;
-                        z-index: 1;
-                        box-sizing: border-box;
-                        width: 1.2rem;
-                        height: 1.2rem;
-                        background: ${(props) => props.theme.colors.cream};
-                        border: 2px solid ${(props) => props.theme.colors.brown};
-                    }
-                    &:after {
-                        z-index: 0;
-                        border: none;
-                    }
-                }
-
-                input:checked + label span {
-                    &:after {
-                        width: 1.2rem;
-                        height: 1.2rem;
-                        background: ${(props) => props.theme.colors.brown};
-                        animation: pull 0.4s linear;
-                        z-index: 1;
-                    }
+                    transform: scale(2);
+                    margin-right: 1rem;
                 }
             }
         }
@@ -527,6 +484,27 @@ const Container = styled.div`
     @media only screen and (max-width: 550px) {
         .wrapper-add-burger {
             width: 90%;
+            .burger-bottom {
+                .frying-container {
+                    .frying-wrapper {
+                        input {
+                            + label {
+                                &:before {
+                                    width: 1rem;
+                                    height: 1rem;
+                                    position: relative;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .checkbox {
+                    input {
+                        transform: scale(1.5);
+                    }
+                }
+            }
         }
     }
 `;
