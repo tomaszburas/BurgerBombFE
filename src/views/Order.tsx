@@ -1,15 +1,21 @@
 import styled from 'styled-components';
 import { OrderItems } from '../components/Order/OrderItems';
 import { OrderHeader } from '../components/Headers/OrderHeader';
-import { useEventrixState } from 'eventrix';
-import { Navigate } from 'react-router-dom';
-import { BasketEntity } from 'types';
+import { useEmit, useEventrixState } from 'eventrix';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { BasketEntity, CouponEntity } from 'types';
 import { OrderForm } from '../components/Order/OrderForm';
-import { useState } from 'react';
-import { PREFIX } from '../config';
+import { FormEvent, useState } from 'react';
+import { API_URL, PREFIX } from '../config';
+import { toast } from 'react-toastify';
+import { toastOptions } from '../utils/toastOptions';
 
 export const Order = () => {
+    const emit = useEmit();
+    const navigate = useNavigate();
     const [basket] = useEventrixState<BasketEntity[]>('basket');
+    const [coupon] = useEventrixState<CouponEntity>('coupon');
+    const [loading, setLoading] = useState(false);
     const [form, setForm] = useState({
         firstName: '',
         lastName: '',
@@ -24,22 +30,68 @@ export const Order = () => {
     });
 
     if (basket.length === 0) {
-        return <Navigate to={`${PREFIX}`} />;
+        return <Navigate to={PREFIX ? `${PREFIX}` : `/`} />;
     }
+
+    const handleOrder = async (e: FormEvent) => {
+        e.preventDefault();
+        setLoading(true);
+
+        if (basket.length === 0) {
+            return;
+        }
+
+        const load = toast.loading('Please wait...');
+
+        const res = await fetch(`${API_URL}/order`, {
+            method: 'POST',
+            credentials: 'include',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                client: form,
+                order: basket,
+                coupon,
+            }),
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+            toast.update(load, {
+                ...toastOptions,
+                render: data.message,
+                type: 'error',
+            });
+            setLoading(false);
+            return;
+        }
+
+        toast.update(load, {
+            ...toastOptions,
+            render: 'Thank you for your order ❤️',
+            type: 'success',
+        });
+        setLoading(false);
+        emit('order:set', data.order);
+        navigate(`${PREFIX}/summary`);
+    };
 
     return (
         <Container>
             <div className="wrapper">
                 <OrderHeader title="order" />
                 <section className="order">
-                    <div className="order-wrapper">
+                    <form onSubmit={handleOrder} className="order-wrapper">
                         <div className="left-wrapper">
                             <OrderForm form={form} setForm={setForm} />
                         </div>
                         <div className="right-wrapper">
-                            <OrderItems form={form} />
+                            <OrderItems loading={loading} />
                         </div>
-                    </div>
+                    </form>
                 </section>
             </div>
         </Container>

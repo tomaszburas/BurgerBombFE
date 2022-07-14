@@ -1,71 +1,13 @@
 import styled from 'styled-components';
 import { BasketItems } from '../Basket/BasketItems';
 import { OrderSummary } from './OrderSummary';
-import { BasketEntity, CouponEntity, OrderFormEntity } from 'types';
-import { useEmit, useEventrixState } from 'eventrix';
-import { API_URL, PREFIX } from '../../config';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
-import { toastOptions } from '../../utils/toastOptions';
 import { LoaderData } from '../LoaderData';
 
 interface Props {
-    form: OrderFormEntity;
+    loading: boolean;
 }
 
-export const OrderItems = ({ form }: Props) => {
-    const emit = useEmit();
-    const [basket] = useEventrixState<BasketEntity[]>('basket');
-    const [coupon] = useEventrixState<CouponEntity[]>('coupons');
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
-
-    const handleOrder = async () => {
-        setLoading(true);
-
-        if (basket.length === 0) {
-            return;
-        }
-
-        const load = toast.loading('Please wait...');
-
-        const res = await fetch(`${API_URL}/order`, {
-            method: 'POST',
-            credentials: 'include',
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                client: form,
-                order: basket,
-                coupon,
-            }),
-        });
-
-        const data = await res.json();
-
-        if (!data.success) {
-            toast.update(load, {
-                ...toastOptions,
-                render: data.message,
-                type: 'error',
-            });
-            setLoading(false);
-            return;
-        }
-
-        toast.update(load, {
-            ...toastOptions,
-            render: 'Thank you for your order ❤️',
-            type: 'success',
-        });
-        setLoading(false);
-        emit('order:set', data.order);
-        navigate(`${PREFIX}/summary`);
-    };
-
+export const OrderItems = ({ loading }: Props) => {
     return (
         <Container>
             <div className="basket-items">
@@ -77,7 +19,7 @@ export const OrderItems = ({ form }: Props) => {
                     {loading ? (
                         <LoaderData width={30} height={30} />
                     ) : (
-                        <button title="Submit your order" onClick={handleOrder}>
+                        <button title="Submit your order" type="submit">
                             Submit your order
                         </button>
                     )}

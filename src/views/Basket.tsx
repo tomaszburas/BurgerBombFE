@@ -22,6 +22,7 @@ export const Basket = () => {
         setLoading(true);
 
         if (coupon === '') {
+            setLoading(false);
             return;
         }
 

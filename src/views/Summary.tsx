@@ -29,7 +29,7 @@ export const Summary = () => {
     }, [isLoaded]);
 
     if (basket.length === 0) {
-        return <Navigate to="/" />;
+        return <Navigate to={PREFIX ? `${PREFIX}` : '/'} />;
     }
 
     if (order === null) {

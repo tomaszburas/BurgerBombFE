@@ -145,6 +145,7 @@ export const OrderForm = ({ form, setForm }: Props) => {
                         onChange={(e) =>
                             setForm({ ...form, paymentMethod: e.target.value })
                         }
+                        required
                     />
                     <label htmlFor="card">Card (on delivery)</label>
                 </div>
@@ -166,7 +167,7 @@ export const OrderForm = ({ form, setForm }: Props) => {
                 </div>
 
                 <div className="checkbox-right">
-                    <label htmlFor="conditions">
+                    <label htmlFor="conditions" className="conditions">
                         I accept the provisions of the Regulations and the
                         Privacy Policy (required)
                     </label>
@@ -176,7 +177,7 @@ export const OrderForm = ({ form, setForm }: Props) => {
     );
 };
 
-const Form = styled.form`
+const Form = styled.div`
     display: flex;
     flex-direction: column;
 
@@ -307,6 +308,12 @@ const Form = styled.form`
         input {
             transform: scale(2);
             margin: 0 1rem 0 0.5rem;
+        }
+
+        .checkbox-right {
+            .conditions {
+                cursor: pointer;
+            }
         }
     }
 
