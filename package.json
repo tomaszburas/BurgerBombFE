@@ -1,6 +1,7 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "homepage": "https://tomaszenko.networkmanager.pl/bb",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.1.1",
@@ -21,7 +22,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "set REACT_APP_URL=/api/bb&& react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
